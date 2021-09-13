@@ -1,0 +1,7 @@
+__pycache__
+pkg
+dist
+build
+.pypirc
+clear.sh
+register.sh

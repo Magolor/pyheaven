@@ -1,0 +1,109 @@
+from .file_utils import *
+import json
+import pickle
+Import("demjson",globals())
+Import("jsonlines",globals())
+Import("simplejson",globals())
+Import("jsonpickle",globals())
+
+def BUILTIN_JSON_BACKENDS():
+    return ['json','jsonl','demjson','simplejson','jsonpickle']
+def BUILTIN_JSON_PRETTIFY_BACKENDS():
+    return ['json',        'demjson','simplejson','jsonpickle']
+def SaveJson(obj, path, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, append:bool=False, *args, **kwargs):
+    """Save an object as json (or jsonl) file.
+
+    Args:
+        obj: The object to be saved.
+        path: The save path.
+        backend (str): Specify backend for saving an object in json format. Please refer to function `BUILTIN_JSON_BACKENDS()` for built-in backends.
+        indent (int/None): The `indent` argument for saving in json format, only works if backend is not "jsonl".
+        append (bool): If True, use "a" mode instead of "w" mode, only works if backend is "jsonl".
+    Returns:
+        None
+    """
+    CreateFile(path); path = p2s(path)
+    if backend=='jsonl':
+        assert (indent is None), ("'jsonl' format does not support parameter 'indent'!")
+        with jsonlines.open(path, "a" if append else "w") as f:
+            for data in obj:
+                f.write(data)
+    else:
+        assert (append is False), ("'json' format does not support parameter 'append'!")
+        module = globals()[backend]
+        with open(path, "w") as f:
+            if backend in ['json','simplejson']:
+                module.dump(obj, f, indent=indent, *args, **kwargs)
+            else:
+                f.write(module.dumps(obj, indent=indent, *args, **kwargs))
+
+def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','picklejson']='json'):
+    """Load an object from existing json (or jsonl) file.
+
+    Args:
+        path: The load path.
+        backend (str): Specify backend for loading an object in json format. Please refer to function `BUILTIN_JSON_BACKENDS()` for built-in backends.
+    Returns:
+        Any: The loaded object.
+    """
+    assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
+    if backend=='jsonl':
+        with open(path, "r") as f:
+            return [data for data in jsonlines.Reader(f)]
+    else:
+        module = globals()[backend]
+        with open(path, "r") as f:
+            if backend in ['json','simplejson']:
+                module.load(f)
+            else:
+                module.loads(f.read())
+
+def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','picklejson']='json', save_backend:Literal['json','demjson','simplejson','picklejson']='json', indent:Optional[int]=4, *args, **kwargs):
+    """Load and re-save a existing json file.
+
+    Args:
+        path: The json file path.
+        load_backend (str): Specify backend for loading an object in json format. Please refer to function `BUILTIN_JSON_PRETTIFY_BACKENDS()` for built-in backends.
+        save_backend (str): Specify backend for saving an object in json format. Please refer to function `BUILTIN_JSON_PRETTIFY_BACKENDS()` for built-in backends.
+        indent (int/None): The `indent` argument for saving in json format.
+    Returns:
+        None
+    """
+    assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
+    SaveJson(LoadJson(path, backend=load_backend), path, backend=save_backend, indent=indent, *args, **kwargs)
+
+def SavePickle(obj, path, protocol:Optional[int]=None):
+    """Save an object as pickle file.
+
+    Args:
+        obj: The object to be saved.
+        path: The save path.
+        protocol (int/None): The `protocol` argument for `pickle.dump`.
+    Returns:
+        None
+    """
+    CreateFile(path); path = p2s(path)
+    with open(path, "wb") as f:
+        pickle.dump(obj, f, protocol=protocol)
+
+def LoadPickle(path):
+    """Load an object from existing pickle file.
+
+    Args:
+        path: The load path.
+    Returns:
+        Any: The loaded object.
+    """
+    assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
+    return pickle.load(open(PathToString(path), "rb"))
+
+def DumpsPickle(obj, protocol:Optional[int]=None):
+    """Save an object as pickle bytearray.
+
+    Args:
+        obj: The object to be saved.
+        protocol (int/None): The `protocol` argument for `pickle.dump`.
+    Returns:
+        None
+    """
+    return pickle.dumps(obj, protocol=protocol)

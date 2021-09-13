@@ -1,0 +1,13 @@
+LICENSE
+README.md
+setup.py
+src/py3heaven/__init__.py
+src/py3heaven/basic_utils.py
+src/py3heaven/file_utils.py
+src/py3heaven/misc_utils.py
+src/py3heaven/serialize_utils.py
+src/py3heaven/torch_utils.py
+src/py3heaven.egg-info/PKG-INFO
+src/py3heaven.egg-info/SOURCES.txt
+src/py3heaven.egg-info/dependency_links.txt
+src/py3heaven.egg-info/top_level.txt
