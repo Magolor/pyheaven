@@ -3,5 +3,5 @@ pkg
 dist
 build
 .pypirc
-clear.sh
-register.sh
+release.sh
+installer.sh

@@ -1,11 +1,11 @@
-from setuptools import setup, find_packages
+echo 'from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name = "pyheaven",
-    version = "0.1.0.0",
+    version = "'$1'",
     author = "Magolor",
     author_email = "magolorcz@gmail.com",
     description = "Python Heaven",
@@ -23,4 +23,10 @@ setup(
     package_dir={"":"src"},
     packages=find_packages(where="src"),
     python_requires=">=3.6",
-)
+)' > setup.py
+
+sh installer.sh
+python setup.py sdist upload
+git add --all
+git commit -m $1
+git push -u
