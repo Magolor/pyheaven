@@ -1,3 +1,4 @@
+cp -rf ./.pypirc ~/.pypirc
 echo 'from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
@@ -24,7 +25,6 @@ setup(
     packages=find_packages(where="src"),
     python_requires=">=3.6",
 )' > setup.py
-
 sh installer.sh
 python setup.py sdist upload
 git add --all
