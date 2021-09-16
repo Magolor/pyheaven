@@ -7,10 +7,10 @@ def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False):
     """Call system cmd console to execute a command (`subprocess.Popen`).
 
     Args:
-        command (str): the command to be executed. Should be a str of can be converted to str.
-        wait (bool): wait until the command finishes and return the handle or directly return the handle.
-        shell (bool): whether to display shell for `subprocess.Popen`.
-        sudo (bool): whether to pre-attach "sudo" in front of the command.
+        command (str): The command to be executed. Should be a str of can be converted to str.
+        wait (bool): If True, wait until the command finishes and return the handle, otherwise directly return the handle.
+        shell (bool): If True, display shell for `subprocess.Popen`, otherwise ignored.
+        sudo (bool): If True, pre-attach "sudo" in front of the command, otherwise ignored.
     Returns:
         bool: Return the handle created by `subprocess.Popen`.
     """
