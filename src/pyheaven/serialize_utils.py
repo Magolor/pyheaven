@@ -58,6 +58,18 @@ def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','pickle
             else:
                 module.loads(f.read())
 
+def DumpsJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, *args, **kwargs):
+    """Save an object as json (or jsonl) str.
+
+    Args:
+        obj: The object to be saved.
+        backend (str): Specify backend for saving an object in str format. Please refer to function `BUILTIN_JSON_PRETTIFY_BACKENDS()` for built-in backends (`jsonl` is not supported since jsonlines is an inappropriate format as str).
+        indent (int/None): The `indent` argument for saving in json format, only works if backend is not "jsonl".
+    Returns:
+        None
+    """
+    module = globals()[backend]; return module.dumps(obj, indent=indent, *args, **kwargs)
+
 def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','picklejson']='json', save_backend:Literal['json','demjson','simplejson','picklejson']='json', indent:Optional[int]=4, *args, **kwargs):
     """Load and re-save a existing json file.
 
