@@ -1,6 +1,6 @@
 from .file_utils import *
 import io
-Import("torch",globals())
+import torch
 
 def SaveTorch(obj, path, pickle_protocol:Optional[int]=None, _use_new_zipfile_serialization:bool=True):
     """Save an object as torch file.

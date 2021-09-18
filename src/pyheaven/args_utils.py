@@ -178,7 +178,7 @@ class LiteralArgumentDescriptor(ArgumentDescriptor):
         """
         kwargs['choices'] = choices; super(LiteralArgumentDescriptor, self).__init__(dest=dest, full=full, short=short, required=required, **kwargs)
 
-class Arguments(MemberDict):
+class HeavenArguments(MemberDict):
     """An argument dict extended from `MemberDict`.
     """
     def __iter__(self):

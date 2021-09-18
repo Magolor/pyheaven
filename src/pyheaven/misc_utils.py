@@ -55,3 +55,15 @@ def FORMATTED_TIME(format="[%Y-%m-%d_%H.%M.%S]"):
         str: The formatted current time.
     """
     return time.strftime(format,time.localtime(time.time()))
+
+def Clipped(value, l, r):
+    """Return a clipped value between lower bound `l` and upper bound `r`.
+
+    Args:
+        value: A value.
+        l: The lower bound.
+        u: The upper bound.
+    Returns:
+        Any: The clipped value.
+    """
+    return min(max(value,l),r)

@@ -54,9 +54,9 @@ def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','pickle
         module = globals()[backend]
         with open(path, "r") as f:
             if backend in ['json','simplejson']:
-                module.load(f)
+                return module.load(f)
             else:
-                module.loads(f.read())
+                return module.loads(f.read())
 
 def DumpsJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, *args, **kwargs):
     """Save an object as json (or jsonl) str.

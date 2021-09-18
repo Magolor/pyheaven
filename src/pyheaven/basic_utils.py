@@ -80,7 +80,7 @@ def __import_unsafe__(name:str, alias:str, module_globals:Dict, force_reimport:b
 
 def USEFUL_PYTHON_PACKAGES_BUILTIN():
     """List of useful packages in python standard libraries, encoded as a comma separated string."""
-    return "re,os,sys,pdb,glob,math,time,json,copy,types,random,shutil,string,pickle,zipfile,marshal,logging,pathlib,"\
+    return "re,os,sys,pdb,glob,math,time,json,copy,types,random,shutil,string,pickle,zipfile,marshal,logging,pathlib,inspect,"\
         +  "argparse,itertools,subprocess,collections,PIL.Image.Image@Image,collections.defaultdict@defaultdict,"\
         +  "collections.abc.Iterable@iterable,copy.copy@copy,copy.deepcopy@deepcopy,pathlib.Path@Path,"\
         +  "pathlib.PurePosixPath@PurePosixPath"

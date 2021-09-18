@@ -76,7 +76,7 @@ def Prefix(path):
     Returns:
         str: The result string.
     """
-    parts = p2s(path).split('.'); return '.'.join(parts[:-1] if len(parts)>1 else parts)
+    path = p2s(path); parts = path.split('.'); return path if ExistFolder(path) else ('.'.join(parts[:-1] if len(parts)>1 else parts))
 
 def Suffix(path):
     """Get the suffix of a path, return empty string "" for a folder.
@@ -86,7 +86,7 @@ def Suffix(path):
     Returns:
         str: The result string.
     """
-    parts = p2s(path).split('.'); return parts[-1] if len(parts)>1 else ""
+    path = p2s(path); parts = path.split('.'); return "" if ExistFolder(path) else (parts[-1] if len(parts)>1 else "")
 
 def Format(path):
     """Get the format of a path.
@@ -98,7 +98,7 @@ def Format(path):
     Returns:
         str: The result string.
     """
-    parts = p2s(path).split('.'); return parts[-1] if len(parts)>1 else ""
+    path = p2s(path); parts = path.split('.'); return "" if ExistFolder(path) else (parts[-1] if len(parts)>1 else "")
 
 def AsFormat(path, format):
     """Get the file with the same name as path but with the desired format.
@@ -108,7 +108,7 @@ def AsFormat(path, format):
     Returns:
         str: The result string.
     """
-    return Prefix(path)+'.'+format if format!="" else Prefix(path)
+    return (Prefix(path)+'.'+format) if format!="" else Prefix(path)
     
 def ExistPath(path):
     """Check whether a file or folder exists.
@@ -343,7 +343,7 @@ def CopyFile(src, dst, rm=False):
     Returns:
         None
     """
-    Delete(dst,rm=rm); CreateFile(dst); shutil.copyfile(p2s(src), p2s(dst))
+    ClearFile(dst, rm=rm); shutil.copyfile(p2s(src), p2s(dst))
 
 def ReplaceFile(src, dst, rm=False):
     """Replace file from src to dst, notice that dst will be deleted if exists.
@@ -357,7 +357,7 @@ def ReplaceFile(src, dst, rm=False):
     Returns:
         None
     """
-    Delete(dst,rm=rm); CreateFile(dst); shutil.copyfile(p2s(src), p2s(dst))
+    ClearFile(dst, rm=rm); shutil.copyfile(p2s(src), p2s(dst))
 
 def CopyFolder(src, dst, rm=False):
     """Copy folder from src (folder name included) to dst (folder name included). Only existing files will be deleted if exists.
@@ -387,3 +387,31 @@ def ReplaceFolder(src, dst, rm=False):
         None
     """
     CreateFolder(dst); Delete(dst, rm=rm); shutil.copytree(p2s(src,f=True), p2s(dst,f=True))
+
+def MoveFile(src, dst, rm=False):
+    """Move file from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.
+
+    This is NOT the same as `shutil.move`, which will raise an error when `dst` is an existing file.
+
+    Args:
+        src: The source path.
+        dst: The destination path.
+        rm (bool): If True, use `shutil` to enforce remove (if `dst` exists), otherwise `send2trash` only.
+    Returns:
+        None
+    """
+    ClearFile(dst); shutil.move(p2s(src,f=True), p2s(dst,f=True))
+
+def MoveFolder(src, dst, rm=False):
+    """Move folder from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.
+
+    This is NOT the same as `shutil.move`, which will move the `src` into `dst` if `dst` is an existing folder
+
+    Args:
+        src: The source path.
+        dst: The destination path.
+        rm (bool): If True, use `shutil` to enforce remove (if `dst` exists), otherwise `send2trash` only.
+    Returns:
+        None
+    """
+    CreateFolder(dst); Delete(dst, rm=rm); shutil.move(p2s(src,f=True), p2s(dst,f=True))
