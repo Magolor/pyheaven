@@ -40,6 +40,7 @@ from PySide6.QtGui import (
 from PySide6 import QtCore
 from PySide6.QtCore import (
     QCoreApplication,
+    QTimer,
     QRect,
     Qt,
 )
@@ -80,23 +81,36 @@ def QGetNewFile(base, title, default="C:/", filter="All Files (*)"):
 
 class QWaiter(QProgressDialog):
     def __init__(self, base, title, min_dur=1000):
-        super(QProgressDialog, self).__init__(base)
+        super(QWaiter, self).__init__(base)
         self.setWindowTitle(title)
         self.setWindowModality(Qt.WindowModal)
         self.setCancelButton(None)
         self.setMinimumDuration(min_dur)
         self.setRange(0, 100)
+        self.progress = 0
+        self.base = base
+    
+    def refresh(self):
+        self.setValue(self.progress)
+        self.base.refresh()
 
-def QWait(base, title, label, generator, min_dur=1000, default_label="", **args):
+def QWait(base, title, generator, min_dur=1000, default_label="", refresh=500, **args):
     waiter = QWaiter(base, title, min_dur, **args)
     waiter.setLabelText(default_label)
+    waiter.show()
+    timer = QTimer()
+    timer.timeout.connect(waiter.refresh)
+    timer.start(refresh)
     return_value = None
-    for (elapsed,total,done,info) in generator:
-        waiter.setLabelText(label.format(elapsed,total,done,info))
-        waiter.setValue(Clipped(int(float(elapsed)/float(total)*100),0,99))
+    for (progress,description,done,info) in generator:
+        waiter.setLabelText(description)
+        waiter.progress = Clipped(int(progress*100),0,99)
+        waiter.refresh()
         if done:
             return_value = info; break
-    waiter.setValue(100)
+    timer.stop()
+    waiter.progress = 100
+    waiter.refresh()
     waiter.hide()
     waiter.close()
     return return_value

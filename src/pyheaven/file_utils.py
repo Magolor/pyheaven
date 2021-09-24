@@ -200,7 +200,7 @@ def ListFolders(path="./", ordered:bool=False, with_path=False, **sort_args):
     Returns:
         List[str]: The result strings.
     """
-    return ListPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FOLDER_FILTER, sort_args=sort_args)
+    return ListPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FOLDER_FILTER, **sort_args)
     
 def ListFiles(path="./", ordered:bool=False, with_path=False, **sort_args):
     """Return a list of files under the given path.
@@ -215,7 +215,7 @@ def ListFiles(path="./", ordered:bool=False, with_path=False, **sort_args):
     Returns:
         List[str]: The result strings.
     """
-    return ListPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, sort_args=sort_args)
+    return ListPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, **sort_args)
 
 def EnumPaths(path="./", ordered:bool=False, with_path:bool=False, filter_function=None, **sort_args):
     """Return a list of subpaths recursively under the given path.
@@ -250,7 +250,7 @@ def EnumFolders(path="./", ordered:bool=False, with_path:bool=False, **sort_args
     Returns:
         List[str]: The result strings.
     """
-    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FOLDER_FILTER, sort_args=sort_args)
+    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FOLDER_FILTER, **sort_args)
 
 def EnumFiles(path="./", ordered:bool=False, with_path:bool=False, **sort_args):
     """Return a list of files recursively under the given path.
@@ -266,7 +266,7 @@ def EnumFiles(path="./", ordered:bool=False, with_path:bool=False, **sort_args):
     Returns:
         List[str]: The result strings.
     """
-    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, sort_args=sort_args)
+    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, **sort_args)
     
 def CreateFolder(path):
     """Create the given path as folder, parents will be automatically built.

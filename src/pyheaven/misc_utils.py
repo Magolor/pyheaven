@@ -67,3 +67,15 @@ def Clipped(value, l, r):
         Any: The clipped value.
     """
     return min(max(value,l),r)
+
+def Unique(ls:List, **sort_args):
+    """Return a sorted list of unique elements.
+
+    Args:
+        ls (List): The input list (or other iterable).
+        sort_args: Args for calling `sorted` on the subpaths in format of (path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
+
+    Returns:
+        List: The sorted list of unique elements.
+    """
+    return sorted(list(set(ls)), **sort_args)
