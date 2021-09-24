@@ -1,7 +1,11 @@
 import sys
 from importlib import import_module
 from subprocess import Popen, PIPE, STDOUT
-from typing import Union, Literal, Optional, List, Dict
+try:
+    from typing import Union, Literal, Optional, List, Dict
+except ImportError:
+    from typing import Union, Optional, List, Dict
+    from typing_extensions import Literal
 
 def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False):
     """Call system cmd console to execute a command (`subprocess.Popen`).
