@@ -93,7 +93,9 @@ def USEFUL_PYTHON_PACKAGES_EXTRA():
     return "tqdm,jsonlines,requests,sklearn,numpy@np,pandas@pd,seaborn@sns,matplotlib@mpl,matplotlib.pyplot@plt"
 def USEFUL_PYTHON_PACKAGES_TORCH():
     """List of useful packages in pytorch, encoded as a comma separated string."""
-    return "torch,torch,torch.nn@nn,torch.nn.init@nninit,torch.nn.functional@F,torch.optim@optim,torch.optim.lr_scheduler@sched,torch.utils.data@TUD,torch.utils.data.DataLoader@DataLoader,torch.utils.data.Dataset@Dataset,torch.nn.parallel.DistributedDataParallel@DDP"
+    return "torch,torch,torch.nn@nn,torch.nn.init@nninit,torch.nn.functional@F,torch.optim@optim,torch.optim.lr_scheduler@sched,"\
+        +  "torch.utils.data@TUD,torch.utils.data.DataLoader@DataLoader,torch.utils.data.Dataset@Dataset,torch.nn.parallel.DistributedDataParallel@DDP,"\
+        +  "torchvision,torchvision.datasets@TVD,torchvision.transforms@TVT"
 
 def Import(packages:Union[List[str],str], module_globals, mode:Literal['strict','install_strict','install_ignore','ignore']='ignore', force_reimport:bool=False, **install_args):
     """Dynamically import packages.

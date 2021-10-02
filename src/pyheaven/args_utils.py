@@ -1,3 +1,4 @@
+from copy import deepcopy
 from .file_utils import *
 from .serialize_utils import DumpsJson, LoadJson
 import argparse
@@ -11,6 +12,33 @@ class MemberDict(dict):
 
     def view(self, backend='json', indent=4):
         return DumpsJson(dict(self),backend=backend,indent=indent)
+    
+    def __add__(self, b):
+        d = deepcopy(self)
+        for key in b:
+            if key in d:
+                d[key] += b[key]
+            else:
+                d[key] = b[key]
+        return d
+    
+    def __or__(self, b):
+        d = deepcopy(self)
+        for key in b:
+            d[key] = b[key]
+        return d
+    
+    def __mul__(self, b):
+        d = deepcopy(self)
+        for key in d:
+            d[key] *= b
+        return d
+
+    def __div__(self, b):
+        d = deepcopy(self)
+        for key in d:
+            d[key] /= b
+        return d
 
 class ArgumentDescriptor(object):
     """The base descriptor that wraps arguments of `add_argument` for `argparse.ArgumentParser`.
@@ -23,7 +51,7 @@ class ArgumentDescriptor(object):
         
         Args:
             dest (str): The `dest` arg of `add_argument`.
-            full (str): The full name (i.e.: `--`) of the argugment.
+            full (str): The full name (i.e.: `--`) of the argument.
             short (str): The short name (i.e.: `-`) of the argugment.
             required (bool): If True, the argument is necessary, otherwise unnecessary.
         """
@@ -34,8 +62,7 @@ class ArgumentDescriptor(object):
             short = full[0]
         short = "-"+short; full = "--"+full
         self.name = (dest, ) if required else (short, full)
-        self.args = {'required': required,}
-        self.args.update({} if required else {'dest':dest})
+        self.args = {} if required else {'dest':dest}
         self.args.update(kwargs)
 
     def register(self, parser):
@@ -187,9 +214,6 @@ class HeavenArguments(MemberDict):
 
     def __str__(self):
         return DumpsJson(dict(self),indent=4)
-    
-    def __or__(self, b):
-        self.update(dict(b))
 
     @classmethod
     def from_parser(cls, descriptors:List, **parser_args):
