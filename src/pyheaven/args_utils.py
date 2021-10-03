@@ -1,4 +1,3 @@
-from copy import deepcopy
 from .file_utils import *
 from .serialize_utils import DumpsJson, LoadJson
 import argparse
@@ -14,7 +13,7 @@ class MemberDict(dict):
         return DumpsJson(dict(self),backend=backend,indent=indent)
     
     def __add__(self, b):
-        d = deepcopy(self)
+        d = MemberDict(self)
         for key in b:
             if key in d:
                 d[key] += b[key]
@@ -23,19 +22,19 @@ class MemberDict(dict):
         return d
     
     def __or__(self, b):
-        d = deepcopy(self)
+        d = MemberDict(self)
         for key in b:
             d[key] = b[key]
         return d
     
     def __mul__(self, b):
-        d = deepcopy(self)
+        d = MemberDict(self)
         for key in d:
             d[key] *= b
         return d
 
     def __div__(self, b):
-        d = deepcopy(self)
+        d = MemberDict(self)
         for key in d:
             d[key] /= b
         return d
