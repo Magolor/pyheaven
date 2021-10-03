@@ -98,3 +98,86 @@ class HeavenDataLoader:
 
     def __len__(self):
         return len(self.dataloader)
+
+Import("timm.create_model@create_model",globals())
+Import("torchvision.models._utils@TV_U",globals())
+
+class TimmBackbone(nn.Module):
+    def __init__(self,
+        model_type="",
+        input_layer_getter=lambda n:n.conv1,
+        modify_input_channels=None,
+        output_layer_name="fc",
+        embedding_dim=2048,
+        **model_args
+    ):
+        super(TimmBackbone, self).__init__()
+        self.net = create_model(model_type, **model_args)
+
+        layer = input_layer_getter(self.net); device = layer.weight.device
+        if modify_input_channels and modify_input_channels!=layer.in_channels:
+            layer.in_channels = modify_input_channels
+            shape = layer.weight.shape; shape = torch.Size([shape[0],modify_input_channels,shape[2],shape[3]])
+            layer.weight = nn.Parameter(torch.zeros(shape)).to(device)
+            nninit.xavier_uniform_(layer.weight)
+        layer = input_layer_getter(self.net)
+        self.in_channels = layer.in_channels
+        
+        self.net = TV_U.IntermediateLayerGetter(self.net, return_layers={output_layer_name:"out"})
+        self.net._modules[output_layer_name] = nn.Linear(self.net._modules[output_layer_name].in_features,embedding_dim,bias=True)
+        self.net.to(device)
+
+    def forward(self, data):
+        return self.net(data)['out']
+
+class FC(nn.Module):
+    def __init__(
+        self,
+        input_dim:int,
+        output_dim:int,
+        bias=True,
+        norm_layer=None,
+        activation=nn.Identity(),
+        dropout:Optional[int]=None,
+        dropout_inplace:bool=True,
+    ):
+        super(FC, self).__init__()
+        self.input_dim = input_dim; self.output_dim = output_dim
+        self.layers = nn.Sequential(*(
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else [])
+        +   ([nn.Linear(input_dim,output_dim,bias=bias)])
+        +   ([norm_layer] if norm_layer is not None else [])
+        +   ([activation] if activation is not None else [])
+        ))
+    
+    def forward(self, data):
+        return self.layers(torch.flatten(data,start_dim=1))
+
+class CONV(nn.Module):
+    def __init__(
+        self,
+        in_channels:int,
+        out_channels:int,
+        kernel_size:int,
+        stride:int=1,
+        padding:int=0,
+        dilation:int=1,
+        groups:int=1,
+        padding_mode:str='zeros',
+        bias:bool=True,
+        norm_layer=None,
+        activation=nn.Identity(),
+        dropout:Optional[int]=None,
+        dropout_inplace:bool=True,
+    ):
+        super(CONV, self).__init__()
+        self.in_channels = in_channels; self.out_channels = out_channels
+        self.layers = nn.Sequential(*(
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else [])
+        +   ([nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=padding,dilation=dilation,groups=groups,padding_mode=padding_mode,bias=bias)])
+        +   ([norm_layer] if norm_layer is not None else [])
+        +   ([activation] if activation is not None else [])
+        ))
+    
+    def forward(self, data):
+        return self.layers(data)
