@@ -79,13 +79,16 @@ class HeavenDataset(Dataset):
         return ("{"+self.name+"}" if ',' in self.name else self.name)+f"(len={len(self)})"
 
 class HeavenDataLoader:
-    def __init__(self, dataloader, dataset=None):
+    def __init__(self, dataloader, dataset=None, eternal=False):
         self.dataset = dataset
         self.dataloader = dataloader
         self.iterator = iter(dataloader)
+        self.eternal = eternal
 
     def __iter__(self):
-        while True:
+        for data in self.dataloader:
+            yield data
+        while self.eternal:
             for data in self.dataloader:
                 yield data
 
@@ -93,8 +96,11 @@ class HeavenDataLoader:
         try:
             data = next(self.iterator)
         except StopIteration:
-            self.iterator = iter(self.dataloader)
-            data = next(self.iterator)
+            if self.eternal:
+                self.iterator = iter(self.dataloader)
+                data = next(self.iterator)
+            else:
+                raise StopIteration
         return data
 
     def __len__(self):
