@@ -3,6 +3,7 @@ import re
 import time
 import string
 import random
+Import("tqdm",globals())
 Import("requests",globals())
 
 def RandString(length:int, charset:str=string.ascii_uppercase + string.digits):
