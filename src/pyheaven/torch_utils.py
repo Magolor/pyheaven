@@ -2,6 +2,7 @@ from .file_utils import *
 import io
 import torch
 import numpy as np
+import torch.nn as nn
 from torch.utils.data import Dataset, Subset, ConcatDataset, DataLoader
 
 def SaveTorch(obj, path, pickle_protocol:Optional[int]=None, _use_new_zipfile_serialization:bool=True):
