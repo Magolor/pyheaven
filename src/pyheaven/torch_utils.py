@@ -30,7 +30,7 @@ def LoadTorch(path, map_location=None):
     assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
     return torch.load(path, map_location=map_location)
 
-def DumpsTorch(obj, pickle_protocol:Optional[int]=None, _use_new_zipfile_serialization:bool=True)
+def DumpsTorch(obj, pickle_protocol:Optional[int]=None, _use_new_zipfile_serialization:bool=True):
     """Save an object as torch bytearray.
 
     Args:
