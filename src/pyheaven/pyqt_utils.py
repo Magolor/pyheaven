@@ -1,4 +1,5 @@
 from .file_utils import *
+from .args_utils import MemberDict
 from .misc_utils import Clipped
 import PySide6
 
@@ -9,6 +10,7 @@ from PySide6.QtWidgets import (
     QDialog,
     QFileDialog,
     QFrame,
+    QGraphicsDropShadowEffect,
     QGridLayout,
     QHBoxLayout,
     QInputDialog,
@@ -33,15 +35,30 @@ from PySide6.QtWidgets import (
 
 from PySide6 import QtGui
 from PySide6.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
     QFont,
+    QFontDatabase,
     QIcon,
+    QLinearGradient,
+    QPalette,
+    QPainter,
+    QPixmap,
+    QRadialGradient
 )
 
 from PySide6 import QtCore
 from PySide6.QtCore import (
     QCoreApplication,
     QTimer,
+    QMetaObject,
+    QObject,
+    QPoint,
     QRect,
+    QSize,
+    QUrl,
     Qt,
 )
 
@@ -79,42 +96,6 @@ def QGetNewFile(base, title, default="C:/", filter="All Files (*)"):
     file, file_type = QFileDialog.getSaveFileName(base, title, default, filter=filter)
     return file if file!="" and file_type!="" else None
 
-class QWaiter(QProgressDialog):
-    def __init__(self, base, title, min_dur=1000):
-        super(QWaiter, self).__init__(base)
-        self.setWindowTitle(title)
-        self.setWindowModality(Qt.WindowModal)
-        self.setCancelButton(None)
-        self.setMinimumDuration(min_dur)
-        self.setRange(0, 100)
-        self.progress = 0
-        self.base = base
-    
-    def refresh(self):
-        self.setValue(self.progress)
-        self.base.refresh()
-
-def QWait(base, title, generator, min_dur=1000, default_label="", refresh=500, **args):
-    waiter = QWaiter(base, title, min_dur, **args)
-    waiter.setLabelText(default_label)
-    waiter.show()
-    timer = QTimer()
-    timer.timeout.connect(waiter.refresh)
-    timer.start(refresh)
-    return_value = None
-    for (progress,description,done,info) in generator:
-        waiter.setLabelText(description)
-        waiter.progress = Clipped(int(progress*100),0,99)
-        waiter.refresh()
-        if done:
-            return_value = info; break
-    timer.stop()
-    waiter.progress = 100
-    waiter.refresh()
-    waiter.hide()
-    waiter.close()
-    return return_value
-
 def QHint(base, title, message):
     hint = QMessageBox(base)
     hint.setWindowTitle(title)
@@ -125,3 +106,182 @@ def QHint(base, title, message):
 def QConfirm(base, title, message):
     return (QMessageBox.question(base, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) == QMessageBox.Yes)
 
+# Modified from https://github.com/Wanderson-Magalhaes/Python_PySide2_Circular_ProgressBar_Modern_GUI
+class Ui_SplashScreen(object):
+    def setupUi(self, SplashScreen, **args):
+        if SplashScreen.objectName():
+            SplashScreen.setObjectName(u"SplashScreen")
+        SplashScreen.resize(360, 360)
+        self.centralwidget = QWidget(SplashScreen)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.circularProgressBarBase = QFrame(self.centralwidget)
+        self.circularProgressBarBase.setObjectName(u"circularProgressBarBase")
+        self.circularProgressBarBase.setGeometry(QRect(10, 10, 320, 320))
+        self.circularProgressBarBase.setFrameShape(QFrame.NoFrame)
+        self.circularProgressBarBase.setFrameShadow(QFrame.Raised)
+        self.circularProgress = QFrame(self.circularProgressBarBase)
+        self.circularProgress.setObjectName(u"circularProgress")
+        self.circularProgress.setGeometry(QRect(10, 10, 300, 300))
+        self.circularProgress.setStyleSheet(u"QFrame{\n"
+"   border-radius: 150px;\n"
+"   background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:0.749 rgba(255, 0, 127, 0), stop:0.750 rgba(85, 170, 255, 255));\n"
+"}")
+        self.circularProgress.setFrameShape(QFrame.NoFrame)
+        self.circularProgress.setFrameShadow(QFrame.Raised)
+        self.circularBg = QFrame(self.circularProgressBarBase)
+        self.circularBg.setObjectName(u"circularBg")
+        self.circularBg.setGeometry(QRect(10, 10, 300, 300))
+        self.circularBg.setStyleSheet(u"QFrame{\n"
+"   border-radius: 150px;\n"
+"   background-color: "+args['bg_color']+";\n"
+"}")
+        self.circularBg.setFrameShape(QFrame.NoFrame)
+        self.circularBg.setFrameShadow(QFrame.Raised)
+        self.container = QFrame(self.circularProgressBarBase)
+        self.container.setObjectName(u"container")
+        self.container.setGeometry(QRect(25, 25, 270, 270))
+        self.container.setStyleSheet(u"QFrame{\n"
+"   border-radius: 135px;\n"
+"   background-color: "+args['container_color']+";\n"
+"}")
+        self.container.setFrameShape(QFrame.NoFrame)
+        self.container.setFrameShadow(QFrame.Raised)
+        self.widget = QWidget(self.container)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(40, 50, 193, 191))
+        self.gridLayout = QGridLayout(self.widget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.labelTitle = QLabel(self.widget)
+        self.labelTitle.setObjectName(u"labelTitle")
+        font = QFont()
+        font.setFamily(args['title_font_family'])
+        font.setPointSize(12)
+        self.labelTitle.setFont(font)
+        self.labelTitle.setStyleSheet(u"background-color: none;\n"
+"color: #FFFFFF")
+        self.labelTitle.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.labelTitle, 0, 0, 1, 1)
+
+        self.labelPercentage = QLabel(self.widget)
+        self.labelPercentage.setObjectName(u"labelPercentage")
+        font1 = QFont()
+        font1.setFamily(args['percentage_font_family'])
+        font1.setPointSize(68)
+        self.labelPercentage.setFont(font1)
+        self.labelPercentage.setStyleSheet(u"background-color: none;\n"
+"color: #FFFFFF")
+        self.labelPercentage.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.labelPercentage, 1, 0, 1, 1)
+
+        self.labelLoadingInfo = QLabel(self.widget)
+        self.labelLoadingInfo.setObjectName(u"labelLoadingInfo")
+        self.labelLoadingInfo.setMinimumSize(QSize(0, 20))
+        self.labelLoadingInfo.setMaximumSize(QSize(16777215, 20))
+        font2 = QFont()
+        font2.setFamily(args['info_font_family'])
+        font2.setPointSize(9)
+        self.labelLoadingInfo.setFont(font2)
+        self.labelLoadingInfo.setStyleSheet(u"QLabel{\n"
+"   border-radius: 10px;    \n"
+"   background-color: rgb(93, 93, 154);\n"
+"   color: #FFFFFF;\n"
+"   margin-left: 40px;\n"
+"   margin-right: 40px;\n"
+"}")
+        self.labelLoadingInfo.setFrameShape(QFrame.NoFrame)
+        self.labelLoadingInfo.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.labelLoadingInfo, 2, 0, 1, 1)
+
+        self.labelCredits = QLabel(self.widget)
+        self.labelCredits.setObjectName(u"labelCredits")
+        self.labelCredits.setFont(font2)
+        self.labelCredits.setStyleSheet(u"background-color: none;\n"
+"color: rgb(155, 155, 255);")
+        self.labelCredits.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.labelCredits, 3, 0, 1, 1)
+
+        self.circularBg.raise_()
+        self.circularProgress.raise_()
+        self.container.raise_()
+        layout = QVBoxLayout()
+        layout.addWidget(self.centralwidget)
+        SplashScreen.setLayout(layout)
+
+        self.retranslateUi(SplashScreen, **args)
+
+        QMetaObject.connectSlotsByName(SplashScreen)
+
+    def retranslateUi(self, SplashScreen, **args):
+        SplashScreen.setWindowTitle(QCoreApplication.translate("SplashScreen", args['window_name'], None))
+        self.labelTitle.setText(QCoreApplication.translate("SplashScreen", u"<html><head/><body><p><span style=\" font-weight:bold; color:#9b9bff;\">"+args['title']+"</span> "+args['subtitle']+"</p></body></html>", None))
+        self.labelPercentage.setText(QCoreApplication.translate("SplashScreen", u"<p><span style=\" font-size:"+args["title_font_size"]+";\">"+str(args['value'])+"</span><span style=\" font-size:"+args['subtitle_font_size']+"; vertical-align:super;\">%</span></p>", None))
+        self.labelLoadingInfo.setText(QCoreApplication.translate("SplashScreen", args['loading_info'], None))
+        self.labelCredits.setText(QCoreApplication.translate("SplashScreen", args['credits'], None))
+
+class QCircularProgress(QDialog):
+    def __init__(self, window_name="", title="", subtitle="", loading_info="loading...", credits="by: Wanderson M. Pimenta"):
+        super().__init__()
+        self.ui = Ui_SplashScreen()
+        self.ui_info = MemberDict({
+            'value': 0,
+
+            'window_name': "",
+            'title': title,
+            'subtitle': subtitle,
+            'loading_info': loading_info,
+            'credits': credits,
+
+            'title_font_family': "YaHei Consolas Hybrid",
+            'title_font_size': "48pt",
+            'subtitle_font_size': "32pt",
+            'percentage_font_family': "Consolas",
+            'info_font_family': "YaHei Consolas Hybrid",
+
+            'progress_color': "rgba(85, 170, 255, 255)",
+            'container_color': "rgb(77, 77, 127)",
+            'bg_color': "rgba(77, 77, 127, 120)",
+        })
+        self.ui.setupUi(self, **self.ui_info)
+
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(20)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 120))
+        self.ui.circularBg.setGraphicsEffect(self.shadow)
+
+        self.finished = False
+        self.setValue(0)
+
+        self.show()
+
+    def setUiInfo(self, infos):
+        self.ui_info.update(infos)
+        if self.finished:
+            return
+        if self.ui_info.value >= 100:
+            self.finished = True
+            self.close()
+        else:
+            progress = (100 - self.ui_info.value) / 100.0
+            stop_1 = str(progress - 0.001); stop_2 = str(progress)
+            styleSheet = """
+            QFrame{
+                border-radius: 150px;
+                background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} {COLOR});
+            }
+            """
+            newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace('{COLOR}', self.ui_info.progress_color)
+            self.ui.circularProgress.setStyleSheet(newStylesheet); self.ui.retranslateUi(self, **self.ui_info)
+        QApplication.processEvents()
+
+    def setValue(self, value):
+        self.setUiInfo({'value':Clipped(int(value), 0, 100)})
