@@ -1,5 +1,6 @@
 from .file_utils import *
 from PIL import Image
+import numpy as np
 
 def GrayScale(r, g, b):
     """Fast computation of gray scale given red, green, and blue data, each could be a value or an array of arbitrary shape, as long as the shape is the same.
@@ -82,14 +83,14 @@ def SaveImgData(data, path):
     """
     img = d2i(data); img.save(p2s(path), compress_level=0); img.close()
 
-def RGBImg(img, t2b:bool=False):
+def RGBImg(img, transparent=np.array([0,0,0],dtype=float)):
     """Convert an image to image of 3 channels. Assuming the input image are RGB if it is already a 3-channel image, and RGBA if it is a 4-channel image.
 
     Supported image shapes are: (W,H), (W,H,1), (W,H,3), (W,H,4).
 
     Args:
         img: The image to be converted.
-        t2b (bool): If True, convert RGBA (x,y,z,0) to (255,255,255).
+        transparent: The transparent color in RGB form (used for converting RGBA), e.g.: `np.array([255,255,255],dtype=float)` stands for white.
     Returns:
         np.ndarray: The converted image data.
     """
@@ -101,15 +102,11 @@ def RGBImg(img, t2b:bool=False):
     elif img.shape[(-1)] == 3:
         pass
     elif img.shape[(-1)] == 4:
-        if t2b:
-            transparent = img[:, :, 3] == 0
-            img[:, :, 0][transparent] = 255
-            img[:, :, 1][transparent] = 255
-            img[:, :, 2][transparent] = 255
-            img[:, :, 3][transparent] = 255
-        img = img.astype(np.float)
-        rgb = np.stack([img[:, :, 3], img[:, :, 3], img[:, :, 3]], axis=(-1))
-        img = np.array((np.uint8(img[:, :, :3] * rgb / 255)), dtype=(np.uint8))
+        img = img.astype(np.float); bg = np.broadcast_to(transparent,img[:,:,:3].shape)
+        print(bg)
+        alpha = np.stack([img[:, :, 3], img[:, :, 3], img[:, :, 3]], axis=(-1))
+        print(alpha)
+        img = np.array((np.uint8((img[:, :, :3]*alpha+bg*(1-alpha))/255)), dtype=(np.uint8))
     else:
         raise SystemError
     return img
