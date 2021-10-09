@@ -103,10 +103,8 @@ def RGBImg(img, transparent=np.array([0,0,0],dtype=float)):
         pass
     elif img.shape[(-1)] == 4:
         img = img.astype(np.float); bg = np.broadcast_to(transparent,img[:,:,:3].shape)
-        print(bg)
-        alpha = np.stack([img[:, :, 3], img[:, :, 3], img[:, :, 3]], axis=(-1))
-        print(alpha)
-        img = np.array((np.uint8((img[:, :, :3]*alpha+bg*(1-alpha))/255)), dtype=(np.uint8))
+        alpha = np.stack([img[:, :, 3], img[:, :, 3], img[:, :, 3]], axis=(-1)) / 255
+        img = np.array((np.uint8((img[:, :, :3]*alpha+bg*(1-alpha)))), dtype=(np.uint8))
     else:
         raise SystemError
     return img
