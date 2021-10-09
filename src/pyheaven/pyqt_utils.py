@@ -139,7 +139,7 @@ class Ui_SplashScreen(object):
         self.circularBg.setFrameShadow(QFrame.Raised)
         self.container = QFrame(self.circularProgressBarBase)
         self.container.setObjectName(u"container")
-        self.container.setGeometry(QRect(25, 25, 270, 270))
+        self.container.setGeometry(QRect(25, 25, 285, 285))
         self.container.setStyleSheet(u"QFrame{\n"
 "   border-radius: 135px;\n"
 "   background-color: "+args['container_color']+";\n"
@@ -156,7 +156,7 @@ class Ui_SplashScreen(object):
         self.labelTitle.setObjectName(u"labelTitle")
         font = QFont()
         font.setFamily(args['title_font_family'])
-        font.setPointSize(12)
+        font.setPointSize(args['title_font_size'])
         self.labelTitle.setFont(font)
         self.labelTitle.setStyleSheet(u"background-color: none;\n"
 "color: #FFFFFF")
@@ -168,7 +168,7 @@ class Ui_SplashScreen(object):
         self.labelPercentage.setObjectName(u"labelPercentage")
         font1 = QFont()
         font1.setFamily(args['percentage_font_family'])
-        font1.setPointSize(68)
+        font1.setPointSize(args['percentage_font_size'])
         self.labelPercentage.setFont(font1)
         self.labelPercentage.setStyleSheet(u"background-color: none;\n"
 "color: #FFFFFF")
@@ -179,17 +179,17 @@ class Ui_SplashScreen(object):
         self.labelLoadingInfo = QLabel(self.widget)
         self.labelLoadingInfo.setObjectName(u"labelLoadingInfo")
         self.labelLoadingInfo.setMinimumSize(QSize(0, 20))
-        self.labelLoadingInfo.setMaximumSize(QSize(16777215, 20))
+        self.labelLoadingInfo.setMaximumSize(QSize(16777215, 16777215))
         font2 = QFont()
         font2.setFamily(args['info_font_family'])
-        font2.setPointSize(9)
+        font2.setPointSize(args['info_font_size'])
         self.labelLoadingInfo.setFont(font2)
         self.labelLoadingInfo.setStyleSheet(u"QLabel{\n"
 "   border-radius: 10px;    \n"
-"   background-color: rgb(93, 93, 154);\n"
+"   background-color: "+args['label_color']+";\n"
 "   color: #FFFFFF;\n"
-"   margin-left: 40px;\n"
-"   margin-right: 40px;\n"
+"   margin-left: 0px;\n"
+"   margin-right: 0px;\n"
 "}")
         self.labelLoadingInfo.setFrameShape(QFrame.NoFrame)
         self.labelLoadingInfo.setAlignment(Qt.AlignCenter)
@@ -219,13 +219,15 @@ class Ui_SplashScreen(object):
     def retranslateUi(self, SplashScreen, **args):
         SplashScreen.setWindowTitle(QCoreApplication.translate("SplashScreen", args['window_name'], None))
         self.labelTitle.setText(QCoreApplication.translate("SplashScreen", u"<html><head/><body><p><span style=\" font-weight:bold; color:#9b9bff;\">"+args['title']+"</span> "+args['subtitle']+"</p></body></html>", None))
-        self.labelPercentage.setText(QCoreApplication.translate("SplashScreen", u"<p><span style=\" font-size:"+args["title_font_size"]+";\">"+str(args['value'])+"</span><span style=\" font-size:"+args['subtitle_font_size']+"; vertical-align:super;\">%</span></p>", None))
+        self.labelPercentage.setText(QCoreApplication.translate("SplashScreen", u"<p><span style=\" font-size:"+str(args["percentage_font_size"])+"pt;\">"+str(args['__expression__'])+"</span></p>", None))
         self.labelLoadingInfo.setText(QCoreApplication.translate("SplashScreen", args['loading_info'], None))
         self.labelCredits.setText(QCoreApplication.translate("SplashScreen", args['credits'], None))
 
-class QCircularProgress(QDialog):
-    def __init__(self, window_name="", title="", subtitle="", loading_info="loading...", credits="by: Wanderson M. Pimenta"):
+class QCircularProgressDialog(QDialog):
+    def __init__(self, refresh=100, optimize=False, window_name="", title="", subtitle="", loading_info="loading...", credits="by: Wanderson M. Pimenta"):
         super().__init__()
+        self.refresh = refresh
+        self.optimize = optimize
         self.ui = Ui_SplashScreen()
         self.ui_info = MemberDict({
             'value': 0,
@@ -237,18 +239,23 @@ class QCircularProgress(QDialog):
             'credits': credits,
 
             'title_font_family': "YaHei Consolas Hybrid",
-            'title_font_size': "48pt",
-            'subtitle_font_size': "32pt",
-            'percentage_font_family': "Consolas",
+            'title_font_size': 10,
+            'info_font_size': 8,
             'info_font_family': "YaHei Consolas Hybrid",
+            'percentage_font_size': 32,
+            'percentage_font_family': "Consolas",
 
             'progress_color': "rgba(85, 170, 255, 255)",
             'container_color': "rgb(77, 77, 127)",
             'bg_color': "rgba(77, 77, 127, 120)",
+            'label_color': "rgb(93, 93, 154)",
+
+            'expression': None,
+            '__expression__': None
         })
         self.ui.setupUi(self, **self.ui_info)
 
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.shadow = QGraphicsDropShadowEffect(self)
@@ -259,16 +266,27 @@ class QCircularProgress(QDialog):
         self.ui.circularBg.setGraphicsEffect(self.shadow)
 
         self.finished = False
+        self.timer = QTimer()
+        self.timer.timeout.connect(self._refresh)
+        self.timer.start(self.refresh)
         self.setValue(0)
 
         self.show()
 
-    def setUiInfo(self, infos):
+    def _refresh(self):
+        QApplication.processEvents()
+
+    def setUiInfo(self, infos, refresh=False):
         self.ui_info.update(infos)
+        if self.ui_info.expression is None:
+            self.ui_info.__expression__ = f"{self.ui_info.value}%"
+        else:
+            self.ui_info.__expression__ = self.ui_info.expression
         if self.finished:
             return
         if self.ui_info.value >= 100:
             self.finished = True
+            self.timer.stop()
             self.close()
         else:
             progress = (100 - self.ui_info.value) / 100.0
@@ -280,8 +298,7 @@ class QCircularProgress(QDialog):
             }
             """
             newStylesheet = styleSheet.replace("{STOP_1}", stop_1).replace("{STOP_2}", stop_2).replace('{COLOR}', self.ui_info.progress_color)
-            self.ui.circularProgress.setStyleSheet(newStylesheet); self.ui.retranslateUi(self, **self.ui_info)
-        QApplication.processEvents()
+            self.ui.circularProgress.setStyleSheet(newStylesheet); self.ui.retranslateUi(self, **self.ui_info); QApplication.processEvents()
 
     def setValue(self, value):
         self.setUiInfo({'value':Clipped(int(value), 0, 100)})

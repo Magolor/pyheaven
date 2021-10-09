@@ -7,6 +7,16 @@ import shutil
 Import("send2trash.send2trash@send2trash",globals())
 Import("jsonlines",globals())
 
+# Modified from https://stackoverflow.com/questions/21799210/python-copy-larger-file-too-slow
+def _copyfileobj_patched(fsrc, fdst, length=64*1024*1024):
+    """Patches shutil method to hugely improve copy speed"""
+    while 1:
+        buf = fsrc.read(length)
+        if not buf:
+            break
+        fdst.write(buf)
+shutil.copyfileobj = _copyfileobj_patched
+
 def PathToString(path="./", as_folder:bool=False):
     """Convert any representation of a path (either a `pathlib.Path` or a str) to a str, with trailing slashes for folder.
 
@@ -217,56 +227,54 @@ def ListFiles(path="./", ordered:bool=False, with_path=False, **sort_args):
     """
     return ListPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, **sort_args)
 
-def EnumPaths(path="./", ordered:bool=False, with_path:bool=False, filter_function=None, **sort_args):
-    """Return a list of subpaths recursively under the given path.
+def EnumPaths(path="./", ordered:bool=False, filter_function=None, **sort_args):
+    """Return a list of subpaths recursively under the given path. Since this is wrapped upon `os.walk`, `with_path` is forced. (TODO: fix)
 
     Args:
         path: The path.
         ordered (bool): If True, sort subpaths by criteria specified in `sort_args`, otherwise in original order from `os.listdir()`.
-        with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
-        filter_function: Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function `BUILTIN_LISTPATHS_FILTER_FUNCTIONS()` for built-in criteria.
-        sort_args: Args for calling `sorted` on the subpaths in format of (path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
+        filter_function: Filter subpaths in format of (full_path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function `BUILTIN_LISTPATHS_FILTER_FUNCTIONS()` for built-in criteria.
+        sort_args: Args for calling `sorted` on the subpaths in format of (full_path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
     Returns:
         List[str]: The result strings.
     """
-    path = p2s(path); files = ListFiles(path); folders = ListFolders(path)
-    subfiles = [[pjoin(folder,f) for f in EnumPaths(pjoin(path,folder))] for folder in folders]
-    subpaths = [(p2s(subpath),pjoin(path,subpath)) for subpath in files+folders+FlattenList(subfiles)]
+    path = p2s(path); subpaths = []
+    for root, dirs, files in os.walk(path):
+        subpaths.append(root); subpaths.extend([pjoin(root, file) for file in files])
+    subpaths = [(subpath,subpath) for subpath in subpaths]
     subpaths = list(filter(filter_function, subpaths)) if filter_function is not None else subpaths
     subpaths = sorted(subpaths, **sort_args) if ordered else subpaths
-    return [subpath[with_path] for subpath in subpaths]
+    return [subpath[1] for subpath in subpaths]
 
-def EnumFolders(path="./", ordered:bool=False, with_path:bool=False, **sort_args):
+def EnumFolders(path="./", ordered:bool=False, **sort_args):
     """Return a list of folders recursively under the given path.
 
-    This is an alias for `ListPaths(filter_function=IS_FOLDER_FILTER)`.
+    This is an alias for `EnumPaths(filter_function=IS_FOLDER_FILTER)`.
 
     Args:
         path: The path.
         ordered (bool): If True, sort subpaths by criteria specified in `sort_args`, otherwise in original order from `os.listdir()`.
-        with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
         filter_function: Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function `BUILTIN_LISTPATHS_FILTER_FUNCTIONS()` for built-in criteria.
         sort_args: Args for calling `sorted` on the subpaths in format of (path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
     Returns:
         List[str]: The result strings.
     """
-    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FOLDER_FILTER, **sort_args)
+    return EnumPaths(path, ordered=ordered, filter_function=IS_FOLDER_FILTER, **sort_args)
 
-def EnumFiles(path="./", ordered:bool=False, with_path:bool=False, **sort_args):
+def EnumFiles(path="./", ordered:bool=False, **sort_args):
     """Return a list of files recursively under the given path.
 
-    This is an alias for `ListPaths(filter_function=IS_FILE_FILTER)`.
+    This is an alias for `EnumPaths(filter_function=IS_FILE_FILTER)`.
 
     Args:
         path: The path.
         ordered (bool): If True, sort subpaths by criteria specified in `sort_args`, otherwise in original order from `os.listdir()`.
-        with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
         filter_function: Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function `BUILTIN_LISTPATHS_FILTER_FUNCTIONS()` for built-in criteria.
         sort_args: Args for calling `sorted` on the subpaths in format of (path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
     Returns:
         List[str]: The result strings.
     """
-    return EnumPaths(path, ordered=ordered, with_path=with_path, filter_function=IS_FILE_FILTER, **sort_args)
+    return EnumPaths(path, ordered=ordered, filter_function=IS_FILE_FILTER, **sort_args)
     
 def CreateFolder(path):
     """Create the given path as folder, parents will be automatically built.
