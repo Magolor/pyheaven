@@ -41,6 +41,7 @@ from PySide6.QtGui import (
     QCursor,
     QFont,
     QFontDatabase,
+    QGuiApplication,
     QIcon,
     QLinearGradient,
     QPalette,
@@ -139,7 +140,7 @@ class Ui_SplashScreen(object):
         self.circularBg.setFrameShadow(QFrame.Raised)
         self.container = QFrame(self.circularProgressBarBase)
         self.container.setObjectName(u"container")
-        self.container.setGeometry(QRect(25, 25, 285, 285))
+        self.container.setGeometry(QRect(20, 20, 280, 280))
         self.container.setStyleSheet(u"QFrame{\n"
 "   border-radius: 135px;\n"
 "   background-color: "+args['container_color']+";\n"
@@ -148,7 +149,7 @@ class Ui_SplashScreen(object):
         self.container.setFrameShadow(QFrame.Raised)
         self.widget = QWidget(self.container)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(40, 50, 193, 191))
+        self.widget.setGeometry(QRect(30, 40, 220, 210))
         self.gridLayout = QGridLayout(self.widget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -178,8 +179,8 @@ class Ui_SplashScreen(object):
 
         self.labelLoadingInfo = QLabel(self.widget)
         self.labelLoadingInfo.setObjectName(u"labelLoadingInfo")
-        self.labelLoadingInfo.setMinimumSize(QSize(0, 20))
-        self.labelLoadingInfo.setMaximumSize(QSize(16777215, 16777215))
+        self.labelLoadingInfo.setMinimumSize(QSize(0, 24))
+        self.labelLoadingInfo.setMaximumSize(QSize(16777215, 24))
         font2 = QFont()
         font2.setFamily(args['info_font_family'])
         font2.setPointSize(args['info_font_size'])
@@ -220,12 +221,13 @@ class Ui_SplashScreen(object):
         SplashScreen.setWindowTitle(QCoreApplication.translate("SplashScreen", args['window_name'], None))
         self.labelTitle.setText(QCoreApplication.translate("SplashScreen", u"<html><head/><body><p><span style=\" font-weight:bold; color:#9b9bff;\">"+args['title']+"</span> "+args['subtitle']+"</p></body></html>", None))
         self.labelPercentage.setText(QCoreApplication.translate("SplashScreen", u"<p><span style=\" font-size:"+str(args["percentage_font_size"])+"pt;\">"+str(args['__expression__'])+"</span></p>", None))
-        self.labelLoadingInfo.setText(QCoreApplication.translate("SplashScreen", args['loading_info'], None))
+        self.labelLoadingInfo.setText(QCoreApplication.translate("SplashScreen", args['__loading_info__'], None))
         self.labelCredits.setText(QCoreApplication.translate("SplashScreen", args['credits'], None))
 
 class QCircularProgressDialog(QDialog):
-    def __init__(self, refresh=100, optimize=False, window_name="", title="", subtitle="", loading_info="loading...", credits="by: Wanderson M. Pimenta"):
+    def __init__(self, refresh=100, cut=32, optimize=False, window_name="", title="", subtitle="", loading_info="loading...", credits="by: Wanderson M. Pimenta"):
         super().__init__()
+        self.cut = max(cut,3)
         self.refresh = refresh
         self.optimize = optimize
         self.ui = Ui_SplashScreen()
@@ -236,6 +238,7 @@ class QCircularProgressDialog(QDialog):
             'title': title,
             'subtitle': subtitle,
             'loading_info': loading_info,
+            '__loading_info__': None,
             'credits': credits,
 
             'title_font_family': "YaHei Consolas Hybrid",
@@ -271,7 +274,14 @@ class QCircularProgressDialog(QDialog):
         self.timer.start(self.refresh)
         self.setValue(0)
 
+        self.center()
         self.show()
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QGuiApplication.primaryScreen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
     def _refresh(self):
         QApplication.processEvents()
@@ -282,6 +292,10 @@ class QCircularProgressDialog(QDialog):
             self.ui_info.__expression__ = f"{self.ui_info.value}%"
         else:
             self.ui_info.__expression__ = self.ui_info.expression
+        if self.ui_info.loading_info is None:
+            self.ui_info.__loading_info__ = None
+        else:
+            self.ui_info.__loading_info__ = self.ui_info.loading_info if len(self.ui_info.loading_info)<self.cut else "..."+self.ui_info.loading_info[-self.cut+3:]
         if self.finished:
             return
         if self.ui_info.value >= 100:
