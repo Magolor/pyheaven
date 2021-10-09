@@ -39,6 +39,12 @@ class MemberDict(dict):
             d[key] /= b
         return d
 
+    def __getstate__(self):
+        return dict(self)
+
+    def __setstate__(self, state):
+        self.__dict__ = state
+
 class ArgumentDescriptor(object):
     """The base descriptor that wraps arguments of `add_argument` for `argparse.ArgumentParser`.
     """
