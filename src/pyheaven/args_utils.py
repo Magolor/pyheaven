@@ -229,7 +229,7 @@ class HeavenArguments(MemberDict):
         Args:
             descriptors (List): The list of argument descriptors.
             parser_args: Arguments for constructing `argparse.ArgumentParser`.
-        Return:
+        Returns:
             Arguments: The parsed arguments.
         """
         parser = argparse.ArgumentParser(**parser_args)
@@ -244,7 +244,7 @@ class HeavenArguments(MemberDict):
         Args:
             path: The json file path.
             backend (str): Specify backend for saving an object in str format. Please refer to function `BUILTIN_JSON_BACKENDS()` for built-in backends.
-        Return:
+        Returns:
             Arguments: The parsed arguments.
         """
         return cls(LoadJson(path,backend=backend))
@@ -255,7 +255,7 @@ class HeavenArguments(MemberDict):
 
         Args:
             obj: The object.
-        Return:
+        Returns:
             Arguments: The parsed arguments.
         """
         return cls(vars(object))
@@ -270,7 +270,7 @@ class HeavenArguments(MemberDict):
                           If 'interupt', an Exception will be raised immediately at the error line.
                           If 'strict', a ValueError will be raised to report all error lines.
                           If 'ignore', all error lines will be skipped.
-        Return:
+        Returns:
             Arguments: The parsed arguments.
         """
         args = {}; failures = []

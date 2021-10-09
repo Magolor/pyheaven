@@ -85,11 +85,11 @@ def QGetInput(base, title, question, default=None):
     answer, done = QInputDialog.getText(base, title, question)
     return answer if done else default
 
-def QGetFolder(base, title, default):
+def QGetFolder(base, title, default=""):
     folder = QFileDialog.getExistingDirectory(base, title, default)
     return folder if folder!="" and ExistFolder(folder) else None
 
-def QGetFile(base, title, default, filter="All Files (*)"):
+def QGetFile(base, title, default="C:/", filter="All Files (*)"):
     file, file_type = QFileDialog.getOpenFileName(base, title, default, filter=filter)
     return file if file!="" and file_type!="" and ExistFile(file) else None
 

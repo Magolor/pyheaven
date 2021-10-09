@@ -2,6 +2,7 @@ from .basic_utils import *
 from .misc_utils import FlattenList
 from pathlib import PurePosixPath as PurePosixPath
 from pathlib import Path as Path
+from copy import deepcopy
 import os
 import shutil
 Import("send2trash.send2trash@send2trash",globals())
