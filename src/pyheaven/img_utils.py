@@ -101,11 +101,12 @@ def RGBImg(img, t2b:bool=False):
     elif img.shape[(-1)] == 3:
         pass
     elif img.shape[(-1)] == 4:
-        transparent = img[:, :, 3] == 0
-        img[:, :, 0][transparent] = 255
-        img[:, :, 1][transparent] = 255
-        img[:, :, 2][transparent] = 255
-        img[:, :, 3][transparent] = 255
+        if t2b:
+            transparent = img[:, :, 3] == 0
+            img[:, :, 0][transparent] = 255
+            img[:, :, 1][transparent] = 255
+            img[:, :, 2][transparent] = 255
+            img[:, :, 3][transparent] = 255
         img = img.astype(np.float)
         rgb = np.stack([img[:, :, 3], img[:, :, 3], img[:, :, 3]], axis=(-1))
         img = np.array((np.uint8(img[:, :, :3] * rgb / 255)), dtype=(np.uint8))
