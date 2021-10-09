@@ -17,7 +17,10 @@ def SaveTorch(obj, path, pickle_protocol:Optional[int]=None, _use_new_zipfile_se
         None
     """
     CreateFile(path); path = p2s(path)
-    torch.save(obj, path, pickle_protocol=pickle_protocol, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
+    if pickle_protocol is not None:
+        torch.save(obj, path, pickle_protocol=pickle_protocol, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
+    else:
+        torch.save(obj, path, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
 
 def LoadTorch(path, map_location=None):
     """Load an object from existing torch file.
@@ -42,7 +45,10 @@ def DumpsTorch(obj, pickle_protocol:Optional[int]=None, _use_new_zipfile_seriali
         None
     """
     buff = io.BytesIO()
-    torch.save(obj, buff, pickle_protocol=pickle_protocol, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
+    if pickle_protocol is not None:
+        torch.save(obj, buff, pickle_protocol=pickle_protocol, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
+    else:
+        torch.save(obj, buff, _use_new_zipfile_serialization=_use_new_zipfile_serialization)
     buff.seek(0); return buff.read()
 
 class HeavenDataset(Dataset):

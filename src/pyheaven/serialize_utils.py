@@ -96,7 +96,7 @@ def SavePickle(obj, path, protocol:Optional[int]=None):
     """
     CreateFile(path); path = p2s(path)
     with open(path, "wb") as f:
-        pickle.dump(obj, f, protocol=protocol)
+        pickle.dump(obj, f, protocol=protocol) if protocol is None else pickle.dumps(obj, protocol=protocol)
 
 def LoadPickle(path):
     """Load an object from existing pickle file.
@@ -118,4 +118,4 @@ def DumpsPickle(obj, protocol:Optional[int]=None):
     Returns:
         None
     """
-    return pickle.dumps(obj, protocol=protocol)
+    return pickle.dumps(obj) if protocol is None else pickle.dumps(obj, protocol=protocol)
