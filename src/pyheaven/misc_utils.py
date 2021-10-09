@@ -80,3 +80,20 @@ def Unique(ls:List, **sort_args):
         List: The sorted list of unique elements.
     """
     return sorted(list(set(ls)), **sort_args)
+
+def TQDM(obj, **args):
+    """Return a tqdm pbar, both iterable and int are supported for obj.
+
+    Args:
+        ls (List): The object to be tracked using tqdm.
+        args: args for calling `tqdm.tqdm` on the object (or range).
+
+    Returns:
+        tqdm.tqdm: The tqdm pbar.
+    """
+    if 'dynamic_ncols' not in args:
+        args['dynamic_ncols'] = True
+    if isinstance(obj, int):
+        return tqdm.tqdm(range(obj), **args)
+    else:
+        return tqdm.tqdm(obj, **args)

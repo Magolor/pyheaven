@@ -7,6 +7,7 @@ src/pyheaven/basic_utils.py
 src/pyheaven/crypto_utils.py
 src/pyheaven/file_utils.py
 src/pyheaven/misc_utils.py
+src/pyheaven/plot_utils.py
 src/pyheaven/pyqt_utils.py
 src/pyheaven/serialize_utils.py
 src/pyheaven/torch_utils.py
