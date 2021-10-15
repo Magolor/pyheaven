@@ -10,8 +10,8 @@ class Plotter(object):
         self.figsize = figsize; self.dpi = dpi; self.path = path; self.legend = legend; self.sns_style = sns_style
 
     def __enter__(self):
-        fig,axe = plt.subplots(figsize=self.figsize,dpi=self.dpi)
         sns.set(style=self.sns_style)
+        fig,axe = plt.subplots(figsize=self.figsize,dpi=self.dpi)
         return (fig,axe)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
