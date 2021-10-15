@@ -316,3 +316,9 @@ class QCircularProgressDialog(QDialog):
 
     def setValue(self, value):
         self.setUiInfo({'value':Clipped(int(value), 0, 100)})
+
+    def terminate(self):
+        self.finished = True
+        self.timer.stop()
+        self.close()
+

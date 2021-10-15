@@ -57,8 +57,8 @@ def FORMATTED_TIME(format="[%Y-%m-%d_%H.%M.%S]"):
     """
     return time.strftime(format,time.localtime(time.time()))
 
-def Clipped(value, l, r):
-    """Return a clipped value between lower bound `l` and upper bound `r`.
+def Clipped(value, l, u):
+    """Return a clipped value between lower bound `l` and upper bound `u` (closed).
 
     Args:
         value: A value.
@@ -67,7 +67,7 @@ def Clipped(value, l, r):
     Returns:
         Any: The clipped value.
     """
-    return min(max(value,l),r)
+    return min(max(value,l),u)
 
 def Unique(ls:List, **sort_args):
     """Return a sorted list of unique elements.

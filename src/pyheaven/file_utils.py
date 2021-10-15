@@ -371,6 +371,8 @@ def ReplaceFile(src, dst, rm=False):
 def CopyFolder(src, dst, rm=False):
     """Copy folder from src (folder name included) to dst (folder name included). Only existing files will be deleted if exists.
 
+    Warning: This code is buggy. TODO: debug.
+
     This is NOT the same as `ReplaceFolder`, which does not merge `src` to `dst`, instead, it deletes the entire `dst` directory if exists.
 
     Args:

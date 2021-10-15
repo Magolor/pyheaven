@@ -7,7 +7,7 @@ except ImportError:
     from typing import Union, Optional, List, Dict
     from typing_extensions import Literal
 
-def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False):
+def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False, **args):
     """Call system cmd console to execute a command (`subprocess.Popen`).
 
     Args:
@@ -15,11 +15,12 @@ def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False):
         wait (bool): If True, wait until the command finishes and return the handle, otherwise directly return the handle.
         shell (bool): If True, display shell for `subprocess.Popen`, otherwise ignored.
         sudo (bool): If True, pre-attach "sudo" in front of the command, otherwise ignored.
+        args: Custom args for `Popen` to be appended.
     Returns:
         bool: Return the handle created by `subprocess.Popen`.
     """
     sudo_command = ("sudo " if sudo else "")+str(command)
-    h = Popen(sudo_command,shell=shell)
+    h = Popen(sudo_command,shell=shell,**args)
     if wait:
         h.wait()
     return h
