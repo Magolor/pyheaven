@@ -7,7 +7,7 @@ def GrayScale(r, g, b):
 
     The computation is not accurate, instead, it uses fixed finite 1e-3 precision. The reason is to speedup computation using only integer:
 
-    GrayScale(r,g,b) = np.array(np.floor((r * 299 + g * 587 + b * 114 + 500) / 1000), dtype=np.uint8)
+    GrayScale(r,g,b) = floor((r * 299 + g * 587 + b * 114 + 500) / 1000)
 
     Args:
         r: The red channel of the image.
@@ -16,6 +16,7 @@ def GrayScale(r, g, b):
     Returns:
         Any: The gray scale computed from r, g, b data, with finite 1e-3 precision.
     """
+    r = np.array(r, dtype=int); g = np.array(g, dtype=int); b = np.array(b, dtype=int)
     return np.array(np.floor((r * 299 + g * 587 + b * 114 + 500) / 1000), dtype=np.uint8)
 
 def DataToImg(data):
