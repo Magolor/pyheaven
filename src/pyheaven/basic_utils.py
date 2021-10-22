@@ -17,7 +17,7 @@ def CMD(command:str, wait:bool=True, shell:bool=True, sudo:bool=False, **args):
         sudo (bool): If True, pre-attach "sudo" in front of the command, otherwise ignored.
         args: Custom args for `Popen` to be appended.
     Returns:
-        bool: Return the handle created by `subprocess.Popen`.
+        Return the handle created by `subprocess.Popen`.
     """
     sudo_command = ("sudo " if sudo else "")+str(command)
     h = Popen(sudo_command,shell=shell,**args)
@@ -57,6 +57,21 @@ def PIP(package:str, source:str="", pip3:bool=True, upgrade:bool=False, force:bo
     nodeps_command = "--no-deps " if (force and not force_deps) else ""
     pip_command = "pip3" if pip3 else "pip"
     CMD(f"{pip_command} install {package} {source_command}{upgrade_command}{reinstall_command}{nodeps_command}{args}",wait=True)
+
+def RSYNC(src:str, dst:str, wait:bool=True, args:str="-r -vP"):
+    """Call system cmd console to execute `rsync` command (`subprocess.Popen`).
+
+    Args:
+        src (str): The source path of `rsync`.
+        dst (str): The destination path of `rsync`.
+        wait (bool): If True, wait until the command finishes and return the handle, otherwise directly return the handle.
+        args: Custom args for `Popen` to be appended.
+    Returns:
+        Return the handle created by `subprocess.Popen`.
+    """
+    return CMD(
+        f"rsync {args} {src} {dst}", wait=wait
+    )
 
 def __import_unsafe__(name:str, alias:str, module_globals:Dict, force_reimport:bool=False):
     if force_reimport or (alias not in module_globals):

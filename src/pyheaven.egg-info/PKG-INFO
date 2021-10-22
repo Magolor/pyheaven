@@ -1,26 +1,29 @@
 Metadata-Version: 2.1
 Name: pyheaven
-Version: 0.1.3.9
+Version: 0.1.3.10
 Summary: Python Heaven
 Home-page: https://github.com/Magolor/
 Author: Magolor
 Author-email: magolorcz@gmail.com
 License: UNKNOWN
 Project-URL: Author, https://github.com/Magolor/
-Description: # pyheaven
-        
-        **Warning: This package is currently underdeveloped and does not guarantee any consistency.**
-        
-        ## Package Introduction
-        
-        This is a package that contains useful functions for python programming as well as daily lives.
-        
-        ## Package Contents
-        
-        TODO: add docs
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# pyheaven
+
+**Warning: This package is currently underdeveloped and does not guarantee any consistency.**
+
+## Package Introduction
+
+This is a package that contains useful functions for python programming as well as daily lives.
+
+## Package Contents
+
+TODO: add docs
+
