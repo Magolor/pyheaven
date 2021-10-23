@@ -182,12 +182,15 @@ class CONV(nn.Module):
         activation=nn.Identity(),
         dropout:Optional[int]=None,
         dropout_inplace:bool=True,
+        conv1d:bool=False,
     ):
         super(CONV, self).__init__()
         self.in_channels = in_channels; self.out_channels = out_channels
         self.layers = nn.Sequential(*(
             ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else [])
-        +   ([nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=padding,dilation=dilation,groups=groups,padding_mode=padding_mode,bias=bias)])
+        +   ([(nn.Conv1d if conv1d else nn.Conv2d)(in_channels=in_channels,out_channels=out_channels,\
+                                                   kernel_size=kernel_size,stride=stride,padding=padding,\
+                                                   dilation=dilation,groups=groups,padding_mode=padding_mode,bias=bias)])
         +   ([norm_layer] if norm_layer is not None else [])
         +   ([activation] if activation is not None else [])
         ))
