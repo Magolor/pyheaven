@@ -210,6 +210,25 @@ class LiteralArgumentDescriptor(ArgumentDescriptor):
         """
         kwargs['choices'] = choices; super(LiteralArgumentDescriptor, self).__init__(dest=dest, full=full, short=short, required=required, **kwargs)
 
+class ListArgumentDescriptor(ArgumentDescriptor):
+    """The descriptor for arguments of `action` equal to `extend`.
+    """
+    def __init__(self, dest:str, full:str=None, short:str=None, required:bool=False, **kwargs):
+        """The following are different from `add_argument`:
+        1. '-' in `dest` will be replaced to '_'.
+        2. All unnecessary arguments are represented as both short name (i.e.: `-`) and full name (i.e.: `--`), the full name is  `dest` ('_' will be replaced to '-') by default, and the short name is the first character of full name by default. Please specify `short` manually when conflict occurs. 
+        3. All necessary arguments are represented with `dest` ('-' will be replaced to '_'). Arguments are determined necessary if and only if `required` is set to True.
+        4. The `type` argument will be set to `int` by default (and `type` specifier in `kwargs` will be override).
+
+        Args:
+            dest (str): The `dest` arg of `add_argument`.
+            full (str): The full name (i.e.: `--`) of the argugment.
+            short (str): The short name (i.e.: `-`) of the argugment.
+            required (bool): If True, the argument is necessary, otherwise unnecessary.
+        """
+        kwargs['action'] = 'extend'; kwargs['nargs'] = kwargs['nargs'] if 'nargs' in kwargs else '*'; kwargs['default'] = kwargs['default'] if 'default' in kwargs else list()
+        super(ListArgumentDescriptor, self).__init__(dest=dest, full=full, short=short, required=required, **kwargs)
+
 class HeavenArguments(MemberDict):
     """An argument dict extended from `MemberDict`.
     """
