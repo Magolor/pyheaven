@@ -66,9 +66,21 @@ def DumpsJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='
         backend (str): Specify backend for saving an object in str format. Please refer to function `BUILTIN_JSON_PRETTIFY_BACKENDS()` for built-in backends (`jsonl` is not supported since jsonlines is an inappropriate format as str).
         indent (int/None): The `indent` argument for saving in json format, only works if backend is not "jsonl".
     Returns:
-        None
+        str: The json str.
     """
     module = globals()[backend]; return module.dumps(obj, indent=indent, *args, **kwargs)
+
+def PrintJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=4, *args, **kwargs):
+    """Print an object as json (or jsonl) str using `DumpsJson`.
+
+    Args:
+        obj: The object to be saved.
+        backend (str): Specify backend for saving an object in str format. Please refer to function `BUILTIN_JSON_PRETTIFY_BACKENDS()` for built-in backends (`jsonl` is not supported since jsonlines is an inappropriate format as str).
+        indent (int/None): The `indent` argument for saving in json format, only works if backend is not "jsonl".
+    Returns:
+        None
+    """
+    print(DumpsJson(obj,backend=backend,indent=indent,*args,**kwargs))
 
 def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','picklejson']='json', save_backend:Literal['json','demjson','simplejson','picklejson']='json', indent:Optional[int]=4, *args, **kwargs):
     """Load and re-save a existing json file.
@@ -116,6 +128,6 @@ def DumpsPickle(obj, protocol:Optional[int]=None):
         obj: The object to be saved.
         protocol (int/None): The `protocol` argument for `pickle.dump`.
     Returns:
-        None
+        bytearray: The pickle bytearray.
     """
     return pickle.dumps(obj) if protocol is None else pickle.dumps(obj, protocol=protocol)

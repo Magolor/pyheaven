@@ -43,7 +43,7 @@ def DumpsTorch(obj, pickle_protocol:Optional[int]=None, _use_new_zipfile_seriali
         pickle_protocol (int/None): The `pickle_protocol` argument for `torch.save`.
         _use_new_zipfile_serialization (int/None): The `_use_new_zipfile_serialization` argument for `torch.save`.
     Returns:
-        None
+        bytearray: The torch bytearray.
     """
     buff = io.BytesIO()
     if pickle_protocol is not None:
