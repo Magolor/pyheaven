@@ -154,6 +154,7 @@ class FC(nn.Module):
         activation=nn.Identity(),
         dropout:Optional[int]=None,
         dropout_inplace:bool=True,
+        flatten=True,
     ):
         super(FC, self).__init__()
         self.input_dim = input_dim; self.output_dim = output_dim
@@ -163,9 +164,10 @@ class FC(nn.Module):
         +   ([norm_layer] if norm_layer is not None else [])
         +   ([activation] if activation is not None else [])
         ))
+        self.flatten = flatten
     
     def forward(self, data):
-        return self.layers(torch.flatten(data,start_dim=1))
+        return self.layers(torch.flatten(data,start_dim=1)) if self.flatten else self.layers(data)
 
 class CONV(nn.Module):
     def __init__(

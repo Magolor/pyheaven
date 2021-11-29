@@ -22,6 +22,7 @@ def SaveJson(obj, path, backend:Literal['json','jsonl','demjson','simplejson','j
     Returns:
         None
     """
+    assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
     CreateFile(path); path = p2s(path)
     if backend=='jsonl':
         assert (indent is None), ("'jsonl' format does not support parameter 'indent'!")
@@ -46,6 +47,7 @@ def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','pickle
     Returns:
         Any: The loaded object.
     """
+    assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
     assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
     if backend=='jsonl':
         with open(path, "r") as f:
@@ -58,7 +60,7 @@ def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','pickle
             else:
                 return module.loads(f.read())
 
-def DumpsJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, *args, **kwargs):
+def DumpsJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, *args, **kwargs):
     """Save an object as json (or jsonl) str.
 
     Args:
@@ -68,9 +70,13 @@ def DumpsJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='
     Returns:
         str: The json str.
     """
-    module = globals()[backend]; return module.dumps(obj, indent=indent, *args, **kwargs)
+    assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
+    if backend=='jsonl':
+        return "\n".join(json.dumps(o, indent=indent, *args, **kwargs) for o in obj)
+    else:
+        module = globals()[backend]; return module.dumps(obj, indent=indent, *args, **kwargs)
 
-def PrintJson(obj, backend:Literal['json','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=4, *args, **kwargs):
+def PrintJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=4, *args, **kwargs):
     """Print an object as json (or jsonl) str using `DumpsJson`.
 
     Args:

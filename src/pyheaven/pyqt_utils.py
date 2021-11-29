@@ -258,7 +258,7 @@ class QCircularProgressDialog(QDialog):
         })
         self.ui.setupUi(self, **self.ui_info)
 
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.shadow = QGraphicsDropShadowEffect(self)
@@ -276,6 +276,7 @@ class QCircularProgressDialog(QDialog):
 
         self.center()
         self.show()
+        self.activateWindow()
 
     def center(self):
         qr = self.frameGeometry()
