@@ -144,6 +144,27 @@ class TimmBackbone(nn.Module):
     def forward(self, data):
         return self.net(data)['out']
 
+class FUNC(nn.Module):
+    def __init__(
+        self,
+        func_layer=None,
+        norm_layer=None,
+        activation=None,
+        dropout:Optional[int]=None,
+        dropout_inplace:bool=True,
+        reserve_identity:bool=True,
+    ):
+        super(FUNC, self).__init__()
+        self.layers = nn.Sequential(*(
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([func_layer] if func_layer is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([norm_layer] if norm_layer is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([activation] if activation is not None else ([nn.Identity()] if reserve_identity else []))
+        ))
+    
+    def forward(self, data):
+        return self.layers(data)
+
 class FC(nn.Module):
     def __init__(
         self,
@@ -151,18 +172,19 @@ class FC(nn.Module):
         output_dim:int,
         bias=True,
         norm_layer=None,
-        activation=nn.Identity(),
+        activation=None,
         dropout:Optional[int]=None,
         dropout_inplace:bool=True,
         flatten=True,
+        reserve_identity:bool=True,
     ):
         super(FC, self).__init__()
         self.input_dim = input_dim; self.output_dim = output_dim
         self.layers = nn.Sequential(*(
-            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else [])
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else ([nn.Identity()] if reserve_identity else []))
         +   ([nn.Linear(input_dim,output_dim,bias=bias)])
-        +   ([norm_layer] if norm_layer is not None else [])
-        +   ([activation] if activation is not None else [])
+        +   ([norm_layer] if norm_layer is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([activation] if activation is not None else ([nn.Identity()] if reserve_identity else []))
         ))
         self.flatten = flatten
     
@@ -182,20 +204,21 @@ class CONV(nn.Module):
         padding_mode:str='zeros',
         bias:bool=True,
         norm_layer=None,
-        activation=nn.Identity(),
+        activation=None,
         dropout:Optional[int]=None,
         dropout_inplace:bool=True,
         conv1d:bool=False,
+        reserve_identity:bool=True,
     ):
         super(CONV, self).__init__()
         self.in_channels = in_channels; self.out_channels = out_channels
         self.layers = nn.Sequential(*(
-            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else [])
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else ([nn.Identity()] if reserve_identity else []))
         +   ([(nn.Conv1d if conv1d else nn.Conv2d)(in_channels=in_channels,out_channels=out_channels,\
                                                    kernel_size=kernel_size,stride=stride,padding=padding,\
                                                    dilation=dilation,groups=groups,padding_mode=padding_mode,bias=bias)])
-        +   ([norm_layer] if norm_layer is not None else [])
-        +   ([activation] if activation is not None else [])
+        +   ([norm_layer] if norm_layer is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([activation] if activation is not None else ([nn.Identity()] if reserve_identity else []))
         ))
     
     def forward(self, data):
