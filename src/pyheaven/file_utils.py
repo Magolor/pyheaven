@@ -386,7 +386,7 @@ def CopyFolder(src, dst, rm=False):
     Returns:
         None
     """
-    for file in EnumFiles(src):
+    for file in EnumFiles(src,relpath=src):
         CopyFile(pjoin(src,file),pjoin(dst,file),rm=rm)
 
 def ReplaceFolder(src, dst, rm=False):

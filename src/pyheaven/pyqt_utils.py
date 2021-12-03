@@ -44,6 +44,7 @@ from PySide6.QtGui import (
     QGuiApplication,
     QIcon,
     QLinearGradient,
+    QListWidgetItem,
     QPalette,
     QPainter,
     QPixmap,
