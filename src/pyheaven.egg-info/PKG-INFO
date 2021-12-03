@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyheaven
-Version: 0.1.4.5
+Version: 0.1.5.0
 Summary: Python Heaven
 Home-page: https://github.com/Magolor/
 Author: Magolor
@@ -17,7 +17,7 @@ Description: # pyheaven
         
         ## Package Docs
         
-        
+        [HTML Docs](https://htmlpreview.github.io/?https://github.com/Magolor/pyheaven/blob/master/doc/pyheaven.html)
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License

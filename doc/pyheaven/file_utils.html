@@ -150,6 +150,9 @@
             <li>
                     <a class="function" href="#Zip">Zip</a>
             </li>
+            <li>
+                    <a class="function" href="#Unzip">Unzip</a>
+            </li>
     </ul>
 
 
@@ -176,6 +179,7 @@
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="n">Import</span><span class="p">(</span><span class="s2">&quot;send2trash.send2trash@send2trash&quot;</span><span class="p">,</span><span class="nb">globals</span><span class="p">())</span>
 <span class="n">Import</span><span class="p">(</span><span class="s2">&quot;jsonlines&quot;</span><span class="p">,</span><span class="nb">globals</span><span class="p">())</span>
 
@@ -605,13 +609,23 @@
     <span class="sd">&quot;&quot;&quot;Zip a directory `src` to a `.zip` file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        src: The object to be tracked using tqdm.</span>
-<span class="sd">        args: args for calling `tqdm.tqdm` on the object (or range).</span>
-
+<span class="sd">        src: The source directory.</span>
+<span class="sd">        dst: The target `.zip` file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        tqdm.tqdm: The tqdm pbar.</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">Prefix</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">)),</span> <span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">dst</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">dst</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="n">root_dir</span><span class="o">=</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unzip a `.zip` file to a directory `src`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        src: The source `.zip` file.</span>
+<span class="sd">        dst: The targert directory.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">extract_dir</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -2159,13 +2173,12 @@
     <span class="sd">&quot;&quot;&quot;Zip a directory `src` to a `.zip` file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        src: The object to be tracked using tqdm.</span>
-<span class="sd">        args: args for calling `tqdm.tqdm` on the object (or range).</span>
-
+<span class="sd">        src: The source directory.</span>
+<span class="sd">        dst: The target `.zip` file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        tqdm.tqdm: The tqdm pbar.</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">Prefix</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">)),</span> <span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">dst</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">dst</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="n">root_dir</span><span class="o">=</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
 </pre></div>
 
         </details>
@@ -2175,14 +2188,56 @@
 <h6 id="args">Args</h6>
 
 <ul>
-<li><strong>src:</strong>  The object to be tracked using tqdm.</li>
-<li><strong>args:</strong>  args for calling <code>tqdm.tqdm</code> on the object (or range).</li>
+<li><strong>src:</strong>  The source directory.</li>
+<li><strong>dst:</strong>  The target <code>.zip</code> file.</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>tqdm.tqdm: The tqdm pbar.</p>
+  <p>None</p>
+</blockquote>
+</div>
+
+
+                </section>
+                <section id="Unzip">
+                            <div class="attr function"><a class="headerlink" href="#Unzip">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">Unzip</span><span class="signature">(src, dst)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unzip a `.zip` file to a directory `src`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        src: The source `.zip` file.</span>
+<span class="sd">        dst: The targert directory.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">extract_dir</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Unzip a <code>.zip</code> file to a directory <code>src</code>.</p>
+
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source <code>.zip</code> file.</li>
+<li><strong>dst:</strong>  The targert directory.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
 </blockquote>
 </div>
 
