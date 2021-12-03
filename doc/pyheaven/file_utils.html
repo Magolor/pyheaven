@@ -43,6 +43,12 @@
                     <a class="function" href="#p2par">p2par</a>
             </li>
             <li>
+                    <a class="function" href="#p2stem">p2stem</a>
+            </li>
+            <li>
+                    <a class="function" href="#p2name">p2name</a>
+            </li>
+            <li>
                     <a class="function" href="#pjoin">pjoin</a>
             </li>
             <li>
@@ -240,6 +246,26 @@
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parent</span>
     <span class="k">return</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the stem of a path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p: The path to be queried.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The result string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">stem</span>
+
+<span class="k">def</span> <span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the name of a path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p: The path to be queried.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The result string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">name</span>
 
 <span class="k">def</span> <span class="nf">pjoin</span><span class="p">(</span><span class="o">*</span><span class="n">plist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Concatenate a list of string or paths to a path.</span>
@@ -793,6 +819,86 @@
 <ul>
 <li><strong>p:</strong>  The path to be queried.</li>
 <li><strong>l (int):</strong>  The number of levels of parents to jump.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
+</div>
+
+
+                </section>
+                <section id="p2stem">
+                            <div class="attr function"><a class="headerlink" href="#p2stem">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">p2stem</span><span class="signature">(p=&#39;./&#39;)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the stem of a path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p: The path to be queried.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The result string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">stem</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Get the stem of a path.</p>
+
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>p:</strong>  The path to be queried.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
+</div>
+
+
+                </section>
+                <section id="p2name">
+                            <div class="attr function"><a class="headerlink" href="#p2name">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">p2name</span><span class="signature">(p=&#39;./&#39;)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the name of a path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p: The path to be queried.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The result string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Get the name of a path.</p>
+
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>p:</strong>  The path to be queried.</li>
 </ul>
 
 <h6 id="returns">Returns</h6>

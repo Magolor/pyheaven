@@ -46,6 +46,9 @@
                     <a class="function" href="#QGetFile">QGetFile</a>
             </li>
             <li>
+                    <a class="function" href="#QGetFiles">QGetFiles</a>
+            </li>
+            <li>
                     <a class="function" href="#QGetNewFile">QGetNewFile</a>
             </li>
             <li>
@@ -132,6 +135,7 @@
     <span class="n">QLayout</span><span class="p">,</span>
     <span class="n">QLineEdit</span><span class="p">,</span>
     <span class="n">QListWidget</span><span class="p">,</span>
+    <span class="n">QListWidgetItem</span><span class="p">,</span>
     <span class="n">QMainWindow</span><span class="p">,</span>
     <span class="n">QMessageBox</span><span class="p">,</span>
     <span class="n">QProgressBar</span><span class="p">,</span>
@@ -206,6 +210,11 @@
 <span class="k">def</span> <span class="nf">QGetFile</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;C:/&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">):</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">file</span> <span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">file_type</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">QGetFiles</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;C:/&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">):</span>
+    <span class="n">files</span><span class="p">,</span> <span class="n">file_types</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[(</span><span class="n">file</span> <span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">file_type</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">file_type</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">file_types</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
 <span class="k">def</span> <span class="nf">QGetNewFile</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;C:/&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">):</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
@@ -542,6 +551,27 @@
             <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">QGetFile</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;C:/&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">):</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">file</span> <span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">file_type</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+</pre></div>
+
+        </details>
+
+    
+
+                </section>
+                <section id="QGetFiles">
+                            <div class="attr function"><a class="headerlink" href="#QGetFiles">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">QGetFiles</span><span class="signature">(base, title, default=&#39;C:/&#39;, filter=&#39;All Files (*)&#39;)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">QGetFiles</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;C:/&quot;</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">):</span>
+    <span class="n">files</span><span class="p">,</span> <span class="n">file_types</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileNames</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[(</span><span class="n">file</span> <span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">file_type</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">file_type</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">file_types</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 </pre></div>
 
         </details>
@@ -1244,8 +1274,8 @@
                 <dd id="QCircularProgressDialog.DialogCode" class="class">DialogCode</dd>
                 <dd id="QCircularProgressDialog.Rejected" class="variable">Rejected</dd>
                 <dd id="QCircularProgressDialog.Accepted" class="variable">Accepted</dd>
-                <dd id="QCircularProgressDialog.accepted" class="function">accepted</dd>
                 <dd id="QCircularProgressDialog.rejected" class="function">rejected</dd>
+                <dd id="QCircularProgressDialog.accepted" class="function">accepted</dd>
 
             </div>
             <div><dt>PySide6.QtWidgets.QWidget</dt>
@@ -1508,9 +1538,9 @@
                 <dd id="QCircularProgressDialog.DrawChildren" class="variable">DrawChildren</dd>
                 <dd id="QCircularProgressDialog.IgnoreMask" class="variable">IgnoreMask</dd>
                 <dd id="QCircularProgressDialog.windowTitleChanged" class="function">windowTitleChanged</dd>
-                <dd id="QCircularProgressDialog.windowIconChanged" class="function">windowIconChanged</dd>
                 <dd id="QCircularProgressDialog.windowIconTextChanged" class="function">windowIconTextChanged</dd>
                 <dd id="QCircularProgressDialog.customContextMenuRequested" class="function">customContextMenuRequested</dd>
+                <dd id="QCircularProgressDialog.windowIconChanged" class="function">windowIconChanged</dd>
 
             </div>
             <div><dt>PySide6.QtCore.QObject</dt>

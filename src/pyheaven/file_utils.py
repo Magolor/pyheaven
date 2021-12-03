@@ -67,6 +67,26 @@ def p2par(p="./", l:int=1):
         path = path.parent
     return p2s(path)
 
+def p2stem(p="./"):
+    """Get the stem of a path.
+
+    Args:
+        p: The path to be queried.
+    Returns:
+        str: The result string.
+    """
+    return Path(p2s(p)).stem
+
+def p2name(p="./"):
+    """Get the name of a path.
+
+    Args:
+        p: The path to be queried.
+    Returns:
+        str: The result string.
+    """
+    return Path(p2s(p)).name
+
 def pjoin(*plist):
     """Concatenate a list of string or paths to a path.
 

@@ -94,6 +94,11 @@ def QGetFile(base, title, default="C:/", filter="All Files (*)"):
     file, file_type = QFileDialog.getOpenFileName(base, title, default, filter=filter)
     return file if file!="" and file_type!="" and ExistFile(file) else None
 
+def QGetFiles(base, title, default="C:/", filter="All Files (*)"):
+    files, file_types = QFileDialog.getOpenFileNames(base, title, default, filter=filter)
+    result = [(file if file!="" and file_type!="" and ExistFile(file) else None) for (file, file_type) in zip(files, file_types)]
+    return result if len(result)>0 else None
+
 def QGetNewFile(base, title, default="C:/", filter="All Files (*)"):
     file, file_type = QFileDialog.getSaveFileName(base, title, default, filter=filter)
     return file if file!="" and file_type!="" else None
