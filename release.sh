@@ -23,10 +23,11 @@ setup(
     ],
     package_dir={"":"src"},
     packages=find_packages(where="src"),
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )' > setup.py
 sh installer.sh
 python setup.py sdist upload
+pdoc --output-dir doc pyheaven
 git add --all
 git commit -m $1
 git push -u
