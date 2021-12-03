@@ -560,7 +560,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">EnumFiles</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">EnumFiles</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">relpath</span><span class="o">=</span><span class="n">src</span><span class="p">):</span>
         <span class="n">CopyFile</span><span class="p">(</span><span class="n">pjoin</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">pjoin</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">ReplaceFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1986,7 +1986,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">EnumFiles</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">EnumFiles</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">relpath</span><span class="o">=</span><span class="n">src</span><span class="p">):</span>
         <span class="n">CopyFile</span><span class="p">(</span><span class="n">pjoin</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">pjoin</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">)</span>
 </pre></div>
 
