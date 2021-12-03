@@ -226,12 +226,19 @@
 
 <p>GrayScale(r,g,b) = floor((r * 299 + g * 587 + b * 114 + 500) / 1000)</p>
 
-<p>Args:
-    r: The red channel of the image.
-    g: The green channel of the image.
-    b: The blue channel of the image.
-Returns:
-    Any: The gray scale computed from r, g, b data, with finite 1e-3 precision.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>r:</strong>  The red channel of the image.</li>
+<li><strong>g:</strong>  The green channel of the image.</li>
+<li><strong>b:</strong>  The blue channel of the image.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Any: The gray scale computed from r, g, b data, with finite 1e-3 precision.</p>
+</blockquote>
 </div>
 
 
@@ -261,10 +268,17 @@ Returns:
 
             <div class="docstring"><p>Convert an array-like data (values in 0 ~ 255) to image.</p>
 
-<p>Args:
-    data: The array-like data.
-Returns:
-    Image: The converted image.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>data:</strong>  The array-like data.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Image: The converted image.</p>
+</blockquote>
 </div>
 
 
@@ -298,10 +312,17 @@ Returns:
 
 <p>This is a short alias for <code><a href="#DataToImg">DataToImg</a></code>.</p>
 
-<p>Args:
-    data: The array-like data.
-Returns:
-    Image: The converted image.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>data:</strong>  The array-like data.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Image: The converted image.</p>
+</blockquote>
 </div>
 
 
@@ -331,10 +352,17 @@ Returns:
 
             <div class="docstring"><p>Convert a PIL Image to array-like data.</p>
 
-<p>Args:
-    img: The PIL Image.
-Returns:
-    np.ndarray: The converted data.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>img:</strong>  The PIL Image.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>np.ndarray: The converted data.</p>
+</blockquote>
 </div>
 
 
@@ -368,10 +396,17 @@ Returns:
 
 <p>This is a short alias for <code><a href="#ImgToData">ImgToData</a></code>.</p>
 
-<p>Args:
-    img: The PIL Image.
-Returns:
-    np.ndarray: The converted data.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>img:</strong>  The PIL Image.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>np.ndarray: The converted data.</p>
+</blockquote>
 </div>
 
 
@@ -401,10 +436,17 @@ Returns:
 
             <div class="docstring"><p>Show an array-like data (values in 0 ~ 255) as image.</p>
 
-<p>Args:
-    data: The array-like data.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>data:</strong>  The array-like data.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -436,12 +478,19 @@ Returns:
 
             <div class="docstring"><p>Save an array-like data (values in 0 ~ 255) as image, with no image compression.</p>
 
-<p>Args:
-    data: The array-like data.
-    path: The target image path.
-    compress_level (bool): The <code>compress_level</code> of <code>Image.save</code>.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>data:</strong>  The array-like data.</li>
+<li><strong>path:</strong>  The target image path.</li>
+<li><strong>compress_level (bool):</strong>  The <code>compress_level</code> of <code>Image.save</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -489,11 +538,18 @@ Returns:
 
 <p>Supported image shapes are: (W,H), (W,H,1), (W,H,3), (W,H,4).</p>
 
-<p>Args:
-    img: The image to be converted.
-    transparent: The transparent color in RGB form (used for converting RGBA), e.g.: <code>np.array([255,255,255],dtype=float)</code> stands for white.
-Returns:
-    np.ndarray: The converted image data.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>img:</strong>  The image to be converted.</li>
+<li><strong>transparent:</strong>  The transparent color in RGB form (used for converting RGBA), e.g.: <code>np.array([255,255,255],dtype=float)</code> stands for white.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>np.ndarray: The converted image data.</p>
+</blockquote>
 </div>
 
 

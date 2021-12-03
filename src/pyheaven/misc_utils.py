@@ -75,7 +75,6 @@ def Unique(ls:List, **sort_args):
     Args:
         ls (List): The input list (or other iterable).
         sort_args: Args for calling `sorted` on the subpaths in format of (path, full_path), only works if `ordered` is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function `BUILTIN_LISTPATHS_SORT_CRITERIA()` for built-in criteria.
-
     Returns:
         List: The sorted list of unique elements.
     """
@@ -87,7 +86,6 @@ def TQDM(obj, **args):
     Args:
         ls (List): The object to be tracked using tqdm.
         args: args for calling `tqdm.tqdm` on the object (or range).
-
     Returns:
         tqdm.tqdm: The tqdm pbar.
     """
@@ -142,7 +140,6 @@ def NORMAL(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -154,7 +151,6 @@ def ERROR(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -166,7 +162,6 @@ def SUCCESS(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -178,7 +173,6 @@ def WARNING(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -190,7 +184,6 @@ def COLOR1(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -202,7 +195,6 @@ def COLOR2(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -214,7 +206,6 @@ def COLOR3(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -226,7 +217,6 @@ def BLACK(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -238,7 +228,6 @@ def RED(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -250,7 +239,6 @@ def GREEN(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -262,7 +250,6 @@ def YELLOW(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -274,7 +261,6 @@ def BLUE(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -286,7 +272,6 @@ def MAGENTA(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -298,7 +283,6 @@ def CYAN(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """
@@ -310,7 +294,6 @@ def WHITE(obj):
 
     Args:
         obj: the object to be formatted.
-
     Returns:
         None
     """

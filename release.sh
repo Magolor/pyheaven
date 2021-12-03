@@ -27,7 +27,7 @@ setup(
 )' > setup.py
 sh installer.sh
 python setup.py sdist upload
-pdoc --output-dir doc pyheaven
+pdoc -d google --output-dir doc pyheaven
 git add --all
 git commit -m $1
 git push -u

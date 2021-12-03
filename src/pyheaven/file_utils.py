@@ -5,6 +5,7 @@ from pathlib import Path as Path
 from copy import deepcopy
 import os
 import shutil
+import zipfile
 Import("send2trash.send2trash@send2trash",globals())
 Import("jsonlines",globals())
 
@@ -434,10 +435,20 @@ def Zip(src, dst):
     """Zip a directory `src` to a `.zip` file.
 
     Args:
-        src: The object to be tracked using tqdm.
-        args: args for calling `tqdm.tqdm` on the object (or range).
-
+        src: The source directory.
+        dst: The target `.zip` file.
     Returns:
-        tqdm.tqdm: The tqdm pbar.
+        None
     """
-    shutil.make_archive(Prefix(p2s(dst)), 'zip', p2s(src))
+    dst = p2s(dst); shutil.make_archive(dst[:-4] if dst.endswith('.zip') else dst, format='zip', root_dir=p2s(src))
+
+def Unzip(src, dst):
+    """Unzip a `.zip` file to a directory `src`.
+
+    Args:
+        src: The source `.zip` file.
+        dst: The targert directory.
+    Returns:
+        None
+    """
+    shutil.unpack_archive(p2s(src), extract_dir=dst, format='zip')

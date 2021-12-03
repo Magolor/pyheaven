@@ -288,14 +288,21 @@
 
             <div class="docstring"><p>Call system cmd console to execute a command (<code>subprocess.Popen</code>).</p>
 
-<p>Args:
-    command (str): The command to be executed. Should be a str of can be converted to str.
-    wait (bool): If True, wait until the command finishes and return the handle, otherwise directly return the handle.
-    shell (bool): If True, display shell for <code>subprocess.Popen</code>, otherwise ignored.
-    sudo (bool): If True, pre-attach "sudo" in front of the command, otherwise ignored.
-    args: Custom args for <code>Popen</code> to be appended.
-Returns:
-    Return the handle created by <code>subprocess.Popen</code>.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>command (str):</strong>  The command to be executed. Should be a str of can be converted to str.</li>
+<li><strong>wait (bool):</strong>  If True, wait until the command finishes and return the handle, otherwise directly return the handle.</li>
+<li><strong>shell (bool):</strong>  If True, display shell for <code>subprocess.Popen</code>, otherwise ignored.</li>
+<li><strong>sudo (bool):</strong>  If True, pre-attach "sudo" in front of the command, otherwise ignored.</li>
+<li><strong>args:</strong>  Custom args for <code>Popen</code> to be appended.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Return the handle created by <code>subprocess.Popen</code>.</p>
+</blockquote>
 </div>
 
 
@@ -374,17 +381,24 @@ Returns:
 
             <div class="docstring"><p>Install a python package by pip (or pip3), with built-in sources and other settings wrapped. Please refer to function <code><a href="#BUILTIN_PIP_SOURCES">BUILTIN_PIP_SOURCES()</a></code> for built-in sources.</p>
 
-<p>Args:
-    package (str): The package name to be installed.
-    source (str): "--index-url" and "--trusted-host" setting. There are some built-in sources, but you could also specify your own sources by passing the url. The url should be valid and starts with "http://" or "https://".
-    pip3 (bool): If True, use "pip3", otherwise "pip".
-    upgrade (bool): If True, use "--upgrade", otherwise ignored.
-    force (bool): If True, use "--force-reinstall", otherwise ignored.
-    force_deps (bool): If False and "force" is set to True, use "--no-deps", otherwise ignored.
-    https (bool): If True, replace built-in sources to corresponding https version, it does NOT work for custom sources.
-    args (str): Custom args for pip (or pip3) to be appended.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>package (str):</strong>  The package name to be installed.</li>
+<li><strong>source (str):</strong>  "--index-url" and "--trusted-host" setting. There are some built-in sources, but you could also specify your own sources by passing the url. The url should be valid and starts with "http://" or "https://".</li>
+<li><strong>pip3 (bool):</strong>  If True, use "pip3", otherwise "pip".</li>
+<li><strong>upgrade (bool):</strong>  If True, use "--upgrade", otherwise ignored.</li>
+<li><strong>force (bool):</strong>  If True, use "--force-reinstall", otherwise ignored.</li>
+<li><strong>force_deps (bool):</strong>  If False and "force" is set to True, use "--no-deps", otherwise ignored.</li>
+<li><strong>https (bool):</strong>  If True, replace built-in sources to corresponding https version, it does NOT work for custom sources.</li>
+<li><strong>args (str):</strong>  Custom args for pip (or pip3) to be appended.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -419,13 +433,20 @@ Returns:
 
             <div class="docstring"><p>Call system cmd console to execute <code>rsync</code> command (<code>subprocess.Popen</code>).</p>
 
-<p>Args:
-    src (str): The source path of <code>rsync</code>.
-    dst (str): The destination path of <code>rsync</code>.
-    wait (bool): If True, wait until the command finishes and return the handle, otherwise directly return the handle.
-    args: Custom args for <code>Popen</code> to be appended.
-Returns:
-    Return the handle created by <code>subprocess.Popen</code>.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src (str):</strong>  The source path of <code>rsync</code>.</li>
+<li><strong>dst (str):</strong>  The destination path of <code>rsync</code>.</li>
+<li><strong>wait (bool):</strong>  If True, wait until the command finishes and return the handle, otherwise directly return the handle.</li>
+<li><strong>args:</strong>  Custom args for <code>Popen</code> to be appended.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Return the handle created by <code>subprocess.Popen</code>.</p>
+</blockquote>
 </div>
 
 
@@ -566,17 +587,24 @@ Returns:
 
             <div class="docstring"><p>Dynamically import packages.</p>
 
-<p>Args:
-    packages (str or List[str]): The package or packages to be imported. Use "@" for alias. Order matters: please place parent packages before their children.
-    module_globals: The <code>globals()</code> of the module that performs the import. You should almost always put <code>module_globals=globals()</code> here.
-    mode (str): If set to "strict", failures directly result in <code>ImportError</code>.
-                If set to "install_strict", try to install missing packages using <code><a href="#PIP">PIP</a></code> with arguments in <code>install_args</code>, and then failures result in <code>ImportError</code>.
-                If set to "install_ignore", try to install missing packages using <code><a href="#PIP">PIP</a></code> with arguments in <code>install_args</code>, and then failures are ignored.
-                If set to "ignore", failures are ignored.
-    force_reimport (bool): If True, force import even if the module is already imported, otherwise ignored.
-    install_args: Arguments for calling <code><a href="#PIP">PIP</a></code>. Only useful for "install_strict" or "install_ignore" mode.
-Returns:
-    List[str]: Packages or functions that failed to be imported.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>packages (str or List[str]):</strong>  The package or packages to be imported. Use "@" for alias. Order matters: please place parent packages before their children.</li>
+<li><strong>module_globals:</strong>  The <code>globals()</code> of the module that performs the import. You should almost always put <code>module_globals=globals()</code> here.</li>
+<li><strong>mode (str):</strong>  If set to "strict", failures directly result in <code>ImportError</code>.
+If set to "install_strict", try to install missing packages using <code><a href="#PIP">PIP</a></code> with arguments in <code>install_args</code>, and then failures result in <code>ImportError</code>.
+If set to "install_ignore", try to install missing packages using <code><a href="#PIP">PIP</a></code> with arguments in <code>install_args</code>, and then failures are ignored.
+If set to "ignore", failures are ignored.</li>
+<li><strong>force_reimport (bool):</strong>  If True, force import even if the module is already imported, otherwise ignored.</li>
+<li><strong>install_args:</strong>  Arguments for calling <code><a href="#PIP">PIP</a></code>. Only useful for "install_strict" or "install_ignore" mode.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: Packages or functions that failed to be imported.</p>
+</blockquote>
 </div>
 
 
@@ -606,10 +634,17 @@ Returns:
 
             <div class="docstring"><p>Return a class by class name.</p>
 
-<p>Args:
-    cls (str): Class name.
-Returns:
-    type: The class.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>cls (str):</strong>  Class name.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>type: The class.</p>
+</blockquote>
 </div>
 
 

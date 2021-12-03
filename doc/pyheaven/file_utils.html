@@ -643,11 +643,18 @@
 
             <div class="docstring"><p>Convert any representation of a path (either a <code>pathlib.Path</code> or a str) to a str, with trailing slashes for folder.</p>
 
-<p>Args:
-    path: The path to be converted to string format.
-    as_folder (bool): If True, force to treat it as a folder, otherwise ignored. This is useful when, for example, the desired folder does not exist.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path to be converted to string format.</li>
+<li><strong>as_folder (bool):</strong>  If True, force to treat it as a folder, otherwise ignored. This is useful when, for example, the desired folder does not exist.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -682,11 +689,18 @@ Returns:
 
 <p>This is a short alias for <code><a href="#PathToString">PathToString</a></code>.</p>
 
-<p>Args:
-    p: The path to be converted to string format.
-    f (bool): If True, force to treat it as a folder, otherwise ignored. This is useful when, for example, the desired folder does not exist.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>p:</strong>  The path to be converted to string format.</li>
+<li><strong>f (bool):</strong>  If True, force to treat it as a folder, otherwise ignored. This is useful when, for example, the desired folder does not exist.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -716,10 +730,17 @@ Returns:
 
             <div class="docstring"><p>Convert a path to absolute format.</p>
 
-<p>Args:
-    p: The path to be converted.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>p:</strong>  The path to be converted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -753,11 +774,18 @@ Returns:
 
             <div class="docstring"><p>Get the parent (ancestor) of a path. Note that for a relative path string, it can not trace beyond the root path.</p>
 
-<p>Args:
-    p: The path to be queried.
-    l (int): The number of levels of parents to jump.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>p:</strong>  The path to be queried.</li>
+<li><strong>l (int):</strong>  The number of levels of parents to jump.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -790,10 +818,17 @@ Returns:
 
             <div class="docstring"><p>Concatenate a list of string or paths to a path.</p>
 
-<p>Args:
-    *plist (Iterable): The list to be converted.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>*plist (Iterable):</strong>  The list to be converted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -823,10 +858,17 @@ Returns:
 
             <div class="docstring"><p>Get the prefix of a path, return the folder itself for a folder.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -856,10 +898,17 @@ Returns:
 
             <div class="docstring"><p>Get the suffix of a path, return empty string "" for a folder.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -893,10 +942,17 @@ Returns:
 
 <p>This is an alias for <code><a href="#Suffix">Suffix</a></code>.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -926,10 +982,17 @@ Returns:
 
             <div class="docstring"><p>Get the file with the same name as path but with the desired format.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    str: The result string.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The result string.</p>
+</blockquote>
 </div>
 
 
@@ -959,10 +1022,17 @@ Returns:
 
             <div class="docstring"><p>Check whether a file or folder exists.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    bool: True if the file or folder exists otherwise False.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the file or folder exists otherwise False.</p>
+</blockquote>
 </div>
 
 
@@ -992,10 +1062,17 @@ Returns:
 
             <div class="docstring"><p>Check whether a folder exists.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    bool: True if the folder exists otherwise False.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the folder exists otherwise False.</p>
+</blockquote>
 </div>
 
 
@@ -1025,10 +1102,17 @@ Returns:
 
             <div class="docstring"><p>Check whether a file exists.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    bool: True if the file exists otherwise False.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the file exists otherwise False.</p>
+</blockquote>
 </div>
 
 
@@ -1271,14 +1355,21 @@ Returns:
 
             <div class="docstring"><p>Return a list of subpaths under the given path.</p>
 
-<p>Args:
-    path: The path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
-    filter_function: Filter subpaths in format of (path, full_path). Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>with_path (bool):</strong>  If True, pre-attach the given path to all subpaths, otherwise ignored.</li>
+<li><strong>filter_function:</strong>  Filter subpaths in format of (path, full_path). Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1315,13 +1406,20 @@ Returns:
 
 <p>This is an alias for <code>ListPaths(filter_function=IS_FOLDER_FILTER)</code>.</p>
 
-<p>Args:
-    path: The path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>with_path (bool):</strong>  If True, pre-attach the given path to all subpaths, otherwise ignored.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1358,13 +1456,20 @@ Returns:
 
 <p>This is an alias for <code>ListPaths(filter_function=IS_FILE_FILTER)</code>.</p>
 
-<p>Args:
-    path: The path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    with_path (bool): If True, pre-attach the given path to all subpaths, otherwise ignored.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>with_path (bool):</strong>  If True, pre-attach the given path to all subpaths, otherwise ignored.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Please refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1410,14 +1515,21 @@ Returns:
 
             <div class="docstring"><p>Return a list of subpaths recursively under the given path. Since this is wrapped upon <code>os.walk</code>, <code>with_path</code> is forced. (TODO: fix)</p>
 
-<p>Args:
-    path: The path.
-    relpath: The output result would be converted to relative to the given path. Use None for non-relative path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    filter_function: Filter subpaths in format of (full_path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (full_path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>relpath:</strong>  The output result would be converted to relative to the given path. Use None for non-relative path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>filter_function:</strong>  Filter subpaths in format of (full_path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (full_path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1455,14 +1567,21 @@ Returns:
 
 <p>This is an alias for <code>EnumPaths(filter_function=IS_FOLDER_FILTER)</code>.</p>
 
-<p>Args:
-    path: The path.
-    relpath: The output result would be converted to relative to the given path. Use None for non-relative path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    filter_function: Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>relpath:</strong>  The output result would be converted to relative to the given path. Use None for non-relative path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>filter_function:</strong>  Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1500,14 +1619,21 @@ Returns:
 
 <p>This is an alias for <code>EnumPaths(filter_function=IS_FILE_FILTER)</code>.</p>
 
-<p>Args:
-    path: The path.
-    relpath: The output result would be converted to relative to the given path. Use None for non-relative path.
-    ordered (bool): If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.
-    filter_function: Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.
-Returns:
-    List[str]: The result strings.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>relpath:</strong>  The output result would be converted to relative to the given path. Use None for non-relative path.</li>
+<li><strong>ordered (bool):</strong>  If True, sort subpaths by criteria specified in <code>sort_args</code>, otherwise in original order from <code>os.listdir()</code>.</li>
+<li><strong>filter_function:</strong>  Filter subpaths in format of (path, full_path). Notice that the filter function will only be applied at the base level instead of applied recursively. Please refer to function <code><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS">BUILTIN_LISTPATHS_FILTER_FUNCTIONS()</a></code> for built-in criteria.</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA">BUILTIN_LISTPATHS_SORT_CRITERIA()</a></code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List[str]: The result strings.</p>
+</blockquote>
 </div>
 
 
@@ -1540,10 +1666,17 @@ Returns:
 
             <div class="docstring"><p>Create the given path as folder, parents will be automatically built.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    bool: True if the folder is created, otherwise already exists.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the folder is created, otherwise already exists.</p>
+</blockquote>
 </div>
 
 
@@ -1579,10 +1712,17 @@ Returns:
 
             <div class="docstring"><p>Create the given path as file, parents will be automatically built.</p>
 
-<p>Args:
-    path: The path.
-Returns:
-    bool: True if the file is created, otherwise already exists.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the file is created, otherwise already exists.</p>
+</blockquote>
 </div>
 
 
@@ -1616,11 +1756,18 @@ Returns:
 
             <div class="docstring"><p>Delete the given path.</p>
 
-<p>Args:
-    path: The path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.
-Returns:
-    bool: True if the path is deleted, otherwise it does not exist.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bool: True if the path is deleted, otherwise it does not exist.</p>
+</blockquote>
 </div>
 
 
@@ -1651,11 +1798,18 @@ Returns:
 
             <div class="docstring"><p>Clear the given folder if it exists, create if it does not exist.</p>
 
-<p>Args:
-    path: The path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1686,11 +1840,18 @@ Returns:
 
             <div class="docstring"><p>Clear the given file if it exists, create if it does not exist.</p>
 
-<p>Args:
-    path: The path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove, otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1722,12 +1883,19 @@ Returns:
 
             <div class="docstring"><p>Copy file from src to dst, notice that dst will be deleted if exists.</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1763,12 +1931,19 @@ Returns:
 
 <p>This is an alias for <code><a href="#CopyFile">CopyFile</a></code>.</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1809,12 +1984,19 @@ Returns:
 
 <p>This is NOT the same as <code><a href="#ReplaceFolder">ReplaceFolder</a></code>, which does not merge <code>src</code> to <code>dst</code>, instead, it deletes the entire <code>dst</code> directory if exists.</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if conflict arises), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if conflict arises), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1850,12 +2032,19 @@ Returns:
 
 <p>This is NOT the same as <code><a href="#CopyFolder">CopyFolder</a></code>, which merges <code>src</code> to <code>dst</code>.</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1891,12 +2080,19 @@ Returns:
 
 <p>This is NOT the same as <code>shutil.move</code>, which will raise an error when <code>dst</code> is an existing file.</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1932,12 +2128,19 @@ Returns:
 
 <p>This is NOT the same as <code>shutil.move</code>, which will move the <code>src</code> into <code>dst</code> if <code>dst</code> is an existing folder</p>
 
-<p>Args:
-    src: The source path.
-    dst: The destination path.
-    rm (bool): If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>src:</strong>  The source path.</li>
+<li><strong>dst:</strong>  The destination path.</li>
+<li><strong>rm (bool):</strong>  If True, use <code>shutil</code> to enforce remove (if <code>dst</code> exists), otherwise <code>send2trash</code> only.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1969,12 +2172,18 @@ Returns:
 
             <div class="docstring"><p>Zip a directory <code>src</code> to a <code>.zip</code> file.</p>
 
-<p>Args:
-    src: The object to be tracked using tqdm.
-    args: args for calling <code>tqdm.tqdm</code> on the object (or range).</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    tqdm.tqdm: The tqdm pbar.</p>
+<ul>
+<li><strong>src:</strong>  The object to be tracked using tqdm.</li>
+<li><strong>args:</strong>  args for calling <code>tqdm.tqdm</code> on the object (or range).</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>tqdm.tqdm: The tqdm pbar.</p>
+</blockquote>
 </div>
 
 

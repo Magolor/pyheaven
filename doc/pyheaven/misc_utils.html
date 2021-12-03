@@ -475,11 +475,18 @@
 
             <div class="docstring"><p>Return a random string.</p>
 
-<p>Args:
-    length (int): Length of the random string.
-    charset (str): The alphabet. Notice that if a word appears multiple times, the probability that it is chosen also multiples.
-Returns:
-    str: A random string of length <code>length</code>, with all characters chosen from <code>charset</code>.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>length (int):</strong>  Length of the random string.</li>
+<li><strong>charset (str):</strong>  The alphabet. Notice that if a word appears multiple times, the probability that it is chosen also multiples.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: A random string of length <code>length</code>, with all characters chosen from <code>charset</code>.</p>
+</blockquote>
 </div>
 
 
@@ -509,10 +516,17 @@ Returns:
 
             <div class="docstring"><p>Read all float numbers from a line of text.</p>
 
-<p>Args:
-    line (str): A line of text.
-Returns:
-    List: All float numbers find in the line.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>line (str):</strong>  A line of text.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List: All float numbers find in the line.</p>
+</blockquote>
 </div>
 
 
@@ -542,10 +556,17 @@ Returns:
 
             <div class="docstring"><p>Flatten an embedded list to a 1D list.</p>
 
-<p>Args:
-    L: The embedded list to be flattened.
-Returns:
-    List: The flattened list.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>L:</strong>  The embedded list to be flattened.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List: The flattened list.</p>
+</blockquote>
 </div>
 
 
@@ -575,10 +596,17 @@ Returns:
 
             <div class="docstring"><p>Return IP address string of the current device.</p>
 
-<p>Args:
-    None
-Returns:
-    str: The IP address string of the current device.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li>None</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The IP address string of the current device.</p>
+</blockquote>
 </div>
 
 
@@ -608,10 +636,17 @@ Returns:
 
             <div class="docstring"><p>Return the formatted current time.</p>
 
-<p>Args:
-    format (str): The time format.
-Returns:
-    str: The formatted current time.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>format (str):</strong>  The time format.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>str: The formatted current time.</p>
+</blockquote>
 </div>
 
 
@@ -643,12 +678,19 @@ Returns:
 
             <div class="docstring"><p>Return a clipped value between lower bound <code>l</code> and upper bound <code>u</code> (closed).</p>
 
-<p>Args:
-    value: A value.
-    l: The lower bound.
-    u: The upper bound.
-Returns:
-    Any: The clipped value.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>value:</strong>  A value.</li>
+<li><strong>l:</strong>  The lower bound.</li>
+<li><strong>u:</strong>  The upper bound.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Any: The clipped value.</p>
+</blockquote>
 </div>
 
 
@@ -680,12 +722,18 @@ Returns:
 
             <div class="docstring"><p>Return a sorted list of unique elements.</p>
 
-<p>Args:
-    ls (List): The input list (or other iterable).
-    sort_args: Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code>BUILTIN_LISTPATHS_SORT_CRITERIA()</code> for built-in criteria.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    List: The sorted list of unique elements.</p>
+<ul>
+<li><strong>ls (List):</strong>  The input list (or other iterable).</li>
+<li><strong>sort_args:</strong>  Args for calling <code>sorted</code> on the subpaths in format of (path, full_path), only works if <code>ordered</code> is True. Notice that the sort function will only be applied at the base level instead of applied recursively. PPlease refer to function <code>BUILTIN_LISTPATHS_SORT_CRITERIA()</code> for built-in criteria.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List: The sorted list of unique elements.</p>
+</blockquote>
 </div>
 
 
@@ -722,12 +770,18 @@ Returns:
 
             <div class="docstring"><p>Return a tqdm pbar, both iterable and int are supported for obj.</p>
 
-<p>Args:
-    ls (List): The object to be tracked using tqdm.
-    args: args for calling <code>tqdm.tqdm</code> on the object (or range).</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    tqdm.tqdm: The tqdm pbar.</p>
+<ul>
+<li><strong>ls (List):</strong>  The object to be tracked using tqdm.</li>
+<li><strong>args:</strong>  args for calling <code>tqdm.tqdm</code> on the object (or range).</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>tqdm.tqdm: The tqdm pbar.</p>
+</blockquote>
 </div>
 
 
@@ -759,10 +813,17 @@ Returns:
 
             <div class="docstring"><p>Print to a file_handle with auto-flush.</p>
 
-<p>Args:
-    <em>args, *</em>kwargs: arguments used in <code>print</code>.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong><em>args, *</em>kwargs:</strong>  arguments used in <code>print</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -794,10 +855,17 @@ Returns:
 
             <div class="docstring"><p>Print to stdout with auto-flush.</p>
 
-<p>Args:
-    <em>args, *</em>kwargs: arguments used in <code>print</code>.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong><em>args, *</em>kwargs:</strong>  arguments used in <code>print</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -829,10 +897,17 @@ Returns:
 
             <div class="docstring"><p>Print to stderr with auto-flush.</p>
 
-<p>Args:
-    <em>args, *</em>kwargs: arguments used in <code>print</code>.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong><em>args, *</em>kwargs:</strong>  arguments used in <code>print</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -863,11 +938,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of normal color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -898,11 +979,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of error color (red) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -933,11 +1020,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of success color (green) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -968,11 +1061,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of warning color (yellow) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1003,11 +1102,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of highlight color 1 (blue) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1038,11 +1143,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of highlight color 2 (magenta) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1073,11 +1184,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of highlight color 3 (cyan) in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1108,11 +1225,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of black color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1143,11 +1266,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of red color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1178,11 +1307,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of green color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1213,11 +1348,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of yellow color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1248,11 +1389,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of blue color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1283,11 +1430,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of magenta color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1318,11 +1471,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of cyan color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -1353,11 +1512,17 @@ Returns:
 
             <div class="docstring"><p>Format an object into string of white color in console.</p>
 
-<p>Args:
-    obj: the object to be formatted.</p>
+<h6 id="args">Args</h6>
 
-<p>Returns:
-    None</p>
+<ul>
+<li><strong>obj:</strong>  the object to be formatted.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 

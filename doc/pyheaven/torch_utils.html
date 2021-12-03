@@ -394,13 +394,20 @@
 
             <div class="docstring"><p>Save an object as torch file.</p>
 
-<p>Args:
-    obj: The object to be saved.
-    path: The save path.
-    pickle_protocol (int/None): The <code>pickle_protocol</code> argument for <code>torch.save</code>.
-    _use_new_zipfile_serialization (int/None): The <code>_use_new_zipfile_serialization</code> argument for <code>torch.save</code>.
-Returns:
-    None</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>obj:</strong>  The object to be saved.</li>
+<li><strong>path:</strong>  The save path.</li>
+<li><strong>pickle_protocol (int/None):</strong>  The <code>pickle_protocol</code> argument for <code>torch.save</code>.</li>
+<li><strong>_use_new_zipfile_serialization (int/None):</strong>  The <code>_use_new_zipfile_serialization</code> argument for <code>torch.save</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -432,11 +439,18 @@ Returns:
 
             <div class="docstring"><p>Load an object from existing torch file.</p>
 
-<p>Args:
-    path: The load path.
-    map_location: The <code>map_location</code> argument for <code>torch.load</code>.
-Returns:
-    Any: The loaded object.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>path:</strong>  The load path.</li>
+<li><strong>map_location:</strong>  The <code>map_location</code> argument for <code>torch.load</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Any: The loaded object.</p>
+</blockquote>
 </div>
 
 
@@ -477,12 +491,19 @@ Returns:
 
             <div class="docstring"><p>Save an object as torch bytearray.</p>
 
-<p>Args:
-    obj: The object to be saved.
-    pickle_protocol (int/None): The <code>pickle_protocol</code> argument for <code>torch.save</code>.
-    _use_new_zipfile_serialization (int/None): The <code>_use_new_zipfile_serialization</code> argument for <code>torch.save</code>.
-Returns:
-    bytearray: The torch bytearray.</p>
+<h6 id="args">Args</h6>
+
+<ul>
+<li><strong>obj:</strong>  The object to be saved.</li>
+<li><strong>pickle_protocol (int/None):</strong>  The <code>pickle_protocol</code> argument for <code>torch.save</code>.</li>
+<li><strong>_use_new_zipfile_serialization (int/None):</strong>  The <code>_use_new_zipfile_serialization</code> argument for <code>torch.save</code>.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>bytearray: The torch bytearray.</p>
+</blockquote>
 </div>
 
 
@@ -534,19 +555,19 @@ Returns:
 
         </details>
 
-            <div class="docstring"><p>An abstract class representing a :class:<code>Dataset</code>.</p>
+            <div class="docstring"><p>An abstract class representing a <code>Dataset</code>.</p>
 
 <p>All datasets that represent a map from keys to data samples should subclass
-it. All subclasses should overwrite :meth:<code>__getitem__</code>, supporting fetching a
+it. All subclasses should overwrite <code>__getitem__</code>, supporting fetching a
 data sample for a given key. Subclasses could also optionally overwrite
-:meth:<code>__len__</code>, which is expected to return the size of the dataset by many
-:class:<code>~torch.utils.data.Sampler</code> implementations and the default options
-of :class:<code>~torch.utils.data.DataLoader</code>.</p>
+<code>__len__</code>, which is expected to return the size of the dataset by many
+<code>~torch.utils.data.Sampler</code> implementations and the default options
+of <code>~torch.utils.data.DataLoader</code>.</p>
 
-<p>.. note::
-  :class:<code>~torch.utils.data.DataLoader</code> by default constructs a index
-  sampler that yields integral indices.  To make it work with a map-style
-  dataset with non-integral indices/keys, a custom sampler must be provided.</p>
+<p><em>Note:</em>
+<code>~torch.utils.data.DataLoader</code> by default constructs a index
+sampler that yields integral indices.  To make it work with a map-style
+dataset with non-integral indices/keys, a custom sampler must be provided.</p>
 </div>
 
 
@@ -718,7 +739,7 @@ class Model(nn.Module):
 </code></pre>
 
 <p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code><a href="#TimmBackbone.to">to</a></code>, etc.</p>
+parameters converted too when you call <code><a href="#TimmBackbone.to">to</a></code>, etc.</p>
 
 <p>:ivar training: Boolean represents whether this module is in training or
                 evaluation mode.
@@ -794,11 +815,11 @@ parameters converted too when you call :meth:<code><a href="#TimmBackbone.to">to
 
 <p>Should be overridden by all subclasses.</p>
 
-<p>.. note::
-    Although the recipe for forward pass needs to be defined within
-    this function, one should call the :class:<code>Module</code> instance afterwards
-    instead of this since the former takes care of running the
-    registered hooks while the latter silently ignores them.</p>
+<p><em>Note:</em>
+Although the recipe for forward pass needs to be defined within
+this function, one should call the <code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
 </div>
 
 
@@ -908,7 +929,7 @@ class Model(nn.Module):
 </code></pre>
 
 <p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code><a href="#FUNC.to">to</a></code>, etc.</p>
+parameters converted too when you call <code><a href="#FUNC.to">to</a></code>, etc.</p>
 
 <p>:ivar training: Boolean represents whether this module is in training or
                 evaluation mode.
@@ -977,11 +998,11 @@ parameters converted too when you call :meth:<code><a href="#FUNC.to">to</a></co
 
 <p>Should be overridden by all subclasses.</p>
 
-<p>.. note::
-    Although the recipe for forward pass needs to be defined within
-    this function, one should call the :class:<code>Module</code> instance afterwards
-    instead of this since the former takes care of running the
-    registered hooks while the latter silently ignores them.</p>
+<p><em>Note:</em>
+Although the recipe for forward pass needs to be defined within
+this function, one should call the <code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
 </div>
 
 
@@ -1096,7 +1117,7 @@ class Model(nn.Module):
 </code></pre>
 
 <p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code><a href="#FC.to">to</a></code>, etc.</p>
+parameters converted too when you call <code><a href="#FC.to">to</a></code>, etc.</p>
 
 <p>:ivar training: Boolean represents whether this module is in training or
                 evaluation mode.
@@ -1173,11 +1194,11 @@ parameters converted too when you call :meth:<code><a href="#FC.to">to</a></code
 
 <p>Should be overridden by all subclasses.</p>
 
-<p>.. note::
-    Although the recipe for forward pass needs to be defined within
-    this function, one should call the :class:<code>Module</code> instance afterwards
-    instead of this since the former takes care of running the
-    registered hooks while the latter silently ignores them.</p>
+<p><em>Note:</em>
+Although the recipe for forward pass needs to be defined within
+this function, one should call the <code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
 </div>
 
 
@@ -1299,7 +1320,7 @@ class Model(nn.Module):
 </code></pre>
 
 <p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code><a href="#CONV.to">to</a></code>, etc.</p>
+parameters converted too when you call <code><a href="#CONV.to">to</a></code>, etc.</p>
 
 <p>:ivar training: Boolean represents whether this module is in training or
                 evaluation mode.
@@ -1389,11 +1410,11 @@ parameters converted too when you call :meth:<code><a href="#CONV.to">to</a></co
 
 <p>Should be overridden by all subclasses.</p>
 
-<p>.. note::
-    Although the recipe for forward pass needs to be defined within
-    this function, one should call the :class:<code>Module</code> instance afterwards
-    instead of this since the former takes care of running the
-    registered hooks while the latter silently ignores them.</p>
+<p><em>Note:</em>
+Although the recipe for forward pass needs to be defined within
+this function, one should call the <code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
 </div>
 
 
