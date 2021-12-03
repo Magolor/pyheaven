@@ -6,6 +6,5 @@
 
 This is a package that contains useful functions for python programming as well as daily lives.
 
-## Package Contents
+## Package Docs
 
-TODO: add docs
