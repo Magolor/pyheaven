@@ -429,3 +429,15 @@ def MoveFolder(src, dst, rm=False):
         None
     """
     CreateFolder(dst); Delete(dst, rm=rm); shutil.move(p2s(src,f=True), p2s(dst,f=True))
+
+def Zip(src, dst):
+    """Zip a directory `src` to a `.zip` file.
+
+    Args:
+        src: The object to be tracked using tqdm.
+        args: args for calling `tqdm.tqdm` on the object (or range).
+
+    Returns:
+        tqdm.tqdm: The tqdm pbar.
+    """
+    shutil.make_archive(Prefix(p2s(dst)), 'zip', p2s(src))
