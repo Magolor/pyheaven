@@ -1,6 +1,7 @@
 from .basic_utils import *
 import re
 import time
+import shutil
 import string
 import random
 Import("tqdm",globals())
@@ -97,3 +98,233 @@ def TQDM(obj, **args):
         return tqdm.tqdm(range(obj), **args)
     else:
         return tqdm.tqdm(obj, **args)
+
+def ZIP(src, dst):
+    """Zip a directory `src` to a `.zip` file.
+
+    Args:
+        src: The object to be tracked using tqdm.
+        args: args for calling `tqdm.tqdm` on the object (or range).
+
+    Returns:
+        tqdm.tqdm: The tqdm pbar.
+    """
+    shutil.make_archive(Prefix(p2s(dst)), 'zip', p2s(src))
+
+
+def PrintFile(file_handle, *args, **kwargs):
+    """Print to a file_handle with auto-flush.
+
+    Args:
+        *args, **kwargs: arguments used in `print`.
+    Returns:
+        None
+    """
+    if 'flush' not in kwargs:
+        kwargs['flush'] = True
+    print(args, file=file_handle, **kwargs)
+
+
+def PrintConsole(*args, **kwargs):
+    """Print to stdout with auto-flush.
+
+    Args:
+        *args, **kwargs: arguments used in `print`.
+    Returns:
+        None
+    """
+    if 'flush' not in kwargs:
+        kwargs['flush'] = True
+    print(args, file=sys.stdout, **kwargs)
+
+
+def PrintError(*args, **kwargs):
+    """Print to stderr with auto-flush.
+
+    Args:
+        *args, **kwargs: arguments used in `print`.
+    Returns:
+        None
+    """
+    if 'flush' not in kwargs:
+        kwargs['flush'] = True
+    print(args, file=sys.stderr, **kwargs)
+
+def NORMAL(obj):
+    """Format an object into string of normal color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return str(obj)
+
+
+def ERROR(obj):
+    """Format an object into string of error color (red) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;31m' + str(obj) + '\x1b[0m'
+
+
+def SUCCESS(obj):
+    """Format an object into string of success color (green) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;32m' + str(obj) + '\x1b[0m'
+
+
+def WARNING(obj):
+    """Format an object into string of warning color (yellow) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;33m' + str(obj) + '\x1b[0m'
+
+
+def COLOR1(obj):
+    """Format an object into string of highlight color 1 (blue) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;34m' + str(obj) + '\x1b[0m'
+
+
+def COLOR2(obj):
+    """Format an object into string of highlight color 2 (magenta) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;35m' + str(obj) + '\x1b[0m'
+
+
+def COLOR3(obj):
+    """Format an object into string of highlight color 3 (cyan) in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;36m' + str(obj) + '\x1b[0m'
+
+
+def BLACK(obj):
+    """Format an object into string of black color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;30m' + str(obj) + '\x1b[0m'
+
+
+def RED(obj):
+    """Format an object into string of red color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;31m' + str(obj) + '\x1b[0m'
+
+
+def GREEN(obj):
+    """Format an object into string of green color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;32m' + str(obj) + '\x1b[0m'
+
+
+def YELLOW(obj):
+    """Format an object into string of yellow color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;33m' + str(obj) + '\x1b[0m'
+
+
+def BLUE(obj):
+    """Format an object into string of blue color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;34m' + str(obj) + '\x1b[0m'
+
+
+def MAGENTA(obj):
+    """Format an object into string of magenta color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;35m' + str(obj) + '\x1b[0m'
+
+
+def CYAN(obj):
+    """Format an object into string of cyan color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;36m' + str(obj) + '\x1b[0m'
+
+
+def WHITE(obj):
+    """Format an object into string of white color in console.
+
+    Args:
+        obj: the object to be formatted.
+
+    Returns:
+        None
+    """
+    return '\x1b[1;37m' + str(obj) + '\x1b[0m'

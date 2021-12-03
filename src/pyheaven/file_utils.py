@@ -246,7 +246,7 @@ def EnumPaths(path="./", relpath="./", ordered:bool=False, filter_function=None,
     subpaths = [(subpath,subpath) for subpath in subpaths]
     subpaths = list(filter(filter_function, subpaths)) if filter_function is not None else subpaths
     subpaths = sorted(subpaths, **sort_args) if ordered else subpaths
-    return [(subpath[1] if relpath is None else os.path.relpath(subpath[1], relpath)) for subpath in subpaths]
+    return [(subpath[1] if relpath is None else p2s(os.path.relpath(subpath[1], relpath))) for subpath in subpaths]
 
 def EnumFolders(path="./", relpath="./", ordered:bool=False, **sort_args):
     """Return a list of folders recursively under the given path.

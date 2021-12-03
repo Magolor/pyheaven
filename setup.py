@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name = "pyheaven",
-    version = "0.1.4.3",
+    version = "0.1.4.4",
     author = "Magolor",
     author_email = "magolorcz@gmail.com",
     description = "Python Heaven",
