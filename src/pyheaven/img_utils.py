@@ -73,16 +73,17 @@ def DebugImgData(data):
     """
     img = d2i(data); img.show(); img.close()
 
-def SaveImgData(data, path):
+def SaveImgData(data, path, compress_level=0):
     """Save an array-like data (values in 0 ~ 255) as image, with no image compression.
 
     Args:
         data: The array-like data.
         path: The target image path.
+        compress_level (bool): The `compress_level` of `Image.save`.
     Returns:
         None
     """
-    img = d2i(data); img.save(p2s(path), compress_level=0); img.close()
+    img = d2i(data); img.save(p2s(path), compress_level=compress_level); img.close()
 
 def RGBImg(img, transparent=np.array([0,0,0],dtype=float)):
     """Convert an image to image of 3 channels. Assuming the input image are RGB if it is already a 3-channel image, and RGBA if it is a 4-channel image.
