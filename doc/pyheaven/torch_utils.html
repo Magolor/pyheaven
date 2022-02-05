@@ -97,6 +97,18 @@
 
             </li>
             <li>
+                    <a class="class" href="#GroupFC">GroupFC</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#GroupFC.__init__">GroupFC</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#GroupFC.forward">forward</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#CONV">CONV</a>
                             <ul class="memberlist">
                         <li>
@@ -312,6 +324,40 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">(</span>
             <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="n">dropout_inplace</span><span class="p">)]</span> <span class="k">if</span> <span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
         <span class="o">+</span>   <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span><span class="n">output_dim</span><span class="p">,</span><span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)])</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">norm_layer</span><span class="p">]</span> <span class="k">if</span> <span class="n">norm_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">activation</span><span class="p">]</span> <span class="k">if</span> <span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">flatten</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GroupFC</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">output_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">norm_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout_inplace</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">reserve_identity</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_group</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">output_group</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GroupFC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span> <span class="o">=</span> <span class="n">input_group</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span> <span class="o">=</span> <span class="n">output_group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">input_group</span><span class="p">);</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">output_group</span><span class="p">)</span>
+        <span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">,</span><span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">);</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">input_group</span><span class="p">,</span> <span class="n">output_group</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">t</span><span class="o">+</span><span class="n">o</span><span class="p">,</span><span class="n">s</span><span class="p">:</span><span class="n">s</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span> <span class="n">t</span> <span class="o">+=</span> <span class="n">o</span>
+        <span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="n">dropout_inplace</span><span class="p">)]</span> <span class="k">if</span> <span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">linear</span><span class="p">])</span>
         <span class="o">+</span>   <span class="p">([</span><span class="n">norm_layer</span><span class="p">]</span> <span class="k">if</span> <span class="n">norm_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
         <span class="o">+</span>   <span class="p">([</span><span class="n">activation</span><span class="p">]</span> <span class="k">if</span> <span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
         <span class="p">))</span>
@@ -1246,6 +1292,216 @@ registered hooks while the latter silently ignores them.</p>
                 <dd id="FC.zero_grad" class="function">zero_grad</dd>
                 <dd id="FC.share_memory" class="function">share_memory</dd>
                 <dd id="FC.extra_repr" class="function">extra_repr</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="GroupFC">
+                                <div class="attr class">
+        <a class="headerlink" href="#GroupFC">#&nbsp;&nbsp</a>
+
+        
+        <span class="def">class</span>
+        <span class="name">GroupFC</span><wbr>(<span class="base">torch.nn.modules.module.Module</span>):
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">GroupFC</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">output_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">norm_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout_inplace</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">reserve_identity</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_group</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">output_group</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GroupFC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span> <span class="o">=</span> <span class="n">input_group</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span> <span class="o">=</span> <span class="n">output_group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">input_group</span><span class="p">);</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">output_group</span><span class="p">)</span>
+        <span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">,</span><span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">);</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">input_group</span><span class="p">,</span> <span class="n">output_group</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">t</span><span class="o">+</span><span class="n">o</span><span class="p">,</span><span class="n">s</span><span class="p">:</span><span class="n">s</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span> <span class="n">t</span> <span class="o">+=</span> <span class="n">o</span>
+        <span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="n">dropout_inplace</span><span class="p">)]</span> <span class="k">if</span> <span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">linear</span><span class="p">])</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">norm_layer</span><span class="p">]</span> <span class="k">if</span> <span class="n">norm_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">activation</span><span class="p">]</span> <span class="k">if</span> <span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">flatten</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Base class for all neural network modules.</p>
+
+<p>Your models should also subclass this class.</p>
+
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+</code></pre>
+
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call <code><a href="#GroupFC.to">to</a></code>, etc.</p>
+
+<p>:ivar training: Boolean represents whether this module is in training or
+                evaluation mode.
+:vartype training: bool</p>
+</div>
+
+
+                            <div id="GroupFC.__init__" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#GroupFC.__init__">#&nbsp;&nbsp</a>
+
+        
+            <span class="name">GroupFC</span><span class="signature">(
+    input_group: List[int],
+    output_group: List[int],
+    bias=True,
+    norm_layer=None,
+    activation=None,
+    dropout: Union[int, NoneType] = None,
+    dropout_inplace: bool = True,
+    flatten=True,
+    reserve_identity: bool = True
+)</span>
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">output_group</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">norm_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dropout_inplace</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">reserve_identity</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_group</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">output_group</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GroupFC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span> <span class="o">=</span> <span class="n">input_group</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span> <span class="o">=</span> <span class="n">output_group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">input_group</span><span class="p">);</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">output_group</span><span class="p">)</span>
+        <span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">,</span><span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">);</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">input_group</span><span class="p">,</span> <span class="n">output_group</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">t</span><span class="o">+</span><span class="n">o</span><span class="p">,</span><span class="n">s</span><span class="p">:</span><span class="n">s</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span> <span class="n">t</span> <span class="o">+=</span> <span class="n">o</span>
+        <span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="n">dropout_inplace</span><span class="p">)]</span> <span class="k">if</span> <span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">linear</span><span class="p">])</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">norm_layer</span><span class="p">]</span> <span class="k">if</span> <span class="n">norm_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="o">+</span>   <span class="p">([</span><span class="n">activation</span><span class="p">]</span> <span class="k">if</span> <span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">()]</span> <span class="k">if</span> <span class="n">reserve_identity</span> <span class="k">else</span> <span class="p">[]))</span>
+        <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">flatten</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</div>
+
+
+                            </div>
+                            <div id="GroupFC.forward" class="classattr">
+                                        <div class="attr function"><a class="headerlink" href="#GroupFC.forward">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">forward</span><span class="signature">(self, data)</span>:
+    </div>
+
+                <details>
+            <summary>View Source</summary>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Defines the computation performed at every call.</p>
+
+<p>Should be overridden by all subclasses.</p>
+
+<p><em>Note:</em>
+Although the recipe for forward pass needs to be defined within
+this function, one should call the <code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>torch.nn.modules.module.Module</dt>
+                                <dd id="GroupFC.dump_patches" class="variable">dump_patches</dd>
+                <dd id="GroupFC.register_buffer" class="function">register_buffer</dd>
+                <dd id="GroupFC.register_parameter" class="function">register_parameter</dd>
+                <dd id="GroupFC.add_module" class="function">add_module</dd>
+                <dd id="GroupFC.get_submodule" class="function">get_submodule</dd>
+                <dd id="GroupFC.get_parameter" class="function">get_parameter</dd>
+                <dd id="GroupFC.get_buffer" class="function">get_buffer</dd>
+                <dd id="GroupFC.apply" class="function">apply</dd>
+                <dd id="GroupFC.cuda" class="function">cuda</dd>
+                <dd id="GroupFC.xpu" class="function">xpu</dd>
+                <dd id="GroupFC.cpu" class="function">cpu</dd>
+                <dd id="GroupFC.type" class="function">type</dd>
+                <dd id="GroupFC.float" class="function">float</dd>
+                <dd id="GroupFC.double" class="function">double</dd>
+                <dd id="GroupFC.half" class="function">half</dd>
+                <dd id="GroupFC.bfloat16" class="function">bfloat16</dd>
+                <dd id="GroupFC.to_empty" class="function">to_empty</dd>
+                <dd id="GroupFC.to" class="function">to</dd>
+                <dd id="GroupFC.register_backward_hook" class="function">register_backward_hook</dd>
+                <dd id="GroupFC.register_full_backward_hook" class="function">register_full_backward_hook</dd>
+                <dd id="GroupFC.register_forward_pre_hook" class="function">register_forward_pre_hook</dd>
+                <dd id="GroupFC.register_forward_hook" class="function">register_forward_hook</dd>
+                <dd id="GroupFC.T_destination" class="variable">T_destination</dd>
+                <dd id="GroupFC.state_dict" class="function">state_dict</dd>
+                <dd id="GroupFC.load_state_dict" class="function">load_state_dict</dd>
+                <dd id="GroupFC.parameters" class="function">parameters</dd>
+                <dd id="GroupFC.named_parameters" class="function">named_parameters</dd>
+                <dd id="GroupFC.buffers" class="function">buffers</dd>
+                <dd id="GroupFC.named_buffers" class="function">named_buffers</dd>
+                <dd id="GroupFC.children" class="function">children</dd>
+                <dd id="GroupFC.named_children" class="function">named_children</dd>
+                <dd id="GroupFC.modules" class="function">modules</dd>
+                <dd id="GroupFC.named_modules" class="function">named_modules</dd>
+                <dd id="GroupFC.train" class="function">train</dd>
+                <dd id="GroupFC.eval" class="function">eval</dd>
+                <dd id="GroupFC.requires_grad_" class="function">requires_grad_</dd>
+                <dd id="GroupFC.zero_grad" class="function">zero_grad</dd>
+                <dd id="GroupFC.share_memory" class="function">share_memory</dd>
+                <dd id="GroupFC.extra_repr" class="function">extra_repr</dd>
 
             </div>
                                 </dl>

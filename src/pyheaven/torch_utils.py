@@ -191,6 +191,40 @@ class FC(nn.Module):
     def forward(self, data):
         return self.layers(torch.flatten(data,start_dim=1)) if self.flatten else self.layers(data)
 
+
+class GroupFC(nn.Module):
+    def __init__(
+        self,
+        input_group:List[int],
+        output_group:List[int],
+        bias=True,
+        norm_layer=None,
+        activation=None,
+        dropout:Optional[int]=None,
+        dropout_inplace:bool=True,
+        flatten=True,
+        reserve_identity:bool=True,
+    ):
+        assert(len(input_group)==len(output_group))
+        super(GroupFC, self).__init__()
+        self.input_group = input_group; self.output_group = output_group
+        self.input_dim = sum(input_group); self.output_dim = sum(output_group)
+        linear = nn.Linear(self.input_dim,self.output_dim,bias=bias)
+        self.mask = torch.ones_like(linear.weight,dtype=bool); s = 0; t = 0
+        for i, o in zip(input_group, output_group):
+            self.mask[t:t+o,s:s+i] = 0; s += i; t += o
+        linear.weight.data.mul_(self.mask)
+        self.layers = nn.Sequential(*(
+            ([nn.Dropout(p=dropout,inplace=dropout_inplace)] if dropout is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([linear])
+        +   ([norm_layer] if norm_layer is not None else ([nn.Identity()] if reserve_identity else []))
+        +   ([activation] if activation is not None else ([nn.Identity()] if reserve_identity else []))
+        ))
+        self.flatten = flatten
+    
+    def forward(self, data):
+        return self.layers(torch.flatten(data,start_dim=1)) if self.flatten else self.layers(data)
+
 class CONV(nn.Module):
     def __init__(
         self,
