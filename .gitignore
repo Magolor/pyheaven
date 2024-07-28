@@ -5,3 +5,4 @@ build
 .pypirc
 pypi_recovery.txt
 .test
+.DS_Store
