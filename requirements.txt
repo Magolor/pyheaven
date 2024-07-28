@@ -1,0 +1,4 @@
+jsonlines
+openai
+pdoc
+send2trash
