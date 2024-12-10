@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 VERSION = "0.1.6.1"
 with open("__init__.py", "w") as f:
-    f.write(f'__version__ = "{VERSION}"')
+    f.write(f"__version__ = \"{VERSION}\"")
 
 setup(
     name = "pyheaven",
