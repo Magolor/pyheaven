@@ -192,10 +192,9 @@ def CacheItems(path, load_func=LoadPickle, locking=False, retry_time=-1, retry_g
     Returns:
         List[Tuple(Any, Any)]: A list of all key-value pairs.
     """
-    items = []
     for file in ListFiles(path, ordered=True):
         if file.endswith('.key'):
             key = load_func(pjoin(path, file))
             value = CacheGet(path, key, load_func=load_func, locking=locking, retry_time=retry_time, retry_gap=retry_gap)
-            items.append((key, value))
-    return items
+            yield (key, value)
+    return

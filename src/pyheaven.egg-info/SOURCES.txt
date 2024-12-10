@@ -13,6 +13,7 @@ src/pyheaven/misc_utils.py
 src/pyheaven/plot_utils.py
 src/pyheaven/project_utils.py
 src/pyheaven/pyqt_utils.py
+src/pyheaven/sandbox_utils.py
 src/pyheaven/serialize_utils.py
 src/pyheaven/torch_utils.py
 src/pyheaven.egg-info/PKG-INFO
