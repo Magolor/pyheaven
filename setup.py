@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-VERSION = "0.1.6.1"
+VERSION = "0.1.6.4"
 with open("__init__.py", "w") as f:
     f.write(f"__version__ = \"{VERSION}\"")
 

@@ -1,6 +1,7 @@
 from .file_utils import *
 import json
 import pickle
+import os
 Import("demjson",globals())
 Import("jsonlines",globals())
 Import("simplejson",globals())
@@ -10,7 +11,21 @@ def BUILTIN_JSON_BACKENDS():
     return ['json','jsonl','demjson','simplejson','jsonpickle']
 def BUILTIN_JSON_PRETTIFY_BACKENDS():
     return ['json',        'demjson','simplejson','jsonpickle']
-def SaveJson(obj, path, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, append:bool=False, *args, **kwargs):
+
+# Load default encoding from config file
+DEFAULT_ENCODING_CONFIG_PATH = pjoin(PYHEAVEN_PATH, "encoding_config.json")
+def load_default_encoding():
+    if not os.path.exists(DEFAULT_ENCODING_CONFIG_PATH):
+        with open(DEFAULT_ENCODING_CONFIG_PATH, 'w') as f:
+            json.dump({"default_encoding": "utf-8"}, f)
+    with open(DEFAULT_ENCODING_CONFIG_PATH, 'r') as f:
+        config = json.load(f)
+    return config.get("default_encoding", "utf-8")
+def set_default_encoding(encoding: str="utf-8"):
+    with open(DEFAULT_ENCODING_CONFIG_PATH, 'w') as f:
+        json.dump({"default_encoding": encoding}, f)
+
+def SaveJson(obj, path, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, append:bool=False, encoding:str=None, *args, **kwargs):
     """Save an object as json (or jsonl) file.
 
     Args:
@@ -22,23 +37,27 @@ def SaveJson(obj, path, backend:Literal['json','jsonl','demjson','simplejson','j
     Returns:
         None
     """
+    if encoding is None:
+        encoding = load_default_encoding()  # Load from config
     assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
     CreateFile(path); path = p2s(path)
     if backend=='jsonl':
         assert (indent is None), ("'jsonl' format does not support parameter 'indent'!")
-        with jsonlines.open(path, "a" if append else "w") as f:
+        with open(path, "a" if append else "w", encoding=encoding) as f:
+            writer = jsonlines.Writer(f)
             for data in obj:
-                f.write(data)
+                writer.write(data)
+            writer.close()
     else:
         assert (append is False), ("'json' format does not support parameter 'append'!")
         module = globals()[backend]
-        with open(path, "w") as f:
+        with open(path, "w", encoding=encoding) as f:
             if backend in ['json','simplejson']:
-                module.dump(obj, f, indent=indent, *args, **kwargs)
+                module.dump(obj, f, indent=indent, ensure_ascii=False, *args, **kwargs)
             else:
-                f.write(module.dumps(obj, indent=indent, *args, **kwargs))
+                f.write(module.dumps(obj, indent=indent, ensure_ascii=False, *args, **kwargs))
 
-def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','picklejson']='json', *args, **kwargs):
+def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','picklejson']='json', encoding:str=None, *args, **kwargs):
     """Load an object from existing json (or jsonl) file.
 
     Args:
@@ -47,20 +66,22 @@ def LoadJson(path, backend:Literal['json','jsonl','demjson','simplejson','pickle
     Returns:
         Any: The loaded object.
     """
+    if encoding is None:
+        encoding = load_default_encoding()  # Load from config
     assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
     assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
     if backend=='jsonl':
-        with open(path, "r") as f:
+        with open(path, "r", encoding=encoding) as f:
             return [data for data in jsonlines.Reader(f, *args, **kwargs)]
     else:
         module = globals()[backend]
-        with open(path, "r") as f:
+        with open(path, "r", encoding=encoding) as f:
             if backend in ['json','simplejson']:
                 return module.load(f, *args, **kwargs)
             else:
                 return module.loads(f.read(), *args, **kwargs)
 
-def DumpsJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, *args, **kwargs):
+def DumpsJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=None, encoding:str=None, *args, **kwargs):
     """Save an object as json (or jsonl) str.
 
     Args:
@@ -70,9 +91,11 @@ def DumpsJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpi
     Returns:
         str: The json str.
     """
+    if encoding is None:
+        encoding = load_default_encoding()  # Load from config
     assert (backend in BUILTIN_JSON_BACKENDS()), (f"backend not found! Supported backends: {BUILTIN_JSON_BACKENDS()}")
     if backend=='jsonl':
-        return "\n".join(json.dumps(o, indent=indent, *args, **kwargs) for o in obj)
+        return "\n".join(json.dumps(o, indent=indent, ensure_ascii=False, *args, **kwargs) for o in obj)
     else:
         module = globals()[backend]; return module.dumps(obj, indent=indent, *args, **kwargs)
 
@@ -92,7 +115,7 @@ def ReadsJson(s, backend:Literal['json','jsonl','demjson','simplejson','jsonpick
         module = globals()[backend]; return module.loads(s, *args, **kwargs)
 
 
-def PrintJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=4, *args, **kwargs):
+def PrintJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpickle']='json', indent:Optional[int]=4, encoding:str=None, *args, **kwargs):
     """Print an object as json (or jsonl) str using `DumpsJson`.
 
     Args:
@@ -102,9 +125,11 @@ def PrintJson(obj, backend:Literal['json','jsonl','demjson','simplejson','jsonpi
     Returns:
         None
     """
+    if encoding is None:
+        encoding = load_default_encoding()  # Load from config
     print(DumpsJson(obj,backend=backend,indent=indent,*args,**kwargs))
 
-def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','picklejson']='json', save_backend:Literal['json','demjson','simplejson','picklejson']='json', indent:Optional[int]=4, *args, **kwargs):
+def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','picklejson']='json', save_backend:Literal['json','demjson','simplejson','picklejson']='json', indent:Optional[int]=4, load_encoding:str=None, save_encoding:str=None, *args, **kwargs):
     """Load and re-save a existing json file.
 
     Args:
@@ -115,8 +140,12 @@ def PrettifyJson(path, load_backend:Literal['json','demjson','simplejson','pickl
     Returns:
         None
     """
+    if load_encoding is None:
+        load_encoding = load_default_encoding()  # Load from config
+    if save_encoding is None:
+        save_encoding = load_default_encoding()  # Load from config
     assert (ExistFile(path)), (f"Path '{path}' does not exist!"); path = p2s(path)
-    SaveJson(LoadJson(path, backend=load_backend), path, backend=save_backend, indent=indent, *args, **kwargs)
+    SaveJson(LoadJson(path, backend=load_backend, encoding=load_encoding), path, backend=save_backend, indent=indent, encoding=save_encoding, *args, **kwargs)
 
 def SavePickle(obj, path, protocol:Optional[int]=None):
     """Save an object as pickle file.
