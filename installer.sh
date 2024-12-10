@@ -1,3 +1,4 @@
+export PDOC_ALLOW_EXEC=1
 chmod -R 777 ./
 rm -rf pkg
 mkdir pkg

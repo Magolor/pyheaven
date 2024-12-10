@@ -3,9 +3,13 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+VERSION = "0.1.6.1"
+with open("__init__.py", "w") as f:
+    f.write(f__version__ = {VERSION})
+
 setup(
     name = "pyheaven",
-    version = "0.1.6.1",
+    version = VERSION,
     author = "Magolor",
     author_email = "magolorcz@gmail.com",
     description = "Python Heaven",
