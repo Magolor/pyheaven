@@ -16,6 +16,7 @@ def BUILTIN_JSON_PRETTIFY_BACKENDS():
 DEFAULT_ENCODING_CONFIG_PATH = pjoin(PYHEAVEN_PATH, "encoding_config.json")
 def load_default_encoding():
     if not os.path.exists(DEFAULT_ENCODING_CONFIG_PATH):
+        CreateFile(DEFAULT_ENCODING_CONFIG_PATH)
         with open(DEFAULT_ENCODING_CONFIG_PATH, 'w') as f:
             json.dump({"default_encoding": "utf-8"}, f)
     with open(DEFAULT_ENCODING_CONFIG_PATH, 'r') as f:
