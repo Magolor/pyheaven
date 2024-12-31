@@ -20,7 +20,8 @@ def LoadDefaultLLMConfig():
 def LLMInit(path, config=None, clear=True, rm=False,
         openai_api_key=None, openai_api_organization=None,
         aiml_api_key=None, aiml_base_url=None,
-        vertex_project_id=None, vertex_location=None, vertex_api_key_refresh_time=None
+        vertex_project_id=None, vertex_location=None, vertex_api_key_refresh_time=None,
+        deepseek_api_key=None, deepseek_base_url=None
     ):
     """Initialize the working directory of an LLM instance.
     
@@ -39,6 +40,9 @@ def LLMInit(path, config=None, clear=True, rm=False,
         vertex_project_id (str): The Google Cloud Vertex project ID. If provided, will overwrite the corresponding value in `config`.
         vertex_location (str): The Google Cloud Vertex location. If provided, will overwrite the corresponding value in `config`.
         vertex_api_key_refresh_time (int): The time gap between refreshing the Google Cloud Vertex API key.
+        
+        deepseek_api_key (str): The DeepSeek API key. If provided, will overwrite the corresponding value in `config`.
+        deepseek_base_url (str): The DeepSeek API base URL. If provided, will overwrite the corresponding value in `config`.
     Returns:
         None
     """
@@ -87,6 +91,19 @@ def LLMInit(path, config=None, clear=True, rm=False,
         config['vertex-api']['location'] = vertex_location
     if vertex_api_key_refresh_time is not None:
         config['vertex-api']['api_key_refresh_time'] = vertex_api_key_refresh_time
+    
+    if 'deepseek-api' not in config:
+        config['deepseek-api'] = {
+            "api_key": "<YOUR_DEEPSEEK_API_KEY>",
+            "base_url": "https://api.deepseek.com/v1",
+            "model": "deepseek-chat",
+            "temperature": 0.0,
+            "seed": 42
+        }
+    if deepseek_api_key is not None:
+        config['deepseek-api']['api_key'] = deepseek_api_key
+    if deepseek_base_url is not None:
+        config['deepseek-api']['base_url'] = deepseek_base_url
     
     if 'default_backend' not in config:
         config['default_backend'] = "openai-api"
@@ -150,7 +167,7 @@ def LLMQuery(path, messages, functions=list(), backend=None, model=None, tempera
         backend = config["default-api"]
     if backend == "openai-api":
         base_url = None
-    elif backend == "aiml-api":
+    elif backend in ["aiml-api", "deepseek-api"]:
         base_url = config[backend]["base_url"]
     elif backend == "vertex-api":
         base_url = f"https://{config[backend]['location']}-aiplatform.googleapis.com/v1beta1/projects/{config[backend]['project_id']}/locations/{config[backend]['location']}/endpoints/openapi"
