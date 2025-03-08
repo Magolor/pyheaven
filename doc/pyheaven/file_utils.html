@@ -183,19 +183,19 @@
 
                         <label class="view-source-button" for="mod-file_utils-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="kn">from</span> <span class="nn">.basic_utils</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="kn">from</span> <span class="nn">.misc_utils</span> <span class="kn">import</span> <span class="n">FlattenList</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">PurePosixPath</span> <span class="k">as</span> <span class="n">PurePosixPath</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> <span class="k">as</span> <span class="n">Path</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="kn">import</span> <span class="nn">os</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="kn">import</span> <span class="nn">shutil</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="kn">import</span> <span class="nn">zipfile</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.basic_utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.misc_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlattenList</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurePosixPath</span> <span class="k">as</span> <span class="n">PurePosixPath</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span> <span class="k">as</span> <span class="n">Path</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="n">Import</span><span class="p">(</span><span class="s2">&quot;send2trash.send2trash@send2trash&quot;</span><span class="p">,</span><span class="nb">globals</span><span class="p">())</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="n">Import</span><span class="p">(</span><span class="s2">&quot;jsonlines&quot;</span><span class="p">,</span><span class="nb">globals</span><span class="p">())</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Modified from https://stackoverflow.com/questions/21799210/python-copy-larger-file-too-slow</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="k">def</span> <span class="nf">_copyfileobj_patched</span><span class="p">(</span><span class="n">fsrc</span><span class="p">,</span> <span class="n">fdst</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">):</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="k">def</span><span class="w"> </span><span class="nf">_copyfileobj_patched</span><span class="p">(</span><span class="n">fsrc</span><span class="p">,</span> <span class="n">fdst</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">):</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Patches shutil method to hugely improve copy speed&quot;&quot;&quot;</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>        <span class="n">buf</span> <span class="o">=</span> <span class="n">fsrc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
@@ -204,7 +204,7 @@
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>        <span class="n">fdst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span> <span class="o">=</span> <span class="n">_copyfileobj_patched</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="k">def</span> <span class="nf">PathToString</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">as_folder</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="k">def</span><span class="w"> </span><span class="nf">PathToString</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">as_folder</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert any representation of a path (either a `pathlib.Path` or a str) to a str, with trailing slashes for folder.</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">    Args:</span>
@@ -215,7 +215,7 @@
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">);</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">PurePosixPath</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s1">&#39;@&#39;</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">as_folder</span> <span class="ow">or</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">PurePosixPath</span><span class="p">(</span><span class="n">path</span><span class="p">));</span> <span class="k">return</span> <span class="n">r</span> <span class="k">if</span> <span class="n">r</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="s2">&quot;./&quot;</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="k">def</span> <span class="nf">p2s</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2s</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert any representation of a path (either a `pathlib.Path` or a str) to a str, with trailing slashes for folder.</span>
 </span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
 </span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">    This is a short alias for `PathToString`.</span>
@@ -228,7 +228,7 @@
 </span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">PurePosixPath</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s1">&#39;@&#39;</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">or</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">PurePosixPath</span><span class="p">(</span><span class="n">path</span><span class="p">));</span> <span class="k">return</span> <span class="n">r</span> <span class="k">if</span> <span class="n">r</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="s2">&quot;./&quot;</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="k">def</span> <span class="nf">p2abs</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2abs</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a path to absolute format.</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
 </span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">    Args:</span>
@@ -238,7 +238,7 @@
 </span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="k">return</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">absolute</span><span class="p">())</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="k">def</span> <span class="nf">p2par</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2par</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 </span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the parent (ancestor) of a path. Note that for a relative path string, it can not trace beyond the root path.</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>
 </span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="sd">    Args:</span>
@@ -252,7 +252,7 @@
 </span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parent</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>    <span class="k">return</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="k">def</span> <span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the stem of a path.</span>
 </span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="sd">    Args:</span>
@@ -262,7 +262,7 @@
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">stem</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="k">def</span> <span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of a path.</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
 </span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">    Args:</span>
@@ -272,7 +272,7 @@
 </span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">name</span>
 </span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="k">def</span> <span class="nf">pjoin</span><span class="p">(</span><span class="o">*</span><span class="n">plist</span><span class="p">):</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="k">def</span><span class="w"> </span><span class="nf">pjoin</span><span class="p">(</span><span class="o">*</span><span class="n">plist</span><span class="p">):</span>
 </span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Concatenate a list of string or paths to a path.</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    Args:</span>
@@ -285,7 +285,7 @@
 </span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">/</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="k">return</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="k">def</span> <span class="nf">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the prefix of a path, return the folder itself for a folder.</span>
 </span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>
 </span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">    Args:</span>
@@ -295,7 +295,7 @@
 </span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">);</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span> <span class="k">return</span> <span class="n">path</span> <span class="k">if</span> <span class="n">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="n">parts</span><span class="p">))</span>
 </span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="k">def</span> <span class="nf">Suffix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Suffix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the suffix of a path, return empty string &quot;&quot; for a folder.</span>
 </span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>
 </span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">    Args:</span>
@@ -305,7 +305,7 @@
 </span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">);</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="k">def</span> <span class="nf">Format</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Format</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the format of a path.</span>
 </span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>
 </span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">    This is an alias for `Suffix`.</span>
@@ -317,7 +317,7 @@
 </span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">path</span><span class="p">);</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="k">def</span> <span class="nf">AsFormat</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="k">def</span><span class="w"> </span><span class="nf">AsFormat</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 </span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the file with the same name as path but with the desired format.</span>
 </span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>
 </span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a><span class="sd">    Args:</span>
@@ -327,7 +327,7 @@
 </span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="k">return</span> <span class="p">(</span><span class="n">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="nb">format</span><span class="p">)</span> <span class="k">if</span> <span class="nb">format</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    
-</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="k">def</span> <span class="nf">ExistPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a file or folder exists.</span>
 </span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>
 </span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">    Args:</span>
@@ -337,7 +337,7 @@
 </span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 </span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>    
-</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="k">def</span> <span class="nf">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a folder exists.</span>
 </span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>
 </span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a><span class="sd">    Args:</span>
@@ -347,7 +347,7 @@
 </span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
 </span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>
-</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a><span class="k">def</span> <span class="nf">ExistFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a file exists.</span>
 </span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>
 </span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="sd">    Args:</span>
@@ -357,17 +357,17 @@
 </span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
 </span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="k">def</span> <span class="nf">BY_NAME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_NAME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>    <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="k">def</span> <span class="nf">BY_CTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_CTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a><span class="k">def</span> <span class="nf">BY_MTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_MTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a><span class="k">def</span> <span class="nf">BY_ATIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_ATIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a><span class="k">def</span> <span class="nf">BY_SIZE_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_SIZE_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a><span class="k">def</span> <span class="nf">BUILTIN_LISTPATHS_SORT_CRITERIA</span><span class="p">():</span>
+</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BUILTIN_LISTPATHS_SORT_CRITERIA</span><span class="p">():</span>
 </span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="k">return</span> <span class="p">{</span>
 </span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>        <span class="s1">&#39;BY_NAME_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_NAME_CRITERIA</span><span class="p">,</span>
 </span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>        <span class="s1">&#39;BY_CTIME_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_CTIME_CRITERIA</span><span class="p">,</span>
@@ -375,19 +375,19 @@
 </span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>        <span class="s1">&#39;BY_ATIME_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_ATIME_CRITERIA</span><span class="p">,</span>
 </span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>        <span class="s1">&#39;BY_SIZE_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_SIZE_CRITERIA</span><span class="p">,</span>
 </span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>    <span class="p">}</span>
-</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a><span class="k">def</span> <span class="nf">EXISTS_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EXISTS_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="k">return</span> <span class="n">ExistPath</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a><span class="k">def</span> <span class="nf">IS_FOLDER_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a><span class="k">def</span><span class="w"> </span><span class="nf">IS_FOLDER_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>    <span class="k">return</span> <span class="n">ExistFolder</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a><span class="k">def</span> <span class="nf">IS_FILE_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a><span class="k">def</span><span class="w"> </span><span class="nf">IS_FILE_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>    <span class="k">return</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="k">def</span> <span class="nf">BUILTIN_LISTPATHS_FILTER_FUNCTIONS</span><span class="p">():</span>
+</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BUILTIN_LISTPATHS_FILTER_FUNCTIONS</span><span class="p">():</span>
 </span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a>    <span class="k">return</span> <span class="p">{</span>
 </span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>        <span class="s1">&#39;EXISTS_FILTER&#39;</span><span class="p">:</span><span class="n">EXISTS_FILTER</span><span class="p">,</span>
 </span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a>        <span class="s1">&#39;IS_FOLDER_FILTER&#39;</span><span class="p">:</span><span class="n">IS_FOLDER_FILTER</span><span class="p">,</span>
 </span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a>        <span class="s1">&#39;IS_FILE_FILTER&#39;</span><span class="p">:</span><span class="n">IS_FILE_FILTER</span><span class="p">,</span>
 </span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>    <span class="p">}</span>
-</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="k">def</span> <span class="nf">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of subpaths under the given path.</span>
 </span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>
 </span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a><span class="sd">    Args:</span>
@@ -404,7 +404,7 @@
 </span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a>    <span class="n">subpaths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subpaths</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span> <span class="k">if</span> <span class="n">ordered</span> <span class="k">else</span> <span class="n">subpaths</span>
 </span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a>    <span class="k">return</span> <span class="p">[</span><span class="n">subpath</span><span class="p">[</span><span class="n">with_path</span><span class="p">]</span> <span class="k">for</span> <span class="n">subpath</span> <span class="ow">in</span> <span class="n">subpaths</span><span class="p">]</span>
 </span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>    
-</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a><span class="k">def</span> <span class="nf">ListFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of folders under the given path.</span>
 </span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a>
 </span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a><span class="sd">    This is an alias for `ListPaths(filter_function=IS_FOLDER_FILTER)`.</span>
@@ -419,7 +419,7 @@
 </span><span id="L-234"><a href="#L-234"><span class="linenos">234</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a>    <span class="k">return</span> <span class="n">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="n">with_path</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="n">IS_FOLDER_FILTER</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span>
 </span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a>    
-</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a><span class="k">def</span> <span class="nf">ListFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of files under the given path.</span>
 </span><span id="L-239"><a href="#L-239"><span class="linenos">239</span></a>
 </span><span id="L-240"><a href="#L-240"><span class="linenos">240</span></a><span class="sd">    This is an alias for `ListPaths(filter_function=IS_FILE_FILTER)`.</span>
@@ -434,7 +434,7 @@
 </span><span id="L-249"><a href="#L-249"><span class="linenos">249</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-250"><a href="#L-250"><span class="linenos">250</span></a>    <span class="k">return</span> <span class="n">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="n">with_path</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="n">IS_FILE_FILTER</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span>
 </span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>
-</span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a><span class="k">def</span> <span class="nf">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-253"><a href="#L-253"><span class="linenos">253</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of subpaths recursively under the given path. Since this is wrapped upon `os.walk`, `with_path` is forced. (TODO: fix)</span>
 </span><span id="L-254"><a href="#L-254"><span class="linenos">254</span></a>
 </span><span id="L-255"><a href="#L-255"><span class="linenos">255</span></a><span class="sd">    Args:</span>
@@ -454,7 +454,7 @@
 </span><span id="L-269"><a href="#L-269"><span class="linenos">269</span></a>    <span class="n">subpaths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subpaths</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span> <span class="k">if</span> <span class="n">ordered</span> <span class="k">else</span> <span class="n">subpaths</span>
 </span><span id="L-270"><a href="#L-270"><span class="linenos">270</span></a>    <span class="k">return</span> <span class="p">[(</span><span class="n">subpath</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">relpath</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">p2s</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">subpath</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">relpath</span><span class="p">)))</span> <span class="k">for</span> <span class="n">subpath</span> <span class="ow">in</span> <span class="n">subpaths</span><span class="p">]</span>
 </span><span id="L-271"><a href="#L-271"><span class="linenos">271</span></a>
-</span><span id="L-272"><a href="#L-272"><span class="linenos">272</span></a><span class="k">def</span> <span class="nf">EnumFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-272"><a href="#L-272"><span class="linenos">272</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-273"><a href="#L-273"><span class="linenos">273</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of folders recursively under the given path.</span>
 </span><span id="L-274"><a href="#L-274"><span class="linenos">274</span></a>
 </span><span id="L-275"><a href="#L-275"><span class="linenos">275</span></a><span class="sd">    This is an alias for `EnumPaths(filter_function=IS_FOLDER_FILTER)`.</span>
@@ -470,7 +470,7 @@
 </span><span id="L-285"><a href="#L-285"><span class="linenos">285</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-286"><a href="#L-286"><span class="linenos">286</span></a>    <span class="k">return</span> <span class="n">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="n">relpath</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="n">IS_FOLDER_FILTER</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span>
 </span><span id="L-287"><a href="#L-287"><span class="linenos">287</span></a>
-</span><span id="L-288"><a href="#L-288"><span class="linenos">288</span></a><span class="k">def</span> <span class="nf">EnumFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+</span><span id="L-288"><a href="#L-288"><span class="linenos">288</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="L-289"><a href="#L-289"><span class="linenos">289</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of files recursively under the given path.</span>
 </span><span id="L-290"><a href="#L-290"><span class="linenos">290</span></a>
 </span><span id="L-291"><a href="#L-291"><span class="linenos">291</span></a><span class="sd">    This is an alias for `EnumPaths(filter_function=IS_FILE_FILTER)`.</span>
@@ -486,7 +486,7 @@
 </span><span id="L-301"><a href="#L-301"><span class="linenos">301</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-302"><a href="#L-302"><span class="linenos">302</span></a>    <span class="k">return</span> <span class="n">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="n">relpath</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="n">IS_FILE_FILTER</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">)</span>
 </span><span id="L-303"><a href="#L-303"><span class="linenos">303</span></a>    
-</span><span id="L-304"><a href="#L-304"><span class="linenos">304</span></a><span class="k">def</span> <span class="nf">CreateFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-304"><a href="#L-304"><span class="linenos">304</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CreateFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-305"><a href="#L-305"><span class="linenos">305</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the given path as folder, parents will be automatically built.</span>
 </span><span id="L-306"><a href="#L-306"><span class="linenos">306</span></a>
 </span><span id="L-307"><a href="#L-307"><span class="linenos">307</span></a><span class="sd">    Args:</span>
@@ -499,7 +499,7 @@
 </span><span id="L-314"><a href="#L-314"><span class="linenos">314</span></a>    <span class="k">else</span><span class="p">:</span>
 </span><span id="L-315"><a href="#L-315"><span class="linenos">315</span></a>        <span class="k">return</span> <span class="kc">False</span>
 </span><span id="L-316"><a href="#L-316"><span class="linenos">316</span></a>    
-</span><span id="L-317"><a href="#L-317"><span class="linenos">317</span></a><span class="k">def</span> <span class="nf">CreateFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span><span id="L-317"><a href="#L-317"><span class="linenos">317</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CreateFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="L-318"><a href="#L-318"><span class="linenos">318</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the given path as file, parents will be automatically built.</span>
 </span><span id="L-319"><a href="#L-319"><span class="linenos">319</span></a>
 </span><span id="L-320"><a href="#L-320"><span class="linenos">320</span></a><span class="sd">    Args:</span>
@@ -515,7 +515,7 @@
 </span><span id="L-330"><a href="#L-330"><span class="linenos">330</span></a>    <span class="k">else</span><span class="p">:</span>
 </span><span id="L-331"><a href="#L-331"><span class="linenos">331</span></a>        <span class="k">return</span> <span class="kc">False</span>
 </span><span id="L-332"><a href="#L-332"><span class="linenos">332</span></a>
-</span><span id="L-333"><a href="#L-333"><span class="linenos">333</span></a><span class="k">def</span> <span class="nf">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-333"><a href="#L-333"><span class="linenos">333</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-334"><a href="#L-334"><span class="linenos">334</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete the given path.</span>
 </span><span id="L-335"><a href="#L-335"><span class="linenos">335</span></a>
 </span><span id="L-336"><a href="#L-336"><span class="linenos">336</span></a><span class="sd">    Args:</span>
@@ -529,7 +529,7 @@
 </span><span id="L-344"><a href="#L-344"><span class="linenos">344</span></a>    <span class="k">else</span><span class="p">:</span>
 </span><span id="L-345"><a href="#L-345"><span class="linenos">345</span></a>        <span class="k">return</span> <span class="kc">False</span>
 </span><span id="L-346"><a href="#L-346"><span class="linenos">346</span></a>
-</span><span id="L-347"><a href="#L-347"><span class="linenos">347</span></a><span class="k">def</span> <span class="nf">ClearFolder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-347"><a href="#L-347"><span class="linenos">347</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ClearFolder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-348"><a href="#L-348"><span class="linenos">348</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear the given folder if it exists, create if it does not exist.</span>
 </span><span id="L-349"><a href="#L-349"><span class="linenos">349</span></a>
 </span><span id="L-350"><a href="#L-350"><span class="linenos">350</span></a><span class="sd">    Args:</span>
@@ -540,7 +540,7 @@
 </span><span id="L-355"><a href="#L-355"><span class="linenos">355</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-356"><a href="#L-356"><span class="linenos">356</span></a>    <span class="n">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">CreateFolder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </span><span id="L-357"><a href="#L-357"><span class="linenos">357</span></a>
-</span><span id="L-358"><a href="#L-358"><span class="linenos">358</span></a><span class="k">def</span> <span class="nf">ClearFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-358"><a href="#L-358"><span class="linenos">358</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ClearFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-359"><a href="#L-359"><span class="linenos">359</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear the given file if it exists, create if it does not exist.</span>
 </span><span id="L-360"><a href="#L-360"><span class="linenos">360</span></a>
 </span><span id="L-361"><a href="#L-361"><span class="linenos">361</span></a><span class="sd">    Args:</span>
@@ -551,7 +551,7 @@
 </span><span id="L-366"><a href="#L-366"><span class="linenos">366</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-367"><a href="#L-367"><span class="linenos">367</span></a>    <span class="n">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">CreateFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </span><span id="L-368"><a href="#L-368"><span class="linenos">368</span></a>
-</span><span id="L-369"><a href="#L-369"><span class="linenos">369</span></a><span class="k">def</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-369"><a href="#L-369"><span class="linenos">369</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CopyFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-370"><a href="#L-370"><span class="linenos">370</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy file from src to dst, notice that dst will be deleted if exists.</span>
 </span><span id="L-371"><a href="#L-371"><span class="linenos">371</span></a>
 </span><span id="L-372"><a href="#L-372"><span class="linenos">372</span></a><span class="sd">    Args:</span>
@@ -563,7 +563,7 @@
 </span><span id="L-378"><a href="#L-378"><span class="linenos">378</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-379"><a href="#L-379"><span class="linenos">379</span></a>    <span class="n">ClearFile</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
 </span><span id="L-380"><a href="#L-380"><span class="linenos">380</span></a>
-</span><span id="L-381"><a href="#L-381"><span class="linenos">381</span></a><span class="k">def</span> <span class="nf">ReplaceFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-381"><a href="#L-381"><span class="linenos">381</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ReplaceFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-382"><a href="#L-382"><span class="linenos">382</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace file from src to dst, notice that dst will be deleted if exists.</span>
 </span><span id="L-383"><a href="#L-383"><span class="linenos">383</span></a>
 </span><span id="L-384"><a href="#L-384"><span class="linenos">384</span></a><span class="sd">    This is an alias for `CopyFile`.</span>
@@ -577,7 +577,7 @@
 </span><span id="L-392"><a href="#L-392"><span class="linenos">392</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-393"><a href="#L-393"><span class="linenos">393</span></a>    <span class="n">ClearFile</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
 </span><span id="L-394"><a href="#L-394"><span class="linenos">394</span></a>
-</span><span id="L-395"><a href="#L-395"><span class="linenos">395</span></a><span class="k">def</span> <span class="nf">CopyFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-395"><a href="#L-395"><span class="linenos">395</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CopyFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-396"><a href="#L-396"><span class="linenos">396</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy folder from src (folder name included) to dst (folder name included). Only existing files will be deleted if exists.</span>
 </span><span id="L-397"><a href="#L-397"><span class="linenos">397</span></a>
 </span><span id="L-398"><a href="#L-398"><span class="linenos">398</span></a><span class="sd">    Warning: This code is buggy. TODO: debug.</span>
@@ -594,7 +594,7 @@
 </span><span id="L-409"><a href="#L-409"><span class="linenos">409</span></a>    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">EnumFiles</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">relpath</span><span class="o">=</span><span class="n">src</span><span class="p">):</span>
 </span><span id="L-410"><a href="#L-410"><span class="linenos">410</span></a>        <span class="n">CopyFile</span><span class="p">(</span><span class="n">pjoin</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">pjoin</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">file</span><span class="p">),</span><span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">)</span>
 </span><span id="L-411"><a href="#L-411"><span class="linenos">411</span></a>
-</span><span id="L-412"><a href="#L-412"><span class="linenos">412</span></a><span class="k">def</span> <span class="nf">ReplaceFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-412"><a href="#L-412"><span class="linenos">412</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ReplaceFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-413"><a href="#L-413"><span class="linenos">413</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy folder from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="L-414"><a href="#L-414"><span class="linenos">414</span></a>
 </span><span id="L-415"><a href="#L-415"><span class="linenos">415</span></a><span class="sd">    This is NOT the same as `CopyFolder`, which merges `src` to `dst`.</span>
@@ -608,7 +608,7 @@
 </span><span id="L-423"><a href="#L-423"><span class="linenos">423</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-424"><a href="#L-424"><span class="linenos">424</span></a>    <span class="n">CreateFolder</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">Delete</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </span><span id="L-425"><a href="#L-425"><span class="linenos">425</span></a>
-</span><span id="L-426"><a href="#L-426"><span class="linenos">426</span></a><span class="k">def</span> <span class="nf">MoveFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-426"><a href="#L-426"><span class="linenos">426</span></a><span class="k">def</span><span class="w"> </span><span class="nf">MoveFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-427"><a href="#L-427"><span class="linenos">427</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Move file from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="L-428"><a href="#L-428"><span class="linenos">428</span></a>
 </span><span id="L-429"><a href="#L-429"><span class="linenos">429</span></a><span class="sd">    This is NOT the same as `shutil.move`, which will raise an error when `dst` is an existing file.</span>
@@ -622,7 +622,7 @@
 </span><span id="L-437"><a href="#L-437"><span class="linenos">437</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-438"><a href="#L-438"><span class="linenos">438</span></a>    <span class="n">ClearFile</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </span><span id="L-439"><a href="#L-439"><span class="linenos">439</span></a>
-</span><span id="L-440"><a href="#L-440"><span class="linenos">440</span></a><span class="k">def</span> <span class="nf">MoveFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-440"><a href="#L-440"><span class="linenos">440</span></a><span class="k">def</span><span class="w"> </span><span class="nf">MoveFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="L-441"><a href="#L-441"><span class="linenos">441</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Move folder from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="L-442"><a href="#L-442"><span class="linenos">442</span></a>
 </span><span id="L-443"><a href="#L-443"><span class="linenos">443</span></a><span class="sd">    This is NOT the same as `shutil.move`, which will move the `src` into `dst` if `dst` is an existing folder</span>
@@ -636,7 +636,7 @@
 </span><span id="L-451"><a href="#L-451"><span class="linenos">451</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-452"><a href="#L-452"><span class="linenos">452</span></a>    <span class="n">CreateFolder</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">Delete</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="n">rm</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </span><span id="L-453"><a href="#L-453"><span class="linenos">453</span></a>
-</span><span id="L-454"><a href="#L-454"><span class="linenos">454</span></a><span class="k">def</span> <span class="nf">Zip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+</span><span id="L-454"><a href="#L-454"><span class="linenos">454</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Zip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
 </span><span id="L-455"><a href="#L-455"><span class="linenos">455</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Zip a directory `src` to a `.zip` file.</span>
 </span><span id="L-456"><a href="#L-456"><span class="linenos">456</span></a>
 </span><span id="L-457"><a href="#L-457"><span class="linenos">457</span></a><span class="sd">    Args:</span>
@@ -647,7 +647,7 @@
 </span><span id="L-462"><a href="#L-462"><span class="linenos">462</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-463"><a href="#L-463"><span class="linenos">463</span></a>    <span class="n">dst</span> <span class="o">=</span> <span class="n">p2s</span><span class="p">(</span><span class="n">dst</span><span class="p">);</span> <span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="n">dst</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">dst</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="n">root_dir</span><span class="o">=</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
 </span><span id="L-464"><a href="#L-464"><span class="linenos">464</span></a>
-</span><span id="L-465"><a href="#L-465"><span class="linenos">465</span></a><span class="k">def</span> <span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+</span><span id="L-465"><a href="#L-465"><span class="linenos">465</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
 </span><span id="L-466"><a href="#L-466"><span class="linenos">466</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Unzip a `.zip` file to a directory `src`.</span>
 </span><span id="L-467"><a href="#L-467"><span class="linenos">467</span></a>
 </span><span id="L-468"><a href="#L-468"><span class="linenos">468</span></a><span class="sd">    Args:</span>
@@ -658,7 +658,7 @@
 </span><span id="L-473"><a href="#L-473"><span class="linenos">473</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-474"><a href="#L-474"><span class="linenos">474</span></a>    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">p2s</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">extract_dir</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">)</span>
 </span><span id="L-475"><a href="#L-475"><span class="linenos">475</span></a>
-</span><span id="L-476"><a href="#L-476"><span class="linenos">476</span></a><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span>
+</span><span id="L-476"><a href="#L-476"><span class="linenos">476</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">expanduser</span>
 </span><span id="L-477"><a href="#L-477"><span class="linenos">477</span></a><span class="n">PYHEAVEN_PATH</span> <span class="o">=</span> <span class="n">pjoin</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;.pyheaven&quot;</span><span class="p">)</span>
 </span></pre></div>
 
@@ -675,7 +675,7 @@
 
     </div>
     <a class="headerlink" href="#PathToString"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PathToString-23"><a href="#PathToString-23"><span class="linenos">23</span></a><span class="k">def</span> <span class="nf">PathToString</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">as_folder</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PathToString-23"><a href="#PathToString-23"><span class="linenos">23</span></a><span class="k">def</span><span class="w"> </span><span class="nf">PathToString</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">as_folder</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="PathToString-24"><a href="#PathToString-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert any representation of a path (either a `pathlib.Path` or a str) to a str, with trailing slashes for folder.</span>
 </span><span id="PathToString-25"><a href="#PathToString-25"><span class="linenos">25</span></a>
 </span><span id="PathToString-26"><a href="#PathToString-26"><span class="linenos">26</span></a><span class="sd">    Args:</span>
@@ -717,7 +717,7 @@
 
     </div>
     <a class="headerlink" href="#p2s"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="p2s-34"><a href="#p2s-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">p2s</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="p2s-34"><a href="#p2s-34"><span class="linenos">34</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2s</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="p2s-35"><a href="#p2s-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert any representation of a path (either a `pathlib.Path` or a str) to a str, with trailing slashes for folder.</span>
 </span><span id="p2s-36"><a href="#p2s-36"><span class="linenos">36</span></a>
 </span><span id="p2s-37"><a href="#p2s-37"><span class="linenos">37</span></a><span class="sd">    This is a short alias for `PathToString`.</span>
@@ -763,7 +763,7 @@
 
     </div>
     <a class="headerlink" href="#p2abs"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="p2abs-47"><a href="#p2abs-47"><span class="linenos">47</span></a><span class="k">def</span> <span class="nf">p2abs</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="p2abs-47"><a href="#p2abs-47"><span class="linenos">47</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2abs</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="p2abs-48"><a href="#p2abs-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a path to absolute format.</span>
 </span><span id="p2abs-49"><a href="#p2abs-49"><span class="linenos">49</span></a>
 </span><span id="p2abs-50"><a href="#p2abs-50"><span class="linenos">50</span></a><span class="sd">    Args:</span>
@@ -803,7 +803,7 @@
 
     </div>
     <a class="headerlink" href="#p2par"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="p2par-57"><a href="#p2par-57"><span class="linenos">57</span></a><span class="k">def</span> <span class="nf">p2par</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="p2par-57"><a href="#p2par-57"><span class="linenos">57</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2par</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 </span><span id="p2par-58"><a href="#p2par-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the parent (ancestor) of a path. Note that for a relative path string, it can not trace beyond the root path.</span>
 </span><span id="p2par-59"><a href="#p2par-59"><span class="linenos">59</span></a>
 </span><span id="p2par-60"><a href="#p2par-60"><span class="linenos">60</span></a><span class="sd">    Args:</span>
@@ -848,7 +848,7 @@
 
     </div>
     <a class="headerlink" href="#p2stem"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="p2stem-71"><a href="#p2stem-71"><span class="linenos">71</span></a><span class="k">def</span> <span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="p2stem-71"><a href="#p2stem-71"><span class="linenos">71</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2stem</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="p2stem-72"><a href="#p2stem-72"><span class="linenos">72</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the stem of a path.</span>
 </span><span id="p2stem-73"><a href="#p2stem-73"><span class="linenos">73</span></a>
 </span><span id="p2stem-74"><a href="#p2stem-74"><span class="linenos">74</span></a><span class="sd">    Args:</span>
@@ -888,7 +888,7 @@
 
     </div>
     <a class="headerlink" href="#p2name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="p2name-81"><a href="#p2name-81"><span class="linenos">81</span></a><span class="k">def</span> <span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="p2name-81"><a href="#p2name-81"><span class="linenos">81</span></a><span class="k">def</span><span class="w"> </span><span class="nf">p2name</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
 </span><span id="p2name-82"><a href="#p2name-82"><span class="linenos">82</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of a path.</span>
 </span><span id="p2name-83"><a href="#p2name-83"><span class="linenos">83</span></a>
 </span><span id="p2name-84"><a href="#p2name-84"><span class="linenos">84</span></a><span class="sd">    Args:</span>
@@ -928,7 +928,7 @@
 
     </div>
     <a class="headerlink" href="#pjoin"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="pjoin-91"><a href="#pjoin-91"><span class="linenos"> 91</span></a><span class="k">def</span> <span class="nf">pjoin</span><span class="p">(</span><span class="o">*</span><span class="n">plist</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="pjoin-91"><a href="#pjoin-91"><span class="linenos"> 91</span></a><span class="k">def</span><span class="w"> </span><span class="nf">pjoin</span><span class="p">(</span><span class="o">*</span><span class="n">plist</span><span class="p">):</span>
 </span><span id="pjoin-92"><a href="#pjoin-92"><span class="linenos"> 92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Concatenate a list of string or paths to a path.</span>
 </span><span id="pjoin-93"><a href="#pjoin-93"><span class="linenos"> 93</span></a>
 </span><span id="pjoin-94"><a href="#pjoin-94"><span class="linenos"> 94</span></a><span class="sd">    Args:</span>
@@ -971,7 +971,7 @@
 
     </div>
     <a class="headerlink" href="#Prefix"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Prefix-104"><a href="#Prefix-104"><span class="linenos">104</span></a><span class="k">def</span> <span class="nf">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Prefix-104"><a href="#Prefix-104"><span class="linenos">104</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Prefix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="Prefix-105"><a href="#Prefix-105"><span class="linenos">105</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the prefix of a path, return the folder itself for a folder.</span>
 </span><span id="Prefix-106"><a href="#Prefix-106"><span class="linenos">106</span></a>
 </span><span id="Prefix-107"><a href="#Prefix-107"><span class="linenos">107</span></a><span class="sd">    Args:</span>
@@ -1011,7 +1011,7 @@
 
     </div>
     <a class="headerlink" href="#Suffix"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Suffix-114"><a href="#Suffix-114"><span class="linenos">114</span></a><span class="k">def</span> <span class="nf">Suffix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Suffix-114"><a href="#Suffix-114"><span class="linenos">114</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Suffix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="Suffix-115"><a href="#Suffix-115"><span class="linenos">115</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the suffix of a path, return empty string &quot;&quot; for a folder.</span>
 </span><span id="Suffix-116"><a href="#Suffix-116"><span class="linenos">116</span></a>
 </span><span id="Suffix-117"><a href="#Suffix-117"><span class="linenos">117</span></a><span class="sd">    Args:</span>
@@ -1051,7 +1051,7 @@
 
     </div>
     <a class="headerlink" href="#Format"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Format-124"><a href="#Format-124"><span class="linenos">124</span></a><span class="k">def</span> <span class="nf">Format</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Format-124"><a href="#Format-124"><span class="linenos">124</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Format</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="Format-125"><a href="#Format-125"><span class="linenos">125</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the format of a path.</span>
 </span><span id="Format-126"><a href="#Format-126"><span class="linenos">126</span></a>
 </span><span id="Format-127"><a href="#Format-127"><span class="linenos">127</span></a><span class="sd">    This is an alias for `Suffix`.</span>
@@ -1095,7 +1095,7 @@
 
     </div>
     <a class="headerlink" href="#AsFormat"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AsFormat-136"><a href="#AsFormat-136"><span class="linenos">136</span></a><span class="k">def</span> <span class="nf">AsFormat</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AsFormat-136"><a href="#AsFormat-136"><span class="linenos">136</span></a><span class="k">def</span><span class="w"> </span><span class="nf">AsFormat</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 </span><span id="AsFormat-137"><a href="#AsFormat-137"><span class="linenos">137</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the file with the same name as path but with the desired format.</span>
 </span><span id="AsFormat-138"><a href="#AsFormat-138"><span class="linenos">138</span></a>
 </span><span id="AsFormat-139"><a href="#AsFormat-139"><span class="linenos">139</span></a><span class="sd">    Args:</span>
@@ -1135,7 +1135,7 @@
 
     </div>
     <a class="headerlink" href="#ExistPath"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistPath-146"><a href="#ExistPath-146"><span class="linenos">146</span></a><span class="k">def</span> <span class="nf">ExistPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistPath-146"><a href="#ExistPath-146"><span class="linenos">146</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="ExistPath-147"><a href="#ExistPath-147"><span class="linenos">147</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a file or folder exists.</span>
 </span><span id="ExistPath-148"><a href="#ExistPath-148"><span class="linenos">148</span></a>
 </span><span id="ExistPath-149"><a href="#ExistPath-149"><span class="linenos">149</span></a><span class="sd">    Args:</span>
@@ -1175,7 +1175,7 @@
 
     </div>
     <a class="headerlink" href="#ExistFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistFolder-156"><a href="#ExistFolder-156"><span class="linenos">156</span></a><span class="k">def</span> <span class="nf">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistFolder-156"><a href="#ExistFolder-156"><span class="linenos">156</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="ExistFolder-157"><a href="#ExistFolder-157"><span class="linenos">157</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a folder exists.</span>
 </span><span id="ExistFolder-158"><a href="#ExistFolder-158"><span class="linenos">158</span></a>
 </span><span id="ExistFolder-159"><a href="#ExistFolder-159"><span class="linenos">159</span></a><span class="sd">    Args:</span>
@@ -1215,7 +1215,7 @@
 
     </div>
     <a class="headerlink" href="#ExistFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistFile-166"><a href="#ExistFile-166"><span class="linenos">166</span></a><span class="k">def</span> <span class="nf">ExistFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ExistFile-166"><a href="#ExistFile-166"><span class="linenos">166</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ExistFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="ExistFile-167"><a href="#ExistFile-167"><span class="linenos">167</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a file exists.</span>
 </span><span id="ExistFile-168"><a href="#ExistFile-168"><span class="linenos">168</span></a>
 </span><span id="ExistFile-169"><a href="#ExistFile-169"><span class="linenos">169</span></a><span class="sd">    Args:</span>
@@ -1255,7 +1255,7 @@
 
     </div>
     <a class="headerlink" href="#BY_NAME_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_NAME_CRITERIA-176"><a href="#BY_NAME_CRITERIA-176"><span class="linenos">176</span></a><span class="k">def</span> <span class="nf">BY_NAME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_NAME_CRITERIA-176"><a href="#BY_NAME_CRITERIA-176"><span class="linenos">176</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_NAME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="BY_NAME_CRITERIA-177"><a href="#BY_NAME_CRITERIA-177"><span class="linenos">177</span></a>    <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </span></pre></div>
 
@@ -1274,7 +1274,7 @@
 
     </div>
     <a class="headerlink" href="#BY_CTIME_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_CTIME_CRITERIA-178"><a href="#BY_CTIME_CRITERIA-178"><span class="linenos">178</span></a><span class="k">def</span> <span class="nf">BY_CTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_CTIME_CRITERIA-178"><a href="#BY_CTIME_CRITERIA-178"><span class="linenos">178</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_CTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="BY_CTIME_CRITERIA-179"><a href="#BY_CTIME_CRITERIA-179"><span class="linenos">179</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1293,7 +1293,7 @@
 
     </div>
     <a class="headerlink" href="#BY_MTIME_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_MTIME_CRITERIA-180"><a href="#BY_MTIME_CRITERIA-180"><span class="linenos">180</span></a><span class="k">def</span> <span class="nf">BY_MTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_MTIME_CRITERIA-180"><a href="#BY_MTIME_CRITERIA-180"><span class="linenos">180</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_MTIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="BY_MTIME_CRITERIA-181"><a href="#BY_MTIME_CRITERIA-181"><span class="linenos">181</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1312,7 +1312,7 @@
 
     </div>
     <a class="headerlink" href="#BY_ATIME_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_ATIME_CRITERIA-182"><a href="#BY_ATIME_CRITERIA-182"><span class="linenos">182</span></a><span class="k">def</span> <span class="nf">BY_ATIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_ATIME_CRITERIA-182"><a href="#BY_ATIME_CRITERIA-182"><span class="linenos">182</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_ATIME_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="BY_ATIME_CRITERIA-183"><a href="#BY_ATIME_CRITERIA-183"><span class="linenos">183</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1331,7 +1331,7 @@
 
     </div>
     <a class="headerlink" href="#BY_SIZE_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_SIZE_CRITERIA-184"><a href="#BY_SIZE_CRITERIA-184"><span class="linenos">184</span></a><span class="k">def</span> <span class="nf">BY_SIZE_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BY_SIZE_CRITERIA-184"><a href="#BY_SIZE_CRITERIA-184"><span class="linenos">184</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BY_SIZE_CRITERIA</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="BY_SIZE_CRITERIA-185"><a href="#BY_SIZE_CRITERIA-185"><span class="linenos">185</span></a>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1350,7 +1350,7 @@
 
     </div>
     <a class="headerlink" href="#BUILTIN_LISTPATHS_SORT_CRITERIA"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BUILTIN_LISTPATHS_SORT_CRITERIA-186"><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA-186"><span class="linenos">186</span></a><span class="k">def</span> <span class="nf">BUILTIN_LISTPATHS_SORT_CRITERIA</span><span class="p">():</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BUILTIN_LISTPATHS_SORT_CRITERIA-186"><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA-186"><span class="linenos">186</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BUILTIN_LISTPATHS_SORT_CRITERIA</span><span class="p">():</span>
 </span><span id="BUILTIN_LISTPATHS_SORT_CRITERIA-187"><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA-187"><span class="linenos">187</span></a>    <span class="k">return</span> <span class="p">{</span>
 </span><span id="BUILTIN_LISTPATHS_SORT_CRITERIA-188"><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA-188"><span class="linenos">188</span></a>        <span class="s1">&#39;BY_NAME_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_NAME_CRITERIA</span><span class="p">,</span>
 </span><span id="BUILTIN_LISTPATHS_SORT_CRITERIA-189"><a href="#BUILTIN_LISTPATHS_SORT_CRITERIA-189"><span class="linenos">189</span></a>        <span class="s1">&#39;BY_CTIME_CRITERIA&#39;</span><span class="p">:</span><span class="n">BY_CTIME_CRITERIA</span><span class="p">,</span>
@@ -1375,7 +1375,7 @@
 
     </div>
     <a class="headerlink" href="#EXISTS_FILTER"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EXISTS_FILTER-194"><a href="#EXISTS_FILTER-194"><span class="linenos">194</span></a><span class="k">def</span> <span class="nf">EXISTS_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EXISTS_FILTER-194"><a href="#EXISTS_FILTER-194"><span class="linenos">194</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EXISTS_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="EXISTS_FILTER-195"><a href="#EXISTS_FILTER-195"><span class="linenos">195</span></a>    <span class="k">return</span> <span class="n">ExistPath</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1394,7 +1394,7 @@
 
     </div>
     <a class="headerlink" href="#IS_FOLDER_FILTER"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="IS_FOLDER_FILTER-196"><a href="#IS_FOLDER_FILTER-196"><span class="linenos">196</span></a><span class="k">def</span> <span class="nf">IS_FOLDER_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="IS_FOLDER_FILTER-196"><a href="#IS_FOLDER_FILTER-196"><span class="linenos">196</span></a><span class="k">def</span><span class="w"> </span><span class="nf">IS_FOLDER_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="IS_FOLDER_FILTER-197"><a href="#IS_FOLDER_FILTER-197"><span class="linenos">197</span></a>    <span class="k">return</span> <span class="n">ExistFolder</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1413,7 +1413,7 @@
 
     </div>
     <a class="headerlink" href="#IS_FILE_FILTER"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="IS_FILE_FILTER-198"><a href="#IS_FILE_FILTER-198"><span class="linenos">198</span></a><span class="k">def</span> <span class="nf">IS_FILE_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="IS_FILE_FILTER-198"><a href="#IS_FILE_FILTER-198"><span class="linenos">198</span></a><span class="k">def</span><span class="w"> </span><span class="nf">IS_FILE_FILTER</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 </span><span id="IS_FILE_FILTER-199"><a href="#IS_FILE_FILTER-199"><span class="linenos">199</span></a>    <span class="k">return</span> <span class="n">ExistFile</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></pre></div>
 
@@ -1432,7 +1432,7 @@
 
     </div>
     <a class="headerlink" href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BUILTIN_LISTPATHS_FILTER_FUNCTIONS-200"><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS-200"><span class="linenos">200</span></a><span class="k">def</span> <span class="nf">BUILTIN_LISTPATHS_FILTER_FUNCTIONS</span><span class="p">():</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BUILTIN_LISTPATHS_FILTER_FUNCTIONS-200"><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS-200"><span class="linenos">200</span></a><span class="k">def</span><span class="w"> </span><span class="nf">BUILTIN_LISTPATHS_FILTER_FUNCTIONS</span><span class="p">():</span>
 </span><span id="BUILTIN_LISTPATHS_FILTER_FUNCTIONS-201"><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS-201"><span class="linenos">201</span></a>    <span class="k">return</span> <span class="p">{</span>
 </span><span id="BUILTIN_LISTPATHS_FILTER_FUNCTIONS-202"><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS-202"><span class="linenos">202</span></a>        <span class="s1">&#39;EXISTS_FILTER&#39;</span><span class="p">:</span><span class="n">EXISTS_FILTER</span><span class="p">,</span>
 </span><span id="BUILTIN_LISTPATHS_FILTER_FUNCTIONS-203"><a href="#BUILTIN_LISTPATHS_FILTER_FUNCTIONS-203"><span class="linenos">203</span></a>        <span class="s1">&#39;IS_FOLDER_FILTER&#39;</span><span class="p">:</span><span class="n">IS_FOLDER_FILTER</span><span class="p">,</span>
@@ -1455,7 +1455,7 @@
 
     </div>
     <a class="headerlink" href="#ListPaths"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ListPaths-206"><a href="#ListPaths-206"><span class="linenos">206</span></a><span class="k">def</span> <span class="nf">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ListPaths-206"><a href="#ListPaths-206"><span class="linenos">206</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="ListPaths-207"><a href="#ListPaths-207"><span class="linenos">207</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of subpaths under the given path.</span>
 </span><span id="ListPaths-208"><a href="#ListPaths-208"><span class="linenos">208</span></a>
 </span><span id="ListPaths-209"><a href="#ListPaths-209"><span class="linenos">209</span></a><span class="sd">    Args:</span>
@@ -1506,7 +1506,7 @@
 
     </div>
     <a class="headerlink" href="#ListFolders"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ListFolders-223"><a href="#ListFolders-223"><span class="linenos">223</span></a><span class="k">def</span> <span class="nf">ListFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ListFolders-223"><a href="#ListFolders-223"><span class="linenos">223</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="ListFolders-224"><a href="#ListFolders-224"><span class="linenos">224</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of folders under the given path.</span>
 </span><span id="ListFolders-225"><a href="#ListFolders-225"><span class="linenos">225</span></a>
 </span><span id="ListFolders-226"><a href="#ListFolders-226"><span class="linenos">226</span></a><span class="sd">    This is an alias for `ListPaths(filter_function=IS_FOLDER_FILTER)`.</span>
@@ -1556,7 +1556,7 @@
 
     </div>
     <a class="headerlink" href="#ListFiles"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ListFiles-238"><a href="#ListFiles-238"><span class="linenos">238</span></a><span class="k">def</span> <span class="nf">ListFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ListFiles-238"><a href="#ListFiles-238"><span class="linenos">238</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ListFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="ListFiles-239"><a href="#ListFiles-239"><span class="linenos">239</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of files under the given path.</span>
 </span><span id="ListFiles-240"><a href="#ListFiles-240"><span class="linenos">240</span></a>
 </span><span id="ListFiles-241"><a href="#ListFiles-241"><span class="linenos">241</span></a><span class="sd">    This is an alias for `ListPaths(filter_function=IS_FILE_FILTER)`.</span>
@@ -1606,7 +1606,7 @@
 
     </div>
     <a class="headerlink" href="#EnumPaths"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumPaths-253"><a href="#EnumPaths-253"><span class="linenos">253</span></a><span class="k">def</span> <span class="nf">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumPaths-253"><a href="#EnumPaths-253"><span class="linenos">253</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumPaths</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="EnumPaths-254"><a href="#EnumPaths-254"><span class="linenos">254</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of subpaths recursively under the given path. Since this is wrapped upon `os.walk`, `with_path` is forced. (TODO: fix)</span>
 </span><span id="EnumPaths-255"><a href="#EnumPaths-255"><span class="linenos">255</span></a>
 </span><span id="EnumPaths-256"><a href="#EnumPaths-256"><span class="linenos">256</span></a><span class="sd">    Args:</span>
@@ -1660,7 +1660,7 @@
 
     </div>
     <a class="headerlink" href="#EnumFolders"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumFolders-273"><a href="#EnumFolders-273"><span class="linenos">273</span></a><span class="k">def</span> <span class="nf">EnumFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumFolders-273"><a href="#EnumFolders-273"><span class="linenos">273</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumFolders</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="EnumFolders-274"><a href="#EnumFolders-274"><span class="linenos">274</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of folders recursively under the given path.</span>
 </span><span id="EnumFolders-275"><a href="#EnumFolders-275"><span class="linenos">275</span></a>
 </span><span id="EnumFolders-276"><a href="#EnumFolders-276"><span class="linenos">276</span></a><span class="sd">    This is an alias for `EnumPaths(filter_function=IS_FOLDER_FILTER)`.</span>
@@ -1712,7 +1712,7 @@
 
     </div>
     <a class="headerlink" href="#EnumFiles"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumFiles-289"><a href="#EnumFiles-289"><span class="linenos">289</span></a><span class="k">def</span> <span class="nf">EnumFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="EnumFiles-289"><a href="#EnumFiles-289"><span class="linenos">289</span></a><span class="k">def</span><span class="w"> </span><span class="nf">EnumFiles</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">relpath</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_args</span><span class="p">):</span>
 </span><span id="EnumFiles-290"><a href="#EnumFiles-290"><span class="linenos">290</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of files recursively under the given path.</span>
 </span><span id="EnumFiles-291"><a href="#EnumFiles-291"><span class="linenos">291</span></a>
 </span><span id="EnumFiles-292"><a href="#EnumFiles-292"><span class="linenos">292</span></a><span class="sd">    This is an alias for `EnumPaths(filter_function=IS_FILE_FILTER)`.</span>
@@ -1764,7 +1764,7 @@
 
     </div>
     <a class="headerlink" href="#CreateFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="CreateFolder-305"><a href="#CreateFolder-305"><span class="linenos">305</span></a><span class="k">def</span> <span class="nf">CreateFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CreateFolder-305"><a href="#CreateFolder-305"><span class="linenos">305</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CreateFolder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="CreateFolder-306"><a href="#CreateFolder-306"><span class="linenos">306</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the given path as folder, parents will be automatically built.</span>
 </span><span id="CreateFolder-307"><a href="#CreateFolder-307"><span class="linenos">307</span></a>
 </span><span id="CreateFolder-308"><a href="#CreateFolder-308"><span class="linenos">308</span></a><span class="sd">    Args:</span>
@@ -1807,7 +1807,7 @@
 
     </div>
     <a class="headerlink" href="#CreateFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="CreateFile-318"><a href="#CreateFile-318"><span class="linenos">318</span></a><span class="k">def</span> <span class="nf">CreateFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CreateFile-318"><a href="#CreateFile-318"><span class="linenos">318</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CreateFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 </span><span id="CreateFile-319"><a href="#CreateFile-319"><span class="linenos">319</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the given path as file, parents will be automatically built.</span>
 </span><span id="CreateFile-320"><a href="#CreateFile-320"><span class="linenos">320</span></a>
 </span><span id="CreateFile-321"><a href="#CreateFile-321"><span class="linenos">321</span></a><span class="sd">    Args:</span>
@@ -1853,7 +1853,7 @@
 
     </div>
     <a class="headerlink" href="#Delete"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Delete-334"><a href="#Delete-334"><span class="linenos">334</span></a><span class="k">def</span> <span class="nf">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Delete-334"><a href="#Delete-334"><span class="linenos">334</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="Delete-335"><a href="#Delete-335"><span class="linenos">335</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete the given path.</span>
 </span><span id="Delete-336"><a href="#Delete-336"><span class="linenos">336</span></a>
 </span><span id="Delete-337"><a href="#Delete-337"><span class="linenos">337</span></a><span class="sd">    Args:</span>
@@ -1898,7 +1898,7 @@
 
     </div>
     <a class="headerlink" href="#ClearFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ClearFolder-348"><a href="#ClearFolder-348"><span class="linenos">348</span></a><span class="k">def</span> <span class="nf">ClearFolder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ClearFolder-348"><a href="#ClearFolder-348"><span class="linenos">348</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ClearFolder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="ClearFolder-349"><a href="#ClearFolder-349"><span class="linenos">349</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear the given folder if it exists, create if it does not exist.</span>
 </span><span id="ClearFolder-350"><a href="#ClearFolder-350"><span class="linenos">350</span></a>
 </span><span id="ClearFolder-351"><a href="#ClearFolder-351"><span class="linenos">351</span></a><span class="sd">    Args:</span>
@@ -1940,7 +1940,7 @@
 
     </div>
     <a class="headerlink" href="#ClearFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ClearFile-359"><a href="#ClearFile-359"><span class="linenos">359</span></a><span class="k">def</span> <span class="nf">ClearFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ClearFile-359"><a href="#ClearFile-359"><span class="linenos">359</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ClearFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="ClearFile-360"><a href="#ClearFile-360"><span class="linenos">360</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear the given file if it exists, create if it does not exist.</span>
 </span><span id="ClearFile-361"><a href="#ClearFile-361"><span class="linenos">361</span></a>
 </span><span id="ClearFile-362"><a href="#ClearFile-362"><span class="linenos">362</span></a><span class="sd">    Args:</span>
@@ -1982,7 +1982,7 @@
 
     </div>
     <a class="headerlink" href="#CopyFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="CopyFile-370"><a href="#CopyFile-370"><span class="linenos">370</span></a><span class="k">def</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CopyFile-370"><a href="#CopyFile-370"><span class="linenos">370</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CopyFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="CopyFile-371"><a href="#CopyFile-371"><span class="linenos">371</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy file from src to dst, notice that dst will be deleted if exists.</span>
 </span><span id="CopyFile-372"><a href="#CopyFile-372"><span class="linenos">372</span></a>
 </span><span id="CopyFile-373"><a href="#CopyFile-373"><span class="linenos">373</span></a><span class="sd">    Args:</span>
@@ -2026,7 +2026,7 @@
 
     </div>
     <a class="headerlink" href="#ReplaceFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ReplaceFile-382"><a href="#ReplaceFile-382"><span class="linenos">382</span></a><span class="k">def</span> <span class="nf">ReplaceFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ReplaceFile-382"><a href="#ReplaceFile-382"><span class="linenos">382</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ReplaceFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="ReplaceFile-383"><a href="#ReplaceFile-383"><span class="linenos">383</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace file from src to dst, notice that dst will be deleted if exists.</span>
 </span><span id="ReplaceFile-384"><a href="#ReplaceFile-384"><span class="linenos">384</span></a>
 </span><span id="ReplaceFile-385"><a href="#ReplaceFile-385"><span class="linenos">385</span></a><span class="sd">    This is an alias for `CopyFile`.</span>
@@ -2074,7 +2074,7 @@
 
     </div>
     <a class="headerlink" href="#CopyFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="CopyFolder-396"><a href="#CopyFolder-396"><span class="linenos">396</span></a><span class="k">def</span> <span class="nf">CopyFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CopyFolder-396"><a href="#CopyFolder-396"><span class="linenos">396</span></a><span class="k">def</span><span class="w"> </span><span class="nf">CopyFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="CopyFolder-397"><a href="#CopyFolder-397"><span class="linenos">397</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy folder from src (folder name included) to dst (folder name included). Only existing files will be deleted if exists.</span>
 </span><span id="CopyFolder-398"><a href="#CopyFolder-398"><span class="linenos">398</span></a>
 </span><span id="CopyFolder-399"><a href="#CopyFolder-399"><span class="linenos">399</span></a><span class="sd">    Warning: This code is buggy. TODO: debug.</span>
@@ -2127,7 +2127,7 @@
 
     </div>
     <a class="headerlink" href="#ReplaceFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ReplaceFolder-413"><a href="#ReplaceFolder-413"><span class="linenos">413</span></a><span class="k">def</span> <span class="nf">ReplaceFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ReplaceFolder-413"><a href="#ReplaceFolder-413"><span class="linenos">413</span></a><span class="k">def</span><span class="w"> </span><span class="nf">ReplaceFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="ReplaceFolder-414"><a href="#ReplaceFolder-414"><span class="linenos">414</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy folder from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="ReplaceFolder-415"><a href="#ReplaceFolder-415"><span class="linenos">415</span></a>
 </span><span id="ReplaceFolder-416"><a href="#ReplaceFolder-416"><span class="linenos">416</span></a><span class="sd">    This is NOT the same as `CopyFolder`, which merges `src` to `dst`.</span>
@@ -2175,7 +2175,7 @@
 
     </div>
     <a class="headerlink" href="#MoveFile"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MoveFile-427"><a href="#MoveFile-427"><span class="linenos">427</span></a><span class="k">def</span> <span class="nf">MoveFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoveFile-427"><a href="#MoveFile-427"><span class="linenos">427</span></a><span class="k">def</span><span class="w"> </span><span class="nf">MoveFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="MoveFile-428"><a href="#MoveFile-428"><span class="linenos">428</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Move file from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="MoveFile-429"><a href="#MoveFile-429"><span class="linenos">429</span></a>
 </span><span id="MoveFile-430"><a href="#MoveFile-430"><span class="linenos">430</span></a><span class="sd">    This is NOT the same as `shutil.move`, which will raise an error when `dst` is an existing file.</span>
@@ -2223,7 +2223,7 @@
 
     </div>
     <a class="headerlink" href="#MoveFolder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MoveFolder-441"><a href="#MoveFolder-441"><span class="linenos">441</span></a><span class="k">def</span> <span class="nf">MoveFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoveFolder-441"><a href="#MoveFolder-441"><span class="linenos">441</span></a><span class="k">def</span><span class="w"> </span><span class="nf">MoveFolder</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">rm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="MoveFolder-442"><a href="#MoveFolder-442"><span class="linenos">442</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Move folder from src (folder name included) to dst (folder name included). The entire dst directory will be deleted if exists.</span>
 </span><span id="MoveFolder-443"><a href="#MoveFolder-443"><span class="linenos">443</span></a>
 </span><span id="MoveFolder-444"><a href="#MoveFolder-444"><span class="linenos">444</span></a><span class="sd">    This is NOT the same as `shutil.move`, which will move the `src` into `dst` if `dst` is an existing folder</span>
@@ -2271,7 +2271,7 @@
 
     </div>
     <a class="headerlink" href="#Zip"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Zip-455"><a href="#Zip-455"><span class="linenos">455</span></a><span class="k">def</span> <span class="nf">Zip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Zip-455"><a href="#Zip-455"><span class="linenos">455</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Zip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
 </span><span id="Zip-456"><a href="#Zip-456"><span class="linenos">456</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Zip a directory `src` to a `.zip` file.</span>
 </span><span id="Zip-457"><a href="#Zip-457"><span class="linenos">457</span></a>
 </span><span id="Zip-458"><a href="#Zip-458"><span class="linenos">458</span></a><span class="sd">    Args:</span>
@@ -2313,7 +2313,7 @@
 
     </div>
     <a class="headerlink" href="#Unzip"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Unzip-466"><a href="#Unzip-466"><span class="linenos">466</span></a><span class="k">def</span> <span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Unzip-466"><a href="#Unzip-466"><span class="linenos">466</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Unzip</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
 </span><span id="Unzip-467"><a href="#Unzip-467"><span class="linenos">467</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Unzip a `.zip` file to a directory `src`.</span>
 </span><span id="Unzip-468"><a href="#Unzip-468"><span class="linenos">468</span></a>
 </span><span id="Unzip-469"><a href="#Unzip-469"><span class="linenos">469</span></a><span class="sd">    Args:</span>

@@ -21,7 +21,9 @@ def LLMInit(path, config=None, clear=True, rm=False,
         openai_api_key=None, openai_api_organization=None,
         aiml_api_key=None, aiml_base_url=None,
         vertex_project_id=None, vertex_location=None, vertex_api_key_refresh_time=None,
-        deepseek_api_key=None, deepseek_base_url=None
+        deepseek_api_key=None, deepseek_base_url=None,
+        siliconflow_api_key=None, siliconflow_base_url=None,
+        other_platforms=dict()
     ):
     """Initialize the working directory of an LLM instance.
     
@@ -43,6 +45,11 @@ def LLMInit(path, config=None, clear=True, rm=False,
         
         deepseek_api_key (str): The DeepSeek API key. If provided, will overwrite the corresponding value in `config`.
         deepseek_base_url (str): The DeepSeek API base URL. If provided, will overwrite the corresponding value in `config`.
+        
+        siliconflow_api_key (str): The Silicon Flow API key. If provided, will overwrite the corresponding value in `config`.
+        siliconflow_base_url (str): The Silicon Flow API base URL. If provided, will overwrite the corresponding value in `config`.
+        
+        other_platforms (dict): The configuration of other platforms, each platform should be a key-value pair, with the key being the platform name and the value being a dictionary containing the configuration of the platform, mainly including `api_key`, `base_url`, `model`, `temperature`, `seed`. Notice that the value passed in will overwrite the corresponding value in `config`, but will be overwritten by the corresponding value in the above arguments.
     Returns:
         None
     """
@@ -50,6 +57,9 @@ def LLMInit(path, config=None, clear=True, rm=False,
         ClearFolder(path, rm=rm)
     if config is None:
         config = LoadDefaultLLMConfig()
+
+    if other_platforms:
+        config = {**config, **other_platforms}
 
     if 'openai-api' not in config:
         config['openai-api'] = {
@@ -105,8 +115,21 @@ def LLMInit(path, config=None, clear=True, rm=False,
     if deepseek_base_url is not None:
         config['deepseek-api']['base_url'] = deepseek_base_url
     
+    if 'siliconflow-api' not in config:
+        config['siliconflow-api'] = {
+            "api_key": "<YOUR_siliconflow_API_KEY>",
+            "base_url": "https://api.siliconflow.cn/v1/chat/completions",
+            "model": "deepseek-chat",
+            "temperature": 0.0,
+            "seed": 42
+        }
+    if siliconflow_api_key is not None:
+        config['siliconflow-api']['api_key'] = siliconflow_api_key
+    if siliconflow_base_url is not None:
+        config['siliconflow-api']['base_url'] = siliconflow_base_url
+    
     if 'default_backend' not in config:
-        config['default_backend'] = "openai-api"
+        config['default_backend'] = "deepseek-api"
     
     if not ExistFile(pjoin(path, "config.json")):
         SaveJson(config, pjoin(path, "config.json"), indent=4)

@@ -57,14 +57,14 @@
 
                         <label class="view-source-button" for="mod-crypt_utils-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span> <span class="nn">.misc_utils</span> <span class="kn">import</span> <span class="n">RandString</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">.file_utils</span> <span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">import</span> <span class="nn">hashlib</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">import</span> <span class="nn">string</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">import</span> <span class="nn">random</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">import</span> <span class="nn">base64</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.misc_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandString</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.file_utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">Encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">:</span><span class="nb">bytearray</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">:</span><span class="nb">bytearray</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="w">	</span><span class="sd">&quot;&quot;&quot;Encrypting a bytearray object with a password.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">	This is a simple method of encryption, which does not guarantee security. Please do not encrypt important personal data via this.</span>
@@ -88,7 +88,7 @@
 </span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>	<span class="n">random</span><span class="o">.</span><span class="n">setstate</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>	<span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 </span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="k">def</span> <span class="nf">Decrypt</span><span class="p">(</span><span class="n">cipher</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Decrypt</span><span class="p">(</span><span class="n">cipher</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">	</span><span class="sd">&quot;&quot;&quot;Decrypting a cipher, which was a bytearray object encrypted by `Encrypt` with the same password.</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
 </span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">	Args:</span>
@@ -126,7 +126,7 @@
 
     </div>
     <a class="headerlink" href="#Encrypt"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Encrypt-9"><a href="#Encrypt-9"><span class="linenos"> 9</span></a><span class="k">def</span> <span class="nf">Encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">:</span><span class="nb">bytearray</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Encrypt-9"><a href="#Encrypt-9"><span class="linenos"> 9</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">:</span><span class="nb">bytearray</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="Encrypt-10"><a href="#Encrypt-10"><span class="linenos">10</span></a><span class="w">	</span><span class="sd">&quot;&quot;&quot;Encrypting a bytearray object with a password.</span>
 </span><span id="Encrypt-11"><a href="#Encrypt-11"><span class="linenos">11</span></a>
 </span><span id="Encrypt-12"><a href="#Encrypt-12"><span class="linenos">12</span></a><span class="sd">	This is a simple method of encryption, which does not guarantee security. Please do not encrypt important personal data via this.</span>
@@ -183,7 +183,7 @@
 
     </div>
     <a class="headerlink" href="#Decrypt"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Decrypt-33"><a href="#Decrypt-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">Decrypt</span><span class="p">(</span><span class="n">cipher</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Decrypt-33"><a href="#Decrypt-33"><span class="linenos">33</span></a><span class="k">def</span><span class="w"> </span><span class="nf">Decrypt</span><span class="p">(</span><span class="n">cipher</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 </span><span id="Decrypt-34"><a href="#Decrypt-34"><span class="linenos">34</span></a><span class="w">	</span><span class="sd">&quot;&quot;&quot;Decrypting a cipher, which was a bytearray object encrypted by `Encrypt` with the same password.</span>
 </span><span id="Decrypt-35"><a href="#Decrypt-35"><span class="linenos">35</span></a>
 </span><span id="Decrypt-36"><a href="#Decrypt-36"><span class="linenos">36</span></a><span class="sd">	Args:</span>
