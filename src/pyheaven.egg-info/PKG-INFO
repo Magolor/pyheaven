@@ -1,6 +1,6 @@
-Metadata-Version: 2.2
+Metadata-Version: 2.1
 Name: pyheaven
-Version: 0.1.6.7
+Version: 0.1.6.8
 Summary: Python Heaven
 Home-page: https://github.com/Magolor/
 Author: Magolor
@@ -12,15 +12,6 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
-Dynamic: author
-Dynamic: author-email
-Dynamic: classifier
-Dynamic: description
-Dynamic: description-content-type
-Dynamic: home-page
-Dynamic: project-url
-Dynamic: requires-python
-Dynamic: summary
 
 # pyheaven
 
